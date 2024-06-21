@@ -1508,31 +1508,68 @@
 
 
 	</style>
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			function checkFluidColorScheme() {
-				var siteContent = document.querySelector('.site-content');
-				if (localStorage.getItem('Fluid_Color_Scheme') === 'light') {
-					// 如果值为 'light'，设置样式为黑色
-					if (siteContent) {
-						siteContent.style.color = 'black';
-					}
-				} else {
-					// 如果不存在 Fluid_Color_Scheme 或值不是 'light'，设置样式为白色
-					if (siteContent) {
-						siteContent.style.color = 'white';
-					}
-				}
-			}
+<!--	<script>-->
+<!--		document.addEventListener('DOMContentLoaded', function() {-->
+<!--			function checkFluidColorScheme() {-->
+<!--				var siteContent = document.querySelector('.site-content');-->
+<!--				if (localStorage.getItem('Fluid_Color_Scheme') === 'light') {-->
+<!--					// 如果值为 'light'，设置样式为黑色-->
+<!--					if (siteContent) {-->
+<!--						siteContent.style.color = 'black';-->
+<!--					}-->
+<!--				} else {-->
+<!--					// 如果不存在 Fluid_Color_Scheme 或值不是 'light'，设置样式为白色-->
+<!--					if (siteContent) {-->
+<!--						siteContent.style.color = 'white';-->
+<!--					}-->
+<!--				}-->
+<!--			}-->
 
-			// 初始检查
-			checkFluidColorScheme();
+<!--			// 初始检查-->
+<!--			checkFluidColorScheme();-->
 
-			// 每秒检查一次
-			setInterval(checkFluidColorScheme, 1000);
-		});
-	</script>
+<!--			// 每秒检查一次-->
+<!--			setInterval(checkFluidColorScheme, 1000);-->
+<!--		});-->
+<!--	</script>-->
 
+    <script>
+        (function() {
+            var originalSetItem = localStorage.setItem;
+            localStorage.setItem = function(key, value) {
+                var event = new Event('storage');
+                event.key = key;
+                event.newValue = value;
+                window.dispatchEvent(event);
+                originalSetItem.apply(this, arguments);
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateColorScheme() {
+                var siteContent = document.querySelector('.site-content');
+                if (localStorage.getItem('Fluid_Color_Scheme') === 'light') {
+                    if (siteContent) {
+                        siteContent.style.color = 'black';
+                    }
+                } else {
+                    if (siteContent) {
+                        siteContent.style.color = 'white';
+                    }
+                }
+            }
+
+            // 初始检查
+            updateColorScheme();
+
+            // 监听 storage 事件
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'Fluid_Color_Scheme') {
+                    updateColorScheme();
+                }
+            });
+        });
+    </script>
 
 
 <meta name="generator" content="WordPress 6.5.4">

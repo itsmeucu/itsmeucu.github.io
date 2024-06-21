@@ -1533,40 +1533,69 @@
 <!--		});-->
 <!--	</script>-->
 
-    <script>
-        (function() {
-            var originalSetItem = localStorage.setItem;
-            localStorage.setItem = function(key, value) {
-                var event = new Event('storage');
-                event.key = key;
-                event.newValue = value;
-                window.dispatchEvent(event);
-                originalSetItem.apply(this, arguments);
-            };
-        })();
+<!--    <script>-->
+<!--        (function() {-->
+<!--            var originalSetItem = localStorage.setItem;-->
+<!--            localStorage.setItem = function(key, value) {-->
+<!--                var event = new Event('storage');-->
+<!--                event.key = key;-->
+<!--                event.newValue = value;-->
+<!--                window.dispatchEvent(event);-->
+<!--                originalSetItem.apply(this, arguments);-->
+<!--            };-->
+<!--        })();-->
 
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            function updateColorScheme() {-->
+<!--                var siteContent = document.querySelector('.site-content');-->
+<!--                if (localStorage.getItem('Fluid_Color_Scheme') === 'light') {-->
+<!--                    if (siteContent) {-->
+<!--                        siteContent.style.color = 'black';-->
+<!--                    }-->
+<!--                } else {-->
+<!--                    if (siteContent) {-->
+<!--                        siteContent.style.color = 'white';-->
+<!--                    }-->
+<!--                }-->
+<!--            }-->
+
+<!--            // 初始检查-->
+<!--            updateColorScheme();-->
+
+<!--            // 监听 storage 事件-->
+<!--            window.addEventListener('storage', function(event) {-->
+<!--                if (event.key === 'Fluid_Color_Scheme') {-->
+<!--                    updateColorScheme();-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function updateColorScheme() {
+            function checkFluidColorScheme() {
                 var siteContent = document.querySelector('.site-content');
                 if (localStorage.getItem('Fluid_Color_Scheme') === 'light') {
-                    if (siteContent) {
-                        siteContent.style.color = 'white';
-                    }
-                } else {
+                    // 如果值为 'light'，设置样式为黑色
                     if (siteContent) {
                         siteContent.style.color = 'black';
+                    }
+                } else {
+                    // 如果不存在 Fluid_Color_Scheme 或值不是 'light'，设置样式为白色
+                    if (siteContent) {
+                        siteContent.style.color = 'white';
                     }
                 }
             }
 
             // 初始检查
-            updateColorScheme();
+            checkFluidColorScheme();
 
-            // 监听 storage 事件
-            window.addEventListener('storage', function(event) {
-                if (event.key === 'Fluid_Color_Scheme') {
-                    updateColorScheme();
-                }
+            // 每秒检查一次
+            var intervalId = setInterval(checkFluidColorScheme, 1000);
+
+            // 清理定时器以避免内存泄漏
+            window.addEventListener('unload', function() {
+                clearInterval(intervalId);
             });
         });
     </script>

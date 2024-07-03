@@ -16,4 +16,4 @@ Here are some ideas to get you started:
 -->
 
 #### The Page
-> this page use [hexo](https://hexo.io/) and [anzhiyu](https://docs.anheyu.com)
+> this page use [hexo](https://hexo.io/) and [fluid](https://hexo.fluid-dev.com/docs/guide/)

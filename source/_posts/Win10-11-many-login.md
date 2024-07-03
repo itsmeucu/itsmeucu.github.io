@@ -1,12 +1,13 @@
 ---
-title: 'Win11 多用户同时登录 '
+title: Win 多用户同时登录
 date: 2024-07-03 13:46:24
 categories: 
  - 技术/软件
 tags:
  - Windows
+ - 笔记
 author: 陈小可
-excerpt: [笔记]Win11 多用户同时登录远程桌面配置方法
+excerpt: Win10/11 多用户同时登录远程桌面配置方法
 ---
 
 ## 前言
@@ -20,7 +21,7 @@ winHex-https://www.52pojie.cn/thread-1252078-1-1.html
 ```bash
 C:\Windows\System32\termsrv.dll
 39 81 3C 06 00 00 0F 84 XX XX XX XX
-替换为：
+替换为:
 B8 00 01 00 00 89 81 38 06 00 00 90
 ```
 

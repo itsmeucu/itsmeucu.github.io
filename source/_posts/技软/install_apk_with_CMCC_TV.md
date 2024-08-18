@@ -1,7 +1,7 @@
 ---
 title: 云南移动机顶盒-改源安装软件
 date: 2024-07-02 19:59:30
-index_img: //z.ucu520.top/pics/images/2024/07/02/a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg
+#index_img: //z.ucu520.top/pics/images/2024/07/02/a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg
 
 categories: 
  - 技术/软件

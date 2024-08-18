@@ -6,6 +6,8 @@ tags:
 categories:
   - 技术/软件
 date: 2023-04-01 15:11:39
+author: 陈小可
+excerpt: 使用adb去除信号x
 ---
 
 手机为原生系统，可能连接wifi会遇到【网络连接受限】,移动数据有个x，wifi也有个x的情况。

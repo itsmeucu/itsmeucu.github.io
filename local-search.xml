@@ -4,9 +4,36 @@
   
   
   <entry>
+    <title>云南移动机顶盒-改源安装软件</title>
+    <link href="/%E6%8A%80%E8%BD%AF/install_apk_with_CMCC_TV/"/>
+    <url>/%E6%8A%80%E8%BD%AF/install_apk_with_CMCC_TV/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>由于运营商的机顶盒存在着安装软件的限制，同时设置里面的adb无法打开 因此另辟西路解决-机顶盒为移动和广电联合的机顶盒</code></p><blockquote><p><img src="//z.ucu520.top/pics/images/2024/07/02/a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg" alt="a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/826d2f8c23e42585a31b9f9e15a9b565.jpg" alt="826d2f8c23e42585a31b9f9e15a9b565.jpg"></p></blockquote><h1 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h1><ul><li>路由器&#x2F;光猫（支持添加路由）</li><li>一台电脑，建议Windows(我用的Windows抓包，macos搭服务)，如有条件，建议2台</li><li>使用虚拟机或将一个路由器的网段改成目的网段</li></ul><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>至少2种方法</p><blockquote><blockquote><p>使用虚拟机创建网卡为目的网段，将虚拟机的ip设置为目的ip，在路由器设备上添加路由指向物理主机，并在物理主机上做路由转发。</p></blockquote><blockquote><p>把一个路由器的网段改为目的网络的段，然后手动配ip，在机顶盒连接的网络设备上添加路由指向这个路由器。<br>注：需要2个路由器，因为其他的网络业务会用到这个网段的其他ip，因此不能让机顶盒处于这个网段中</p></blockquote></blockquote><blockquote><p>以上两种方法我都试过，差别仅仅在于路由的时候单独使用路由器来做转发还是在电脑上做配置，电脑上存在防火墙等情况，不确定能否实现转发策略</p><blockquote><p>本文主要记录第二种方法，物理机的部分</p></blockquote></blockquote><h1 id="机顶盒型号"><a href="#机顶盒型号" class="headerlink" title="机顶盒型号"></a>机顶盒型号</h1><blockquote><p><img src="//z.ucu520.top/pics/images/2024/07/02/e0244d0c5b85114d6537f11b3dfdaabb.jpg" alt="e0244d0c5b85114d6537f11b3dfdaabb.jpg"></p></blockquote><h1 id="网络连接"><a href="#网络连接" class="headerlink" title="网络连接"></a>网络连接</h1><h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><blockquote><p>抓包，如果路由器有端口镜像，可以直接使用端口镜像后抓数据包，路由器不支持，我采用下面的方法进行</p><blockquote><p>把Windows连接到Wifi，在【网络适配器】，右击无线网卡，【属性】【共享】，选择有线网卡<br><img src="//z.ucu520.top/pics/images/2024/07/02/8f2443b36d9da4886d858bd107a001f2.jpg" alt="8f2443b36d9da4886d858bd107a001f2.jpg"></p></blockquote><p>我用<a href="https://www.wireshark.org/">Wireshark</a>进行抓包，打开后选择有线网卡即可开始抓包</p></blockquote><h2 id="分析数据包"><a href="#分析数据包" class="headerlink" title="分析数据包"></a>分析数据包</h2><blockquote><p>第二张图那里，有个【应用中心】，可以通过Wireshark看到数据包的传输<br>可以看到如下数据 [搜索A] [我改了部分数据]<br><code>http://*.*.*.*:9091/app_epg/api/search/search.json?initals=A&amp;size=*&amp;pageindex=*&amp;apkChannel=*</code><br>复制下来，使用Get访问会的到如下数据<br><a href="https://z.ucu520.top/pics/image/SsR"><img src="https://z.ucu520.top/pics/images/2024/07/02/c41a514d0afaf9f28cb659137b06fe6c.jpg" alt="c41a514d0afaf9f28cb659137b06fe6c.jpg"></a></p><blockquote><p>恭喜你，通过这个连接，你可以自由的下载【应用中心】中的各类apk</p></blockquote></blockquote><blockquote><p>此时再点进一个应用，会发现有一个json数据，这个json中包含着软件的信息</p><blockquote><p>访问json,会得到如下数据[ES文件浏览器],这是我自己改过的</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">200</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;app&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;appId&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;app_*&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;packageName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;com.estrongs.android.pop&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ES文件浏览器&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;simpleDes&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;score&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;9.0&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;downloadUrl&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://*.*.*.*/es.apk&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;versionCode&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4268&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;versionName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4.2.6.8&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;fileSize&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;36828172&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;updateTime&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;2024-06-14&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;downloadNum&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;descripiton&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;这是一个文件浏览器，浏览文件的浏览器&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;pics&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;http://*.*.*.*/logo-108-108.png&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;icon&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://*.*.*.*/logo-108-108.png&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;flag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;apptype_*&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;language&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;中文&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;lastUpdateDes&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;apkMd5&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;52fee4ee728e89dd6890e2ab2b7714ec&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;needUpdate&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;autoInstall&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;autoUpdate&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><p>数据对应的位置如下图所示[下载软件中]<br><img src="//z.ucu520.top/pics/images/2024/07/02/6596cc2b091c3e2d5e4ecad815038750.jpg" alt="6596cc2b091c3e2d5e4ecad815038750.jpg"><br>下载之后会自动安装<br><img src="//z.ucu520.top/pics/images/2024/07/02/4e4660193101f224069d2a1848930446.jpg" alt="4e4660193101f224069d2a1848930446.jpg"><br>安装之后运行<br><img src="//z.ucu520.top/pics/images/2024/07/02/b9a94b681237c980ddd76fff02bd277f.jpg" alt="b9a94b681237c980ddd76fff02bd277f.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/12d04af8814af61f0093dd27c01dce44.jpg" alt="12d04af8814af61f0093dd27c01dce44.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/09efd9d0d40f6f17e19e8315d81dc305.jpg" alt="09efd9d0d40f6f17e19e8315d81dc305.jpg"></p></blockquote><p>如果要传文件到机顶盒上，把机顶盒的网线插到和笔记本同一个网络的路由器等设备上，使用ES的局域网传文件即可解决</p><p>使用es安装的时候，选择apk，直接安装即可，会自动安装软件，机顶盒支持鼠标，如果遥控不好用，可以直接使用鼠标</p></blockquote><h2 id="运行Nginx服务"><a href="#运行Nginx服务" class="headerlink" title="运行Nginx服务"></a>运行Nginx服务</h2><p>使用电脑安装Nginx服务，再配置nginx.config文件<br>局部配置如下,如果需要，记得对照上面的图，把数据改成你自己的</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs nginx.config">server &#123;<br>    listen 9091;<br>    server_name 183.[改成你抓到json包的ip] localhost 127.0.0.1 0.0.0.0;<br><br>    index index.php index.html index.htm default.php default.htm default.html;<br>    <br>    # location / &#123;<br>    #     default_type application/json;<br>    #     return 200 &#x27;&#123;&quot;status&quot;: 200, &quot;message&quot;: null&#125;&#x27;;<br>    # &#125;<br>    location / &#123;<br>        default_type application/json;<br>        return 200 &#x27;&#123;&quot;status&quot;:200,&quot;message&quot;:null,&quot;app&quot;:&#123;&quot;appId&quot;:&quot;app_*&quot;,&quot;packageName&quot;:&quot;com.estrongs.android.pop&quot;,&quot;name&quot;:&quot;ES文件浏览器&quot;,&quot;simpleDes&quot;:&quot;&quot;,&quot;score&quot;:&quot;9.0&quot;,&quot;downloadUrl&quot;:&quot;http://*.*.*.*/es.apk&quot;,&quot;versionCode&quot;:&quot;4268&quot;,&quot;versionName&quot;:&quot;4.2.6.8&quot;,&quot;fileSize&quot;:&quot;36828172&quot;,&quot;updateTime&quot;:&quot;2024-06-14&quot;,&quot;downloadNum&quot;:&quot;&quot;,&quot;descripiton&quot;:&quot;这是一个文件浏览器，浏览文件的浏览器&quot;,&quot;pics&quot;:[&quot;http://*.*.*.*/logo-108-108.png&quot;],&quot;icon&quot;:&quot;http://*.*.*.*/logo-108-108.png&quot;,&quot;flag&quot;:&quot;1&quot;,&quot;type&quot;:&quot;apptype_*&quot;,&quot;language&quot;:&quot;中文&quot;,&quot;lastUpdateDes&quot;:&quot;&quot;,&quot;apkMd5&quot;:&quot;52fee4ee728e89dd6890e2ab2b7714ec&quot;,&quot;needUpdate&quot;:1,&quot;autoInstall&quot;:1,&quot;autoUpdate&quot;:0&#125;&#125;&#x27;;        &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><blockquote><p>建议，先到应用的列表，然后再将路由之类的指向你开服务的电脑，这时候再点进去，数据就是你改的</p><p>如果你一来就把路由指向你自己开服务的ip，那么会造成应用商店的页面加载不出来【因为你用的这个ip不止跑着这一个服务，应用列表等都再跑】，你也可以把其他包都用nginx搭建</p><p>包名一定要时你软件的包名，md5，size这些都必须时你软件的，不然会提示【文件不完整】</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机顶盒</tag>
+      
+      <tag>Nginx</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Win 多用户同时登录</title>
-    <link href="/Win10-11-many-login/"/>
-    <url>/Win10-11-many-login/</url>
+    <link href="/%E6%8A%80%E8%BD%AF/Win10-11-many-login/"/>
+    <url>/%E6%8A%80%E8%BD%AF/Win10-11-many-login/</url>
     
     <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>转载自-<a href="https://www.wyr.me/post/701">https://www.wyr.me/post/701</a></p><p>winHex-<a href="https://www.52pojie.cn/thread-1252078-1-1.html">https://www.52pojie.cn/thread-1252078-1-1.html</a></p><h2 id="修改文件内容"><a href="#修改文件内容" class="headerlink" title="修改文件内容"></a>修改文件内容</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">C:\Windows\System32\termsrv.dll<br>39 81 3C 06 00 00 0F 84 XX XX XX XX<br>替换为:<br>B8 00 01 00 00 89 81 38 06 00 00 90<br></code></pre></td></tr></table></figure><h2 id="修改组策略"><a href="#修改组策略" class="headerlink" title="修改组策略"></a>修改组策略</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">打开住策略编辑器命令<br>gpedit.msc<br></code></pre></td></tr></table></figure><p>打开<code>编辑组策略</code>应用，进入<code>本地计算机策略</code>–<code>计算机配置</code>–<code>管理模板</code>–<code>Windows组件</code>–<code>远程桌面服务</code>–<code>远程桌面会话主机</code>–<code>连接</code>。</p><h2 id="参考视频"><a href="#参考视频" class="headerlink" title="参考视频"></a>参考视频</h2><p>B站录屏地址-<a href="https://www.bilibili.com/video/BV12h411M7vp/">https://www.bilibili.com/video/BV12h411M7vp/</a></p><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=227395045&bvid=BV12h411M7vp&cid=1095208885&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>]]></content>
     
@@ -31,11 +58,30 @@
   
   
   <entry>
-    <title>云南移动机顶盒-改源安装软件</title>
-    <link href="/install_apk_with_CMCC_TV/"/>
-    <url>/install_apk_with_CMCC_TV/</url>
+    <title>我的下面可以给任何人看，但我的真心只能给你看</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E6%88%91%E7%9A%84%E4%B8%8B%E9%9D%A2%E5%8F%AF%E4%BB%A5%E7%BB%99%E4%BB%BB%E4%BD%95%E4%BA%BA%E7%9C%8B%EF%BC%8C%E4%BD%86%E6%88%91%E7%9A%84%E7%9C%9F%E5%BF%83%E5%8F%AA%E8%83%BD%E7%BB%99%E4%BD%A0%E7%9C%8B/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E6%88%91%E7%9A%84%E4%B8%8B%E9%9D%A2%E5%8F%AF%E4%BB%A5%E7%BB%99%E4%BB%BB%E4%BD%95%E4%BA%BA%E7%9C%8B%EF%BC%8C%E4%BD%86%E6%88%91%E7%9A%84%E7%9C%9F%E5%BF%83%E5%8F%AA%E8%83%BD%E7%BB%99%E4%BD%A0%E7%9C%8B/</url>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>由于运营商的机顶盒存在着安装软件的限制，同时设置里面的adb无法打开 因此另辟西路解决-机顶盒为移动和广电联合的机顶盒</code></p><blockquote><p><img src="//z.ucu520.top/pics/images/2024/07/02/a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg" alt="a0f58d9fc0c66d1a3e7e6e8bd76480f3.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/826d2f8c23e42585a31b9f9e15a9b565.jpg" alt="826d2f8c23e42585a31b9f9e15a9b565.jpg"></p></blockquote><h1 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h1><ul><li>路由器&#x2F;光猫（支持添加路由）</li><li>一台电脑，建议Windows(我用的Windows抓包，macos搭服务)，如有条件，建议2台</li><li>使用虚拟机或将一个路由器的网段改成目的网段</li></ul><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>至少2种方法</p><blockquote><blockquote><p>使用虚拟机创建网卡为目的网段，将虚拟机的ip设置为目的ip，在路由器设备上添加路由指向物理主机，并在物理主机上做路由转发。</p></blockquote><blockquote><p>把一个路由器的网段改为目的网络的段，然后手动配ip，在机顶盒连接的网络设备上添加路由指向这个路由器。<br>注：需要2个路由器，因为其他的网络业务会用到这个网段的其他ip，因此不能让机顶盒处于这个网段中</p></blockquote></blockquote><blockquote><p>以上两种方法我都试过，差别仅仅在于路由的时候单独使用路由器来做转发还是在电脑上做配置，电脑上存在防火墙等情况，不确定能否实现转发策略</p><blockquote><p>本文主要记录第二种方法，物理机的部分</p></blockquote></blockquote><h1 id="机顶盒型号"><a href="#机顶盒型号" class="headerlink" title="机顶盒型号"></a>机顶盒型号</h1><blockquote><p><img src="//z.ucu520.top/pics/images/2024/07/02/e0244d0c5b85114d6537f11b3dfdaabb.jpg" alt="e0244d0c5b85114d6537f11b3dfdaabb.jpg"></p></blockquote><h1 id="网络连接"><a href="#网络连接" class="headerlink" title="网络连接"></a>网络连接</h1><h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><blockquote><p>抓包，如果路由器有端口镜像，可以直接使用端口镜像后抓数据包，路由器不支持，我采用下面的方法进行</p><blockquote><p>把Windows连接到Wifi，在【网络适配器】，右击无线网卡，【属性】【共享】，选择有线网卡<br><img src="//z.ucu520.top/pics/images/2024/07/02/8f2443b36d9da4886d858bd107a001f2.jpg" alt="8f2443b36d9da4886d858bd107a001f2.jpg"></p></blockquote><p>我用<a href="https://www.wireshark.org/">Wireshark</a>进行抓包，打开后选择有线网卡即可开始抓包</p></blockquote><h2 id="分析数据包"><a href="#分析数据包" class="headerlink" title="分析数据包"></a>分析数据包</h2><blockquote><p>第二张图那里，有个【应用中心】，可以通过Wireshark看到数据包的传输<br>可以看到如下数据 [搜索A] [我改了部分数据]<br><code>http://*.*.*.*:9091/app_epg/api/search/search.json?initals=A&amp;size=*&amp;pageindex=*&amp;apkChannel=*</code><br>复制下来，使用Get访问会的到如下数据<br><a href="https://z.ucu520.top/pics/image/SsR"><img src="https://z.ucu520.top/pics/images/2024/07/02/c41a514d0afaf9f28cb659137b06fe6c.jpg" alt="c41a514d0afaf9f28cb659137b06fe6c.jpg"></a></p><blockquote><p>恭喜你，通过这个连接，你可以自由的下载【应用中心】中的各类apk</p></blockquote></blockquote><blockquote><p>此时再点进一个应用，会发现有一个json数据，这个json中包含着软件的信息</p><blockquote><p>访问json,会得到如下数据[ES文件浏览器],这是我自己改过的</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">200</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;app&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;appId&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;app_*&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;packageName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;com.estrongs.android.pop&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ES文件浏览器&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;simpleDes&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;score&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;9.0&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;downloadUrl&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://*.*.*.*/es.apk&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;versionCode&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4268&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;versionName&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4.2.6.8&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;fileSize&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;36828172&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;updateTime&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;2024-06-14&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;downloadNum&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;descripiton&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;这是一个文件浏览器，浏览文件的浏览器&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;pics&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;http://*.*.*.*/logo-108-108.png&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;icon&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;http://*.*.*.*/logo-108-108.png&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;flag&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;apptype_*&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;language&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;中文&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;lastUpdateDes&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;apkMd5&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;52fee4ee728e89dd6890e2ab2b7714ec&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;needUpdate&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;autoInstall&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;autoUpdate&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">0</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><p>数据对应的位置如下图所示[下载软件中]<br><img src="//z.ucu520.top/pics/images/2024/07/02/6596cc2b091c3e2d5e4ecad815038750.jpg" alt="6596cc2b091c3e2d5e4ecad815038750.jpg"><br>下载之后会自动安装<br><img src="//z.ucu520.top/pics/images/2024/07/02/4e4660193101f224069d2a1848930446.jpg" alt="4e4660193101f224069d2a1848930446.jpg"><br>安装之后运行<br><img src="//z.ucu520.top/pics/images/2024/07/02/b9a94b681237c980ddd76fff02bd277f.jpg" alt="b9a94b681237c980ddd76fff02bd277f.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/12d04af8814af61f0093dd27c01dce44.jpg" alt="12d04af8814af61f0093dd27c01dce44.jpg"><br><img src="//z.ucu520.top/pics/images/2024/07/02/09efd9d0d40f6f17e19e8315d81dc305.jpg" alt="09efd9d0d40f6f17e19e8315d81dc305.jpg"></p></blockquote><p>如果要传文件到机顶盒上，把机顶盒的网线插到和笔记本同一个网络的路由器等设备上，使用ES的局域网传文件即可解决</p><p>使用es安装的时候，选择apk，直接安装即可，会自动安装软件，机顶盒支持鼠标，如果遥控不好用，可以直接使用鼠标</p></blockquote><h2 id="运行Nginx服务"><a href="#运行Nginx服务" class="headerlink" title="运行Nginx服务"></a>运行Nginx服务</h2><p>使用电脑安装Nginx服务，再配置nginx.config文件<br>局部配置如下,如果需要，记得对照上面的图，把数据改成你自己的</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs nginx.config">server &#123;<br>    listen 9091;<br>    server_name 183.[改成你抓到json包的ip] localhost 127.0.0.1 0.0.0.0;<br><br>    index index.php index.html index.htm default.php default.htm default.html;<br>    <br>    # location / &#123;<br>    #     default_type application/json;<br>    #     return 200 &#x27;&#123;&quot;status&quot;: 200, &quot;message&quot;: null&#125;&#x27;;<br>    # &#125;<br>    location / &#123;<br>        default_type application/json;<br>        return 200 &#x27;&#123;&quot;status&quot;:200,&quot;message&quot;:null,&quot;app&quot;:&#123;&quot;appId&quot;:&quot;app_*&quot;,&quot;packageName&quot;:&quot;com.estrongs.android.pop&quot;,&quot;name&quot;:&quot;ES文件浏览器&quot;,&quot;simpleDes&quot;:&quot;&quot;,&quot;score&quot;:&quot;9.0&quot;,&quot;downloadUrl&quot;:&quot;http://*.*.*.*/es.apk&quot;,&quot;versionCode&quot;:&quot;4268&quot;,&quot;versionName&quot;:&quot;4.2.6.8&quot;,&quot;fileSize&quot;:&quot;36828172&quot;,&quot;updateTime&quot;:&quot;2024-06-14&quot;,&quot;downloadNum&quot;:&quot;&quot;,&quot;descripiton&quot;:&quot;这是一个文件浏览器，浏览文件的浏览器&quot;,&quot;pics&quot;:[&quot;http://*.*.*.*/logo-108-108.png&quot;],&quot;icon&quot;:&quot;http://*.*.*.*/logo-108-108.png&quot;,&quot;flag&quot;:&quot;1&quot;,&quot;type&quot;:&quot;apptype_*&quot;,&quot;language&quot;:&quot;中文&quot;,&quot;lastUpdateDes&quot;:&quot;&quot;,&quot;apkMd5&quot;:&quot;52fee4ee728e89dd6890e2ab2b7714ec&quot;,&quot;needUpdate&quot;:1,&quot;autoInstall&quot;:1,&quot;autoUpdate&quot;:0&#125;&#125;&#x27;;        &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><blockquote><p>建议，先到应用的列表，然后再将路由之类的指向你开服务的电脑，这时候再点进去，数据就是你改的</p><p>如果你一来就把路由指向你自己开服务的ip，那么会造成应用商店的页面加载不出来【因为你用的这个ip不止跑着这一个服务，应用列表等都再跑】，你也可以把其他包都用nginx搭建</p><p>包名一定要时你软件的包名，md5，size这些都必须时你软件的，不然会提示【文件不完整】</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<p>舍友语录</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>去除信号x[adb命令]</title>
+    <link href="/%E6%8A%80%E8%BD%AF/%E5%8E%BB%E9%99%A4%E4%BF%A1%E5%8F%B7xadb%E5%91%BD%E4%BB%A4%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E5%8F%97%E9%99%90/"/>
+    <url>/%E6%8A%80%E8%BD%AF/%E5%8E%BB%E9%99%A4%E4%BF%A1%E5%8F%B7xadb%E5%91%BD%E4%BB%A4%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E5%8F%97%E9%99%90/</url>
+    
+    <content type="html"><![CDATA[<p>手机为原生系统，可能连接wifi会遇到【网络连接受限】,移动数据有个x，wifi也有个x的情况。</p><p>我个人将其称之为: 【信号x】</p><hr><p>先打开手机的usb设备调试，之后连接电脑，电脑的adb环境下输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs BASH">adb shell settings put global captive_portal_https_url http://www.google.cn/generate_204;<br></code></pre></td></tr></table></figure><p>之后，重新开关手机飞行模式即可，或者重启手机也行</p><hr><p>如果您不是很了解在哪输入命令，只需将usb调试打开，并安装驱动（可使用驱动精灵等一些工具安装）</p><p>下载并解压 <a href="https://alist.ucu520.top/d/%E7%B3%BB%E7%BB%9F-SP/phone/environment-%E7%8E%AF%E5%A2%83/ADB.zip">ADB环境</a> 运行 x.bat 脚本即可，如链接访问失效，可尝试访问 <a href="https://z.ucu520.top/adb-fastboot/ADB-%202020-10-02%20.zip">链接2</a> 或尝试与我取得联系，留言或QQ微信加我好友都行</p><hr><p>如果安卓7.1&#x2F;7.0&#x2F;6.X如果使用上面的命令不行，可以试试下面代码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs BASH">adb shell settings delete global captive_portal_serveradb shell settings put global captive_portal_detection_enabled 0<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -47,9 +93,272 @@
     
     <tags>
       
-      <tag>机顶盒</tag>
+      <tag>ADB</tag>
       
-      <tag>Nginx</tag>
+      <tag>手机</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Alist下载站存个档_2023-03-31</title>
+    <link href="/%E6%8A%80%E8%BD%AF/Alist%E4%B8%8B%E8%BD%BD%E7%AB%99%E5%AD%98%E4%B8%AA%E6%A1%A3_2023-03-31/"/>
+    <url>/%E6%8A%80%E8%BD%AF/Alist%E4%B8%8B%E8%BD%BD%E7%AB%99%E5%AD%98%E4%B8%AA%E6%A1%A3_2023-03-31/</url>
+    
+    <content type="html"><![CDATA[<p>存储下载站目前的样式等-2023-03-31</p><hr><p>自定义样式</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9160775120589255&quot;</span></span><br><span class="hljs-tag">     <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">text/css</span>&gt;</span><span class="language-css"></span><br><span class="language-css"><span class="hljs-comment">/*</span></span><br><span class="hljs-comment"><span class="language-css">   body &#123;background-image:url(https://tuapi.eees.cc/api.php?category=fengjing&amp;type=302) ;//图片类型更换请修改参数  </span></span><br><span class="hljs-comment"><span class="language-css"></span></span><br><span class="hljs-comment"><span class="language-css"></span></span><br><span class="hljs-comment"><span class="language-css"></span></span><br><span class="hljs-comment"><span class="language-css">https://images.anime-pictures.net/9c8/9c8b700cfd350c523814b9cf6a7840c9.jpg?if=ANIME-PICTURES.NET_-_48318-2000x1125-strike+witches-charlotte+e+yeager-long+hair-single-blush-highres.jpg</span></span><br><span class="hljs-comment"><span class="language-css"></span></span><br><span class="hljs-comment"><span class="language-css">https://images.anime-pictures.net/8ba/8ba83bb346eabcc31f9416b8fdf16ed0.jpg?if=ANIME-PICTURES.NET_-_488421-3840x2160-original-assassinwarrior-dmith+%28baguscasbon%29-long+hair-single-blush.jpg</span></span><br><span class="hljs-comment"><span class="language-css">*/</span></span><br><span class="language-css">   <span class="hljs-selector-tag">body</span> &#123;<span class="hljs-attribute">background-image</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">https://images.anime-pictures.net/b84/b8404c435d8b147548bed1971aefdd38.jpg?if=ANIME-PICTURES.NET_-_496625-3200x1800-vocaloid-hatsune+miku-bai+yemeng-single-blush-highres.jpg</span>) ;</span><br><span class="language-css">  <span class="hljs-attribute">background-repeat</span>:no-repeat;<span class="hljs-attribute">background-size</span>:cover;<span class="hljs-attribute">background-attachment</span>:fixed;<span class="hljs-attribute">background-position</span>-x:center;</span><br><span class="language-css">   <span class="hljs-attribute">background-repeat</span>:repeat;</span><br><span class="language-css">   <span class="hljs-attribute">background-attachment</span>:fixed;</span><br><span class="language-css">   <span class="hljs-attribute">background-position</span>:<span class="hljs-number">50%</span> <span class="hljs-number">50%</span>;</span><br><span class="language-css">   &#125;</span><br><span class="language-css"></span><br><span class="language-css"><span class="hljs-comment">/*</span></span><br><span class="hljs-comment"><span class="language-css">.main-box &#123;</span></span><br><span class="hljs-comment"><span class="language-css">  border-radius: 15px !important;</span></span><br><span class="hljs-comment"><span class="language-css">&#125;</span></span><br><span class="hljs-comment"><span class="language-css">.chakra-ui-light .main-box &#123;</span></span><br><span class="hljs-comment"><span class="language-css">  background-color: #ffffff70 !important;</span></span><br><span class="hljs-comment"><span class="language-css">&#125;</span></span><br><span class="hljs-comment"><span class="language-css">.chakra-ui-light .readme-box &#123;</span></span><br><span class="hljs-comment"><span class="language-css">  background-color: white !important;</span></span><br><span class="hljs-comment"><span class="language-css">&#125;</span></span><br><span class="hljs-comment"><span class="language-css">.readme-box &#123;</span></span><br><span class="hljs-comment"><span class="language-css">  border-radius: 15px !important;</span></span><br><span class="hljs-comment"><span class="language-css">&#125;</span></span><br><span class="hljs-comment"><span class="language-css">*/</span></span><br><span class="language-css"><span class="hljs-comment">/* 去除通知栏 右上角 X */</span></span><br><span class="language-css"><span class="hljs-selector-class">.notify-render</span> <span class="hljs-selector-class">.hope-close-button</span>&#123;</span><br><span class="language-css"><span class="hljs-attribute">display</span>: none;</span><br><span class="language-css">&#125;</span><br><span class="language-css"><span class="hljs-comment">/*去掉底部*/</span></span><br><span class="language-css"><span class="hljs-selector-class">.footer</span> &#123;</span><br><span class="language-css">    <span class="hljs-attribute">display</span>: none <span class="hljs-meta">!important</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"></span><br><span class="language-css"><span class="hljs-comment">/*主列表透明*/</span></span><br><span class="language-css"><span class="hljs-selector-class">.obj-box</span><span class="hljs-selector-class">.hope-stack</span><span class="hljs-selector-class">.hope-c-dhzjXW</span><span class="hljs-selector-class">.hope-c-PJLV</span><span class="hljs-selector-class">.hope-c-PJLV-igScBhH-css</span> &#123;</span><br><span class="language-css"><span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.6</span>) <span class="hljs-meta">!important</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"><span class="hljs-comment">/*readme透明*/</span></span><br><span class="language-css"><span class="hljs-selector-class">.hope-c-PJLV</span><span class="hljs-selector-class">.hope-c-PJLV-ikSuVsl-css</span>&#123;</span><br><span class="language-css"><span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.5</span>) <span class="hljs-meta">!important</span>;</span><br><span class="language-css">&#125;</span><br><span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;background-color: rgba(255, 255, 120, 0.2) !important;border-radius:10%;&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;center&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">del</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:#009688&quot;</span>&gt;</span>如背景不适，右下角设置按钮，将模式改为暗黑模式可隐藏部分<span class="hljs-tag">&lt;/<span class="hljs-name">del</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;center&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:#870000&quot;</span>&gt;</span>所有资源均来自用户自愿分享，仅供学习交流使用，<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;nofollow noopener&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;__blank&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;mailto:ucu520@126.com&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;text-decoration:inherit;color: #8C40E2;&quot;</span>&gt;</span>如有侵权请点我联系删除<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;center&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:#ffd3d3&quot;</span>&gt;</span>鸣谢：<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://github.com/alist-org/alist&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: aquamarine&quot;</span>&gt;</span>Alist<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://office.com&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: cornflowerblue&quot;</span>&gt;</span>Office<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://yunpan.aliyun.com&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: darksalmon&quot;</span>&gt;</span>阿里云盘<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://www.ucu520.top&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:deepskyblue&quot;</span>&gt;</span>开心ucu<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;center&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span>  <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:white&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://beian.miit.gov.cn/&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span>&gt;</span>滇ICP备19001709号-1<span class="hljs-tag">&lt;<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display:none&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>https://images.anime-pictures.net/016/01684cc3b858a52412e49ef9b9e3df48.jpg?if=ANIME-PICTURES.NET_-_489858-2560x1440-k-on%21-re%3Azero+kara+hajimeru+isekai+seikatsu-kyoto+animation-rem+%28re%3Azero%29-emilia+%28re%3Azero%29-ram+%28re%3Azero%29.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>   body &#123;background-image:url(https://images.anime-pictures.net/b8f/b8f1b5d946cdde0117efdcc9208f78df.jpeg?if=ANIME-PICTURES.NET_-_776129-1920x1080-original-gou+lianlian+dogface-single-long+hair-looking+at+viewer-blush.jpeg) ;<br><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;center&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://alist.ucu520.ml/&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color:white&quot;</span>&gt;</span>不需要这么花哨的请点我<span class="hljs-tag">&lt;<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br> <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://tuapi.eees.cc/ccoo/2020-10-8.html&quot;</span> <span class="hljs-attr">target</span>=<span class="hljs-string">&quot;view_window&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: coral&quot;</span>&gt;</span>随机图片API<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> <br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure><hr><p>自定义头部</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-keyword">var</span> _hmt = _hmt  [];</span><br><span class="language-javascript">(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">  <span class="hljs-keyword">var</span> hm = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;script&quot;</span>);</span><br><span class="language-javascript">  hm.<span class="hljs-property">src</span> = <span class="hljs-string">&quot;https://hm.baidu.com/hm.js?f0f72a2a90a1697378d38f588c6b0485&quot;</span>;</span><br><span class="language-javascript">  <span class="hljs-keyword">var</span> s = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&quot;script&quot;</span>)[<span class="hljs-number">0</span>]; </span><br><span class="language-javascript">  s.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">insertBefore</span>(hm, s);</span><br><span class="language-javascript">&#125;)();</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://polyfill.io/v3/polyfill.min.js?features=String.prototype.replaceAll&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--引入字体，全局字体使用--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://npm.elemecdn.com/lxgw-wenkai-webfont@1.1.0/lxgwwenkai-regular.css&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure><hr><p>站点公告</p><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey">&gt; 由于搜索功能需手动刷新，且每次建立都需大量时间，因此搜索的内容不是最新的，建议手动找文件夹<br><br>&gt; 由于站点挂载的大部分存储源为SP，直接使用浏览器下载可能速度会很慢，建议使用多线程下载工具，如IDM，FDM，Motrix等，请勿使用迅雷下载本站资源<br><br>```如果您访问的存储点为【kindle-[OneDrive]】，由于部分人有点分不清，因此改为了【kindle-漫画-[OneDrive]】```<br><br>```本站支持Alist套娃，本站使用的是Alist3```<br><br>```漫画/动漫交流QQ群 <span class="hljs-number">481482654</span>，备注【开心ucu】```<br><br>```技术等探讨QQ群 <span class="hljs-number">632565204</span>```<br><br>### 本站支持webdav<br>```地址```<br>```https://alist.ucu520.top/dav```<br><br><br>```如果软件需要填写目录```<br><br>```地址填https://alist.ucu520.top```<br>```目录填dav```<br><br>```账号```<br>```alist.ucu520.top```<br><br>```密码```<br>```www.ucu520.top```<br><br>```请理性使用，请勿乱动东西```<br>```webdav建议用第三方软件挂载使用```<br><span class="hljs-title">参考[B站](https:</span>//www.bilibili.com/video/BV1UT411P7Mr/)  <br><span class="hljs-title">[下载站整理集合](https:</span>//docs.qq.com/sheet/DZWJza2hGVFJsaGl3?tab=BB08J2)<br><span class="hljs-title">[QQ频道](https:</span>//pd.qq.com/s/hobyfiylr)<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Alist</tag>
+      
+      <tag>下载站</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>防晒霜和防晒伞结合</title>
+    <link href="/%E7%82%B9%E5%AD%90/%E9%98%B2%E6%99%92%E9%9C%9C%E5%92%8C%E9%98%B2%E6%99%92%E4%BC%9E%E7%BB%93%E5%90%88/"/>
+    <url>/%E7%82%B9%E5%AD%90/%E9%98%B2%E6%99%92%E9%9C%9C%E5%92%8C%E9%98%B2%E6%99%92%E4%BC%9E%E7%BB%93%E5%90%88/</url>
+    
+    <content type="html"><![CDATA[<p>市面上如果有这东西，销量会如何，又会以什么样的形式收费，伞把子当防晒霜也不错</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>点子</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2022嘉兴旅</title>
+    <link href="/%E8%AF%AD%E5%BD%95/2022%E5%98%89%E5%85%B4%E6%97%85/"/>
+    <url>/%E8%AF%AD%E5%BD%95/2022%E5%98%89%E5%85%B4%E6%97%85/</url>
+    
+    <content type="html"><![CDATA[<p>逢场作戏 </p><p>多考证 </p><p>大哥给大钱，小弟给小钱 </p><p>直接送走 </p><p>你的生活我的梦 </p><p>必须到位</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>重要的不是开始，也不是中途，是最后啊</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E9%87%8D%E8%A6%81%E7%9A%84%E4%B8%8D%E6%98%AF%E5%BC%80%E5%A7%8B%EF%BC%8C%E4%B9%9F%E4%B8%8D%E6%98%AF%E4%B8%AD%E9%80%94%EF%BC%8C%E6%98%AF%E6%9C%80%E5%90%8E%E5%95%8A/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E9%87%8D%E8%A6%81%E7%9A%84%E4%B8%8D%E6%98%AF%E5%BC%80%E5%A7%8B%EF%BC%8C%E4%B9%9F%E4%B8%8D%E6%98%AF%E4%B8%AD%E9%80%94%EF%BC%8C%E6%98%AF%E6%9C%80%E5%90%8E%E5%95%8A/</url>
+    
+    <content type="html"><![CDATA[<p>重要的不是开始，也不是中途，是最后啊</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>以前不让你乱跑，是怕你惹事，今天，你想怎么跑，你自己定。</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E4%BB%A5%E5%89%8D%E4%B8%8D%E8%AE%A9%E4%BD%A0%E4%B9%B1%E8%B7%91%EF%BC%8C%E6%98%AF%E6%80%95%E4%BD%A0%E6%83%B9%E4%BA%8B%EF%BC%8C%E4%BB%8A%E5%A4%A9%EF%BC%8C%E4%BD%A0%E6%83%B3%E6%80%8E%E4%B9%88%E8%B7%91/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E4%BB%A5%E5%89%8D%E4%B8%8D%E8%AE%A9%E4%BD%A0%E4%B9%B1%E8%B7%91%EF%BC%8C%E6%98%AF%E6%80%95%E4%BD%A0%E6%83%B9%E4%BA%8B%EF%BC%8C%E4%BB%8A%E5%A4%A9%EF%BC%8C%E4%BD%A0%E6%83%B3%E6%80%8E%E4%B9%88%E8%B7%91/</url>
+    
+    <content type="html"><![CDATA[<p>以前不让你乱跑，是怕你惹事，今天，你想怎么跑，你自己定。</p><p>来源长津湖</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>不是因为拥有力量才该去做什么</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E6%98%AF%E5%9B%A0%E4%B8%BA%E6%8B%A5%E6%9C%89%E5%8A%9B%E9%87%8F%E6%89%8D%E8%AF%A5%E5%8E%BB%E5%81%9A%E4%BB%80%E4%B9%88/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E6%98%AF%E5%9B%A0%E4%B8%BA%E6%8B%A5%E6%9C%89%E5%8A%9B%E9%87%8F%E6%89%8D%E8%AF%A5%E5%8E%BB%E5%81%9A%E4%BB%80%E4%B9%88/</url>
+    
+    <content type="html"><![CDATA[<p>而是因为想做什么，才去追求力量并加以使用</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>不要拿自己的兴趣爱好和别人的工作相比</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E8%A6%81%E6%8B%BF%E8%87%AA%E5%B7%B1%E7%9A%84%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E5%92%8C%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%9B%B8%E6%AF%94/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E8%A6%81%E6%8B%BF%E8%87%AA%E5%B7%B1%E7%9A%84%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD%E5%92%8C%E5%88%AB%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%9B%B8%E6%AF%94/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>不是用户要什么就给什么</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E6%98%AF%E7%94%A8%E6%88%B7%E8%A6%81%E4%BB%80%E4%B9%88%E5%B0%B1%E7%BB%99%E4%BB%80%E4%B9%88/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E4%B8%8D%E6%98%AF%E7%94%A8%E6%88%B7%E8%A6%81%E4%BB%80%E4%B9%88%E5%B0%B1%E7%BB%99%E4%BB%80%E4%B9%88/</url>
+    
+    <content type="html"><![CDATA[<p>满足底层需求</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>套路是假的，爱你是真的</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E5%A5%97%E8%B7%AF%E6%98%AF%E5%81%87%E7%9A%84%EF%BC%8C%E7%88%B1%E4%BD%A0%E6%98%AF%E7%9C%9F%E7%9A%84/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E5%A5%97%E8%B7%AF%E6%98%AF%E5%81%87%E7%9A%84%EF%BC%8C%E7%88%B1%E4%BD%A0%E6%98%AF%E7%9C%9F%E7%9A%84/</url>
+    
+    <content type="html"><![CDATA[<p>舍友语录😏。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>一个风扇一阵风，吹进xxx心窝中</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E4%B8%80%E4%B8%AA%E9%A3%8E%E6%89%87%E4%B8%80%E9%98%B5%E9%A3%8E%EF%BC%8C%E5%90%B9%E8%BF%9Bxxx%E5%BF%83%E7%AA%9D%E4%B8%AD/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E4%B8%80%E4%B8%AA%E9%A3%8E%E6%89%87%E4%B8%80%E9%98%B5%E9%A3%8E%EF%BC%8C%E5%90%B9%E8%BF%9Bxxx%E5%BF%83%E7%AA%9D%E4%B8%AD/</url>
+    
+    <content type="html"><![CDATA[<p>一个风扇一阵风，吹进我的心窝中 一个风扇一阵风，吹进某某的婚姻里</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>平台，贵人指路，个人努力，持久</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E5%B9%B3%E5%8F%B0%EF%BC%8C%E8%B4%B5%E4%BA%BA%E6%8C%87%E8%B7%AF%EF%BC%8C%E4%B8%AA%E4%BA%BA%E5%8A%AA%E5%8A%9B%EF%BC%8C%E6%8C%81%E4%B9%85/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E5%B9%B3%E5%8F%B0%EF%BC%8C%E8%B4%B5%E4%BA%BA%E6%8C%87%E8%B7%AF%EF%BC%8C%E4%B8%AA%E4%BA%BA%E5%8A%AA%E5%8A%9B%EF%BC%8C%E6%8C%81%E4%B9%85/</url>
+    
+    <content type="html"><![CDATA[<p>好的发现离不开社会，遇到对的人是多么幸运。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>手段，目的，为什么</title>
+    <link href="/%E8%AF%AD%E5%BD%95/%E6%89%8B%E6%AE%B5%EF%BC%8C%E7%9B%AE%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88/"/>
+    <url>/%E8%AF%AD%E5%BD%95/%E6%89%8B%E6%AE%B5%EF%BC%8C%E7%9B%AE%E7%9A%84%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88/</url>
+    
+    <content type="html"><![CDATA[<p>在学校，学习是手段，目的是找工作 工作是手段，目的是赚钱，为了花钱</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>语录</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>停用噢易多媒体网络教室软件</title>
+    <link href="/%E6%8A%80%E8%BD%AF/%E5%81%9C%E7%94%A8%E5%99%A2%E6%98%93%E5%A4%9A%E5%AA%92%E4%BD%93%E7%BD%91%E7%BB%9C%E6%95%99%E5%AE%A4%E8%BD%AF%E4%BB%B6/"/>
+    <url>/%E6%8A%80%E8%BD%AF/%E5%81%9C%E7%94%A8%E5%99%A2%E6%98%93%E5%A4%9A%E5%AA%92%E4%BD%93%E7%BD%91%E7%BB%9C%E6%95%99%E5%AE%A4%E8%BD%AF%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>如果将内容复制到文件中，改名为.bat  可双击直接运行</p><p>停用命令</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs BAT">@<span class="hljs-built_in">echo</span> off<br>:one<br><span class="hljs-keyword">for</span> <span class="hljs-variable">%%p</span> <span class="hljs-keyword">in</span> (<br>Ctsc_Multi.exe , DeviceControl_x64.exe , HRMon.exe , MultiClient.exe , OAtiveII-Client.exe , OEClient.exe , OELogSystem.exe , OEUpdate.exe , OEProtect.exe , ProcessProtect.exe , RunClient.exe , RunClient.exe , ServerOSS.exe , Student.exe , wfilesvr.exe , tvnserver.exe , updatefilesvr.exe , ScreenRender.exe ) <span class="hljs-keyword">do</span> <span class="hljs-built_in">taskkill</span> /f /IM <span class="hljs-variable">%%p</span><br><span class="hljs-keyword">goto</span> two<br><br>:two<br><span class="hljs-keyword">for</span> <span class="hljs-variable">%%p</span> <span class="hljs-keyword">in</span> (<br>DeviceControl_x64.exe , tvnserver.exe , Student.exe ) <span class="hljs-keyword">do</span> <span class="hljs-built_in">taskkill</span> /f /IM <span class="hljs-variable">%%p</span><br><span class="hljs-keyword">goto</span> two<br></code></pre></td></tr></table></figure><p>启用命令，根据自己的路径进行更改</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs CMD"><span class="hljs-built_in">start</span> &quot;&quot; &quot;C:\\Program Files (x86)\\Os-Easy\\os-easy multicast teaching system\\Student.exe&quot;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>学校</tag>
+      
+      <tag>脚本</tag>
       
     </tags>
     

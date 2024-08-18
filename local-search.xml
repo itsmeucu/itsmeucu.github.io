@@ -4,11 +4,11 @@
   
   
   <entry>
-    <title>有意思的评论_1</title>
+    <title>有意思的语录_2</title>
     <link href="/%E8%AF%AD%E5%BD%95/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E8%AF%AD%E5%BD%95_2/"/>
     <url>/%E8%AF%AD%E5%BD%95/%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E8%AF%AD%E5%BD%95_2/</url>
     
-    <content type="html"><![CDATA[<p><a href="https://www.youtube.com/shorts/GWVxyqjoVyM">乾坤未定，你我都是黑马。 闹钟一响，你我都是牛马。</a></p><hr />]]></content>
+    <content type="html"><![CDATA[<p><a href="https://www.youtube.com/shorts/GWVxyqjoVyM">乾坤未定，你我都是黑马。 闹钟一响，你我都是牛马。</a></p><hr /><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Test">海潮以永恒的节奏消涨起落<br>而现代的块节奏<br>让越来越多的人<br>过着潮汐般的生活<br></code></pre></td></tr></table></figure><hr /><p><a href="https://music.163.com/song?id=1856336476&userid=129662147">“为什我挑选你做我的助手，是因为你的眼睛里没有光。在现实世界里太熠熠生辉的人是无法进行创作的，而只有看上去黯淡的人才有自己的脑内世界。”</a></p>]]></content>
     
     
     <categories>
@@ -17,6 +17,33 @@
       
     </categories>
     
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Alist使用MySQL引起FULLTEXT indexes解决</title>
+    <link href="/%E6%8A%80%E8%BD%AF/alist%E4%BD%BF%E7%94%A8Mysql%E5%BC%95%E8%B5%B7doesn&#39;t%20support%20FULLTEXT%20indexes/"/>
+    <url>/%E6%8A%80%E8%BD%AF/alist%E4%BD%BF%E7%94%A8Mysql%E5%BC%95%E8%B5%B7doesn&#39;t%20support%20FULLTEXT%20indexes/</url>
+    
+    <content type="html"><![CDATA[<h4 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h4><p>如果将Alist的数据库改成MySQL，在使用时不使用索引的情况下，没问题，但如果使用索引，那么有一定概率造成FULLTEXT indexes报错</p><p>该位置如下<br><img src="https://z.ucu520.top/pics/images/2024/08/24/f27f96907881005f7cda5c31e27382e2.png" alt="f27f96907881005f7cda5c31e27382e2.png"></p><hr /><h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>解决方法，将数据库中表的引擎进行更改</p><ul><li>使用Navicat<br><img src="https://z.ucu520.top/pics/images/2024/08/24/71261311170c54f3bd7277bfa749f868.png" alt="71261311170c54f3bd7277bfa749f868.png"></li><li>使用Sql语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs SQL"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> your_table_name ENGINE <span class="hljs-operator">=</span> MyISAM;<br></code></pre></td></tr></table></figure></li></ul><hr /><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>在CentOS系统下，如果您使用的是MySQL 5.x版本，并且遇到了错误 “Error 1214 (HY000): The used table type doesn’t support FULLTEXT indexes”，这通常是因为您尝试在非InnoDB或MyISAM存储引擎的表上创建FULLTEXT索引。FULLTEXT索引在MySQL中只支持MyISAM和InnoDB存储引擎（从MySQL 5.6开始支持InnoDB）。<br>以下是一些解决步骤：</p><ol><li><strong>检查存储引擎</strong>：<br>首先，您需要检查您的表正在使用的存储引擎。您可以通过以下SQL命令来检查：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">TABLE</span> STATUS <span class="hljs-keyword">WHERE</span> Name <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;your_table_name&#x27;</span>;<br></code></pre></td></tr></table></figure>或者针对具体的表：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> ENGINE <span class="hljs-keyword">FROM</span> information_schema.TABLES<br><span class="hljs-keyword">WHERE</span> TABLE_SCHEMA <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;your_database_name&#x27;</span> <span class="hljs-keyword">AND</span> TABLE_NAME <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;your_table_name&#x27;</span>;<br></code></pre></td></tr></table></figure></li><li><strong>转换存储引擎</strong>：<br>如果您的表不是使用MyISAM或InnoDB存储引擎，您需要将其转换为支持FULLTEXT索引的存储引擎。以下是将表转换为MyISAM的示例命令：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> your_table_name ENGINE <span class="hljs-operator">=</span> MyISAM;<br></code></pre></td></tr></table></figure>如果您希望使用InnoDB（推荐，因为它支持事务），并且您使用的是MySQL 5.6或更高版本，则可以使用以下命令：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> your_table_name ENGINE <span class="hljs-operator">=</span> InnoDB;<br></code></pre></td></tr></table></figure></li><li><strong>创建FULLTEXT索引</strong>：<br>在确认表使用的是正确的存储引擎后，您可以尝试再次创建FULLTEXT索引：<br>对于MyISAM表：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> your_table_name <span class="hljs-keyword">ADD</span> FULLTEXT(your_fulltext_index_name) (column1, column2, ...);<br></code></pre></td></tr></table></figure>对于InnoDB表（MySQL 5.6+）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> your_table_name <span class="hljs-keyword">ADD</span> FULLTEXT(your_fulltext_index_name) (column1, column2, ...);<br></code></pre></td></tr></table></figure></li><li><strong>检查MySQL版本</strong>：<br>如果您正在使用的是MySQL 5.5或更早版本，并且希望使用InnoDB存储引擎的FULLTEXT索引，那么您需要升级到MySQL 5.6或更高版本，因为早期版本不支持InnoDB上的FULLTEXT索引。</li><li><strong>检查系统变量</strong>：<br>确保没有系统变量阻止您创建FULLTEXT索引。例如，<code>ft_min_word_len</code> 变量定义了可以包含在FULLTEXT索引中的最小单词长度。如果这个值设置得太高，可能会导致您无法为某些列创建FULLTEXT索引。</li><li><strong>检查表结构</strong>：<br>确保用于FULLTEXT索引的列数据类型是CHAR、VARCHAR或TEXT。<br>如果在完成上述步骤后仍然遇到问题，请检查MySQL的错误日志以获取更详细的错误信息，这可能会提供更具体的解决方案。同时，确保您的MySQL服务已经正确安装和配置，且没有其他系统级别的限制阻止了FULLTEXT索引的创建。</li></ol><hr /><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul><li><a href="https://blog.csdn.net/qq_43175215/article/details/107060384">https://blog.csdn.net/qq_43175215&#x2F;article&#x2F;details&#x2F;107060384</a></li><li><a href="https://chatglm.cn/share/FjwT3">https://chatglm.cn/share/FjwT3</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Alist</tag>
+      
+      <tag>MySQL</tag>
+      
+    </tags>
     
   </entry>
   

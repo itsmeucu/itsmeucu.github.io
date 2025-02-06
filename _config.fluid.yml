@@ -1007,6 +1007,12 @@ links:
   # Member item of page
   items:
     - {
+      title: "Tech_Sky Blog",
+      intro: "Tech_Sky_Blog——致力于高质量的文章，其内容主要涵盖Linux、vps、建站、安卓玩机.",
+      link: "https://tsy.ink",
+      avatar: "https://www.tsy.ink/wp-content/uploads/2024/11/1731208083-logo.png"
+    }
+    - {
       title: "Fluid Blog",
       intro: "主题博客",
       link: "https://hexo.fluid-dev.com/",

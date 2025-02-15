@@ -1,11 +1,21 @@
 ---
-title: 关于
+title: 关于/About
 date: 2024-07-02 12:38:59
 type: "about"
 ---
 
-#### About
-what ?
-Null.
+#### Mail
 
-> don't have any ask
+ucu520@qq.com
+
+#### WeChat
+
+a844660952
+
+#### QQ
+
+2777610842
+
+#### Bilibili
+
+[开心ucu](https://space.bilibili.com/43139664?spm_id_from=333.1007.0.0)

@@ -8,17 +8,26 @@
 > must use ssh, use the proxy ssh to push files
 
 ```bash
-find ../itsmeucu.github.io ! -path "*/.git*" ! -path "*/.idea*" -maxdepth 1 -print0 | xargs -0 rm -rf
+cd ./itsmeucu.github.io
 
-cd ../itsmeucu.github.io
+git push -f origin main
 
-git -c credential.helper= -c core.quotepath=false -c log.showSignature=false push --progress --porcelain origin refs/heads/main:main --tags
 ```
 
 ### The Config file
 > it can edit the links and other page
 > > _config.yml
 
+### Logs of change to SSH
+```text
+git remote -v
+  origin  https://github.com/itsmeucu/itsmeucu.github.io.git (fetch)
+  origin  https://github.com/itsmeucu/itsmeucu.github.io.git (push)
+git remote set-url origin git@github.com:itsmeucu/itsmeucu.github.io.git
+
+git push -f origin main
+  Everything up-to-date
+```
 
 ### Logs the use command to push Github
 ```text
@@ -64,3 +73,5 @@ git -c credential.helper= -c core.quotepath=false -c log.showSignature=false pus
 
 
 ```
+# Change Build Directory
+open the file `./_config.yml` find `public_dir` change to your need Directory

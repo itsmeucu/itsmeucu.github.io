@@ -10,6 +10,8 @@
 ```bash
 cd ./itsmeucu.github.io
 
+git commit -m "Update"
+
 git push -f origin main
 
 ```

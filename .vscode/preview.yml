@@ -1,0 +1,16 @@
+# .vscode/preview.yml
+autoOpen: true # 打开工作空间时是否自动开启所有应用的预览
+apps:
+  - port: 4000 # 应用的端口
+    run: yarn install && yarn run server # 应用的启动命令
+    root: ./ # 应用的启动目录
+    name: preview_itsmeucu # 应用名称
+    description: preview hexo Project with itsmeucu # 应用描述
+    autoOpen: true # 打开工作空间时是否自动运行命令（优先级高于根级 autoOpen）
+    autoPreview: true # 是否自动打开预览, 若无则默认为true
+
+  - name: build_to_github # 新增应用名称
+    run: ./build_push_github.sh # 执行构建并推送到GitHub的脚本
+    root: ./ # 脚本所在的目录，根据实际情况调整
+    autoOpen: false # 是否在打开工作空间时自动运行此命令
+    autoPreview: false # 此应用不需要预览

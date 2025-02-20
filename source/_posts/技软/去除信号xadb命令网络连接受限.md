@@ -25,10 +25,10 @@ adb shell settings put global captive_portal_https_url http://www.google.cn/gene
 之后，重新开关手机飞行模式即可，或者重启手机也行
 
 * * *
+下载[adb环境](https://developer.android.google.cn/tools/releases/platform-tools?hl=zh-cn)
+解压后在解压的目录下运行上述命令，如果为Linux或MacOS系统，则需要加上./
 
-如果您不是很了解在哪输入命令，只需将usb调试打开，并安装驱动（可使用驱动精灵等一些工具安装）
-
-下载并解压 [ADB环境](https://alist.ucu520.top/d/%E7%B3%BB%E7%BB%9F-SP/phone/environment-%E7%8E%AF%E5%A2%83/ADB.zip) 运行 x.bat 脚本即可，如链接访问失效，可尝试访问 [链接2](https://z.ucu520.top/adb-fastboot/ADB-%202020-10-02%20.zip) 或尝试与我取得联系，留言或QQ微信加我好友都行
+如果不会操作，可尝试与我取得联系，QQ`2777610842`微信`a844660952`
 
 * * *
 

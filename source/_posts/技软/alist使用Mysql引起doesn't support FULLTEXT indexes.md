@@ -15,21 +15,21 @@ excerpt: 解决 Error 1214 (HY000):The used table type doesn't support FULLTEXT 
 如果将Alist的数据库改成MySQL，在使用时不使用索引的情况下，没问题，但如果使用索引，那么有一定概率造成FULLTEXT indexes报错
 
 该位置如下
-![f27f96907881005f7cda5c31e27382e2.png](https://z.ucu520.top/pics/images/2024/08/24/f27f96907881005f7cda5c31e27382e2.png)
+![f27f96907881005f7cda5c31e27382e2.png](../../img/2024/08/24/f27f96907881005f7cda5c31e27382e2.png)
 
-<hr />
+* * *
 
 #### 解决方法
 
 解决方法，将数据库中表的引擎进行更改
 - 使用Navicat
-![71261311170c54f3bd7277bfa749f868.png](https://z.ucu520.top/pics/images/2024/08/24/71261311170c54f3bd7277bfa749f868.png)
+![71261311170c54f3bd7277bfa749f868.png](../../img/2024/08/24/71261311170c54f3bd7277bfa749f868.png)
 - 使用Sql语句
 ```SQL 
 ALTER TABLE your_table_name ENGINE = MyISAM;
 ```
 
-<hr />
+* * *
 
 #### 原因
 在CentOS系统下，如果您使用的是MySQL 5.x版本，并且遇到了错误 "Error 1214 (HY000): The used table type doesn't support FULLTEXT indexes"，这通常是因为您尝试在非InnoDB或MyISAM存储引擎的表上创建FULLTEXT索引。FULLTEXT索引在MySQL中只支持MyISAM和InnoDB存储引擎（从MySQL 5.6开始支持InnoDB）。

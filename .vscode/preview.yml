@@ -12,5 +12,11 @@ apps:
   - name: build_to_github # 新增应用名称
     run: ./build_push_github.sh # 执行构建并推送到GitHub的脚本
     root: ./ # 脚本所在的目录，根据实际情况调整
-    autoOpen: false # 是否在打开工作空间时自动运行此命令
+    autoOpen: true # 是否在打开工作空间时自动运行此命令
+    autoPreview: false # 此应用不需要预览
+
+  - name: push_to_github # 新增应用名称
+    run: git add . && git commit -m "update" && git push # 执行构建并推送到GitHub的脚本
+    root: ./ # 脚本所在的目录，根据实际情况调整
+    autoOpen: true # 是否在打开工作空间时自动运行此命令
     autoPreview: false # 此应用不需要预览

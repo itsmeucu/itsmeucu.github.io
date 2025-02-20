@@ -8,7 +8,7 @@ cd ./itsmeucu.github.io
 
 git add .
 
-git commit -m "Update"
+git commit -m "update"
 
 git push -f origin main
 

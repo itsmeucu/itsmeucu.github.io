@@ -170,8 +170,15 @@
   ],
   "da": [
     {
-      "pageName": "吐槽2025-0215.md",
+      "pageName": "吐槽2025-0215",
       "url": "/2004001",
+      "priority": "0.4"
+    }
+  ],
+  "old": [
+    {
+      "pageName": "LG常见刷机技巧",
+      "url": "/5608.html",
       "priority": "0.4"
     }
   ]

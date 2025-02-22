@@ -82,7 +82,12 @@
   </url>
   <url>
     <loc>blog.ucu520.top/2004001</loc>
-    <!-- Page Name: 吐槽2025-0215.md -->
+    <!-- Page Name: 吐槽2025-0215 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/5608.html</loc>
+    <!-- Page Name: LG常见刷机技巧 -->
     <priority>0.4</priority>
   </url>
 </urlset>

@@ -12,6 +12,8 @@ git add .
 
 git commit -m "update"
 
+git remote set-url origin git@github.com:itsmeucu/itsmeucu.github.io.git
+
 git push -f origin main
 
 

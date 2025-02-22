@@ -596,6 +596,31 @@
   
   
   <entry>
+    <title>ssh隧道代理</title>
+    <link href="/6084.html/"/>
+    <url>/6084.html/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我的Linux临时需要访问墙外的资源，折腾clash，v2rayA，无解，最终尝试用ssh隧道，结果成功</p><p>前提，需要有个vps在国外，且开启了sshd，并能登陆到该vps</p><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -N -D 127.0.0.1:7891 root@vps -p 22<br></code></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">-N,只做隧道，不执行命令，可以极大的降低风险<br>-D,隧道<br>127.0.0.1:7891    127，本地地址，7891，本地代理的端口<br>root@vps //root用户名，vps，vps的IP，或者域名<br>-p //默认22，如果是其他的，输入你其他的端口<br></code></pre></td></tr></table></figure><p>我使用的edge，使用插件链接的，并未使用系统代理<br><a href="https://microsoftedge.microsoft.com/addons/detail/proxy-switchyomega/fdbloeknjpnloaggplaobopplkdhnikc">https://microsoftedge.microsoft.com/addons/detail/proxy-switchyomega/fdbloeknjpnloaggplaobopplkdhnikc</a></p><p>ssh隧道采用的是socks5协议</p><hr><p>Options<br><img src="/img/2022/01/1.png" alt="1.png"></p><p>添加节点<br><img src="/img/2022/01/2.png" alt="2.png"></p><p>选择节点，就能通过连接的ssh来访问需要的内容<br><img src="/img/2022/01/3.png" alt="3.png"></p><hr><p>ssh端口转发，参考自SSH <a href="https://www.cnblogs.com/dwtfukgv/articles/12837356.html">远程端口映射</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -C -f -N -g -R 100:127.0.0.1:200 root@ip<br></code></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text"># 将要登陆的ssh服务器上的100端口转发到本地200端口，直接访问本地200端口相当于访问服务器的100端口<br></code></pre></td></tr></table></figure><hr><h3 id="应用举例"><a href="#应用举例" class="headerlink" title="应用举例"></a>应用举例</h3><p>将发往本机的80端口访问转发到192.168.1.1的8080端口</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -C -f -N -g -L 80:192.168.1.1:8080  user@192.168.1.1<br></code></pre></td></tr></table></figure><p>将发往192.168.1.1的8080访问转发到本机的80端口</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -C -f -N -g -R 80:192.168.1.1:8080 user@192.168.1.1<br></code></pre></td></tr></table></figure><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">（user为主机192.168.1.1上的用户）<br>-N – 不使用Shell窗口，纯做转发的时候用，如果你在映射完成后继续在服务器上输入命令，去掉这个参数即可<br></code></pre></td></tr></table></figure><h3 id="例子A-我们想远程管理服务器上的MySQL-那么使用下面命令"><a href="#例子A-我们想远程管理服务器上的MySQL-那么使用下面命令" class="headerlink" title="例子A:我们想远程管理服务器上的MySQL,那么使用下面命令"></a>例子A:我们想远程管理服务器上的MySQL,那么使用下面命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -L 3306:127.0.0.1:3306   user@emlog-vps    -N  <br></code></pre></td></tr></table></figure><p>运行这个命令之后，ssh将会自动将服务器的3306映射到本机的3306端口，我们就可以使用任意MySQL客户端连接 localhost:3306即可访问到服务器上的MySQL了。</p><h3 id="例子B-一次同时映射多个端口"><a href="#例子B-一次同时映射多个端口" class="headerlink" title="例子B:一次同时映射多个端口"></a>例子B:一次同时映射多个端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -L 8888:www.host.com:80 -L 110:mail.host.com:110 -L    25:mail.host.com:25 user@host -N <br></code></pre></td></tr></table></figure><p>命令将自动把服务器的80，110，25端口分别映射到本机的8888，110和25端口</p><p>注：以上命令在ubuntu 9.10 上测试通过…</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux 网站-服务器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>修改网站鼠标样式，滚动条</title>
     <link href="/5608.html/"/>
     <url>/5608.html/</url>

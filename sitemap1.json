@@ -1,0 +1,128 @@
+{
+  "pages": [
+    {
+      "pageName": "首页",
+      "url": "/",
+      "priority": "1.0"
+    },
+    {
+      "pageName": "归档",
+      "url": "/archives/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "分类",
+      "url": "/categories",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "标签",
+      "url": "/tags/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "关于",
+      "url": "/about/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "友链",
+      "url": "/links/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "下载站番剧命名规范",
+      "url": "/reName/",
+      "priority": "0.5"
+    },
+    {
+      "pageName": "防晒霜和防晒伞结合",
+      "url": "/200001",
+      "priority": "0.4"
+    },{
+      "pageName": "2022嘉兴旅",
+      "url": "/200002",
+      "priority": "0.4"
+    },{
+      "pageName": "一个风扇一阵风，吹进xxx心窝中",
+      "url": "/200003",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不是因为拥有力量才该去做什么",
+      "url": "/200004",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不是用户要什么就给什么",
+      "url": "/200005",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不要拿自己的兴趣爱好和别人的工作相比",
+      "url": "/200006",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "以前不让你乱跑，是怕你惹事，今天，你想怎么跑",
+      "url": "/200007",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "你认为认识的-2022-10-17",
+      "url": "/200008",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "合同的作用",
+      "url": "/200009",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "套路是假的，爱你是真的",
+      "url": "/200010",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "平台，贵人指路，个人努力，持久",
+      "url": "/200011",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "我希望有个如你一般的人",
+      "url": "/200012",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "我的下面可以给任何人看，但我的真心只能给你看",
+      "url": "/200013",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "手段，目的，为什么",
+      "url": "/200014",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的评论_1",
+      "url": "/200015",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的评论_2",
+      "url": "/200016",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的语录_1",
+      "url": "/200017",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "重要的不是开始，也不是中途，是最后啊",
+      "url": "/200018",
+      "priority": "0.4"
+    }
+
+  ]
+}

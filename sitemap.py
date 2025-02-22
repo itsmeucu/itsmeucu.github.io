@@ -71,8 +71,23 @@ if __name__ == '__main__':
     domain = 'blog.ucu520.top'
 
     with open('./sitemap.json', 'r', encoding='utf-8') as f:
-        jsonData = json.load(f)
+        json_data = json.load(f)
+    # 合并所有子列表为一个列表
+    merged_pages = json_data["pages"]
 
-    generate_sitemap(jsonData)
-    generate_sitemap_styles(jsonData)
-    copySitemap(jsonData)
+    # 由于"tc"键对应的值是一个列表的列表，我们需要先将其展平
+    for sublist in json_data["tc"]:
+        merged_pages.extend(sublist)
+
+    # 将其他键对应的列表也添加到合并后的列表中
+    merged_pages.extend(json_data["un"])
+    merged_pages.extend(json_data["da"])
+
+    # 创建最终的JSON结构
+    final_json = {"pages": merged_pages}
+
+    # 打印或者将final_json转换为JSON字符串
+#     print(json.dumps(final_json, indent=2))
+    generate_sitemap(final_json)
+    generate_sitemap_styles(final_json)
+    copySitemap(final_json)

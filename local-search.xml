@@ -679,6 +679,31 @@
   
   
   <entry>
+    <title>Win修改启动时的引导选择</title>
+    <link href="/5459.html/"/>
+    <url>/5459.html/</url>
+    
+    <content type="html"><![CDATA[<p>使用到的命令</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text">bcdedit /set &#123;default&#125; description &quot;Windows 11&quot;<br>//修改默认启动系统的描述<br><br>bcdedit /set &#123;current&#125; description &quot;QUBER - WIN7&quot;<br>//修改当前启动系统的描述<br><br>bcdedit<br>//查看启动的bcd配置<br><br>msconfig<br>//运行里面输入，系统配置实用程序。可查看启动时候的选项【引导里面】<br><br>bcdedit /?<br>//bcdedit的说明<br><br>bcdedit /? /set<br>//bcdedit 中的set的说明<br><br></code></pre></td></tr></table></figure><p>查看命令<br><code>bcdedit</code><br><img src="/img/2021/10/1.png" alt="1.png"></p><blockquote><p>{current}-当前启动的系统</p><p>{default}-默认启动的</p></blockquote><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">bcdedit /set &#123;default&#125; description &quot;Windows 11&quot;<br>修改默认启动的选项的描述为Windows 11<br></code></pre></td></tr></table></figure><p><img src="/img/2021/10/2.png" alt="2.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Windows</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>远程桌面连接-要求的函数不受支持</title>
     <link href="/5617.html/"/>
     <url>/5617.html/</url>

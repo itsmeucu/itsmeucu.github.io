@@ -612,7 +612,9 @@
     
     <tags>
       
-      <tag>Linux 网站-服务器</tag>
+      <tag>Linux</tag>
+      
+      <tag>服务器</tag>
       
     </tags>
     
@@ -669,6 +671,31 @@
     <tags>
       
       <tag>网站</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>远程桌面连接-要求的函数不受支持</title>
+    <link href="/5617.html/"/>
+    <url>/5617.html/</url>
+    
+    <content type="html"><![CDATA[<p>按win+R，输入</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">gpedit.msc<br></code></pre></td></tr></table></figure><p>找到</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">计算机配置<br>系统<br>凭据分配<br>第三个【加密数据】英文的好像是o开头<br>顺序第三个<br>如果是英文，介绍里面如果看到desktop类似的应该就是了<br></code></pre></td></tr></table></figure><p>英文是：Encption Orede Rmedotcon</p><p>改了之后，应用并确认</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Windows</tag>
       
     </tags>
     

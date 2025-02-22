@@ -188,6 +188,10 @@
       "pageName": "LG常见刷机技巧",
       "url": "/6084.html",
       "priority": "0.4"
+    },{
+      "pageName": "[Win]修改启动时的引导选择",
+      "url": "/5459.html",
+      "priority": "0.4"
     }
   ]
 }

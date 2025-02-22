@@ -100,4 +100,9 @@
     <!-- Page Name: LG常见刷机技巧 -->
     <priority>0.4</priority>
   </url>
+  <url>
+    <loc>blog.ucu520.top/5459.html</loc>
+    <!-- Page Name: [Win]修改启动时的引导选择 -->
+    <priority>0.4</priority>
+  </url>
 </urlset>

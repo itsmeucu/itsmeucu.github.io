@@ -312,6 +312,7 @@ lazyload:
 iconfont: //at.alicdn.com/t/font_1736178_lbnruvf0jn.css
 
 
+
 #---------------------------
 # 页头
 # Header
@@ -423,8 +424,9 @@ footer:
   content: '
     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
     <!--<i class="iconfont icon-love"></i>--> |
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> ｜
-    <a href="//www.ucu520.top" target="_blank" rel="nofollow noopener"><span>开心ucu</span></a> 
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> ||
+    <a href="//www.ucu520.top" target="_blank" rel="nofollow noopener"><span>开心ucu</span></a> |
+    <a href="https://github.com/itsmeucu/itsmeucu" target="_blank" rel="nofollow noopener"><span>GitHub</span></a> 
   '
 
   # 展示网站的 PV、UV 统计数

@@ -180,6 +180,18 @@
       "pageName": "LG常见刷机技巧",
       "url": "/5608.html",
       "priority": "0.4"
+    },{
+      "pageName": "解决[远程桌面连接][要求的函数不受支持]",
+      "url": "/5617.html",
+      "priority": "0.4"
+    },{
+      "pageName": "LG常见刷机技巧",
+      "url": "/6084.html",
+      "priority": "0.4"
+    },{
+      "pageName": "[Win]修改启动时的引导选择",
+      "url": "/5459.html",
+      "priority": "0.4"
     }
   ]
 }

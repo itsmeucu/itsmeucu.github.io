@@ -1,0 +1,178 @@
+{
+  "pages": [
+    {
+      "pageName": "首页",
+      "url": "/",
+      "priority": "1.0"
+    },
+    {
+      "pageName": "归档",
+      "url": "/archives",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "分类",
+      "url": "/categories",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "标签",
+      "url": "/tags",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "关于",
+      "url": "/about",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "友链",
+      "url": "/links",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "下载站番剧命名规范",
+      "url": "/reName",
+      "priority": "0.5"
+    }
+  ],
+  "un": [
+    {
+      "pageName": "链接/目录结构",
+      "url": "/README",
+      "priority": "0.4"
+    }
+  ],
+  "tc": [
+    [
+      {
+        "pageName": "Alist增加退出按钮",
+        "url": "/2001001",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "Alist下载站存个档_2023-03-31",
+        "url": "/2001002",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "Win10-11-many-login",
+        "url": "/2001003",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "alist使用Mysql引起doesn't support FULLTEXT indexes",
+        "url": "/2001004",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "immich-can't_healthcheck",
+        "url": "/2001005",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "install_apk_with_CMCC_TV",
+        "url": "/2001006",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "停用噢易多媒体网络教室软件",
+        "url": "/2001007",
+        "priority": "0.4"
+      },
+      {
+        "pageName": "去除信号xadb命令网络连接受限",
+        "url": "/2001008",
+        "priority": "0.4"
+      }
+    ]
+
+  ],
+  "id": [
+    {
+      "pageName": "防晒霜和防晒伞结合",
+      "url": "/2002001",
+      "priority": "0.4"
+    }
+  ],
+  "qu": [
+    {
+      "pageName": "2022嘉兴旅",
+      "url": "/2003001",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "一个风扇一阵风，吹进xxx心窝中",
+      "url": "/2003002",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不是因为拥有力量才该去做什么",
+      "url": "/2003003",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不是用户要什么就给什么",
+      "url": "/2003004",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "不要拿自己的兴趣爱好和别人的工作相比",
+      "url": "/2003005",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "以前不让你乱跑，是怕你惹事，今天，你想怎么跑",
+      "url": "/2003006",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "你认为认识的-2022-10-17",
+      "url": "/2003007",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "合同的作用",
+      "url": "/2003008",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "我的下面可以给任何人看，但我的真心只能给你看",
+      "url": "/2003012",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "手段，目的，为什么",
+      "url": "/2003013",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的评论1",
+      "url": "/2003014",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的评论2",
+      "url": "/2003015",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "有意思的语录1",
+      "url": "/2003016",
+      "priority": "0.4"
+    },
+    {
+      "pageName": "重要的不是开始，也不是中途，是最后啊",
+      "url": "/2003017",
+      "priority": "0.4"
+    }
+
+  ],
+  "da": [
+    {
+      "pageName": "吐槽2025-0215.md",
+      "url": "/2004001",
+      "priority": "0.4"
+    }
+  ]
+}

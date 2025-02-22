@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>blog.ucu520.top/</loc>
+    <!-- Page Name: 首页 -->
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/archives</loc>
+    <!-- Page Name: 归档 -->
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/categories</loc>
+    <!-- Page Name: 分类 -->
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/tags</loc>
+    <!-- Page Name: 标签 -->
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/about</loc>
+    <!-- Page Name: 关于 -->
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/links</loc>
+    <!-- Page Name: 友链 -->
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/reName</loc>
+    <!-- Page Name: 下载站番剧命名规范 -->
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001001</loc>
+    <!-- Page Name: Alist增加退出按钮 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001002</loc>
+    <!-- Page Name: Alist下载站存个档_2023-03-31 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001003</loc>
+    <!-- Page Name: Win10-11-many-login -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001004</loc>
+    <!-- Page Name: alist使用Mysql引起doesn't support FULLTEXT indexes -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001005</loc>
+    <!-- Page Name: immich-can't_healthcheck -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001006</loc>
+    <!-- Page Name: install_apk_with_CMCC_TV -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001007</loc>
+    <!-- Page Name: 停用噢易多媒体网络教室软件 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2001008</loc>
+    <!-- Page Name: 去除信号xadb命令网络连接受限 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/README</loc>
+    <!-- Page Name: 链接/目录结构 -->
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>blog.ucu520.top/2004001</loc>
+    <!-- Page Name: 吐槽2025-0215.md -->
+    <priority>0.4</priority>
+  </url>
+</urlset>

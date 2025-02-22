@@ -78,10 +78,17 @@ if __name__ == '__main__':
     # 由于"tc"键对应的值是一个列表的列表，我们需要先将其展平
     for sublist in json_data["tc"]:
         merged_pages.extend(sublist)
+#     for sublist in json_data["un"]:
+#         merged_pages.extend(sublist)
+#     for sublist in json_data["da"]:
+#         merged_pages.extend(sublist)
+#     for sublist in json_data["old"]:
+#         merged_pages.extend(sublist)
 
     # 将其他键对应的列表也添加到合并后的列表中
     merged_pages.extend(json_data["un"])
     merged_pages.extend(json_data["da"])
+    merged_pages.extend(json_data["old"])
 
     # 创建最终的JSON结构
     final_json = {"pages": merged_pages}

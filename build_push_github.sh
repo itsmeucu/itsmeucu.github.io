@@ -4,6 +4,8 @@ find itsmeucu.github.io -mindepth 1 ! -path "itsmeucu.github.io/.git" ! -path "i
 
 yarn run build
 
+python sitemap.py
+
 cd ./itsmeucu.github.io
 
 git add .

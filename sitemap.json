@@ -1,0 +1,39 @@
+{
+  "pages": [
+    {
+      "pageName": "首页",
+      "url": "/",
+      "priority": "1.0"
+    },
+    {
+      "pageName": "归档",
+      "url": "/archives/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "分类",
+      "url": "/categories",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "标签",
+      "url": "/tags/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "关于",
+      "url": "/about/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "友链",
+      "url": "/links/",
+      "priority": "0.8"
+    },
+    {
+      "pageName": "下载站番剧命名规范",
+      "url": "/reName/",
+      "priority": "0.5"
+    }
+  ]
+}

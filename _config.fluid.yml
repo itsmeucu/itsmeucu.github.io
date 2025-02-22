@@ -346,7 +346,6 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    - { key: "命名", link: "/reName", icon: "iconfont icon-user-fill" }
     - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
@@ -974,11 +973,6 @@ about:
 # 通过 hexo new page 命令创建的页面
 # Custom Page through `hexo new page`
 #---------------------------
-reName:
-  banner_img: /img/default.png
-  banner_img_height: 20
-  banner_mask_alpha: 0.3
-  icons:
 
 #---------------------------
 # 404页

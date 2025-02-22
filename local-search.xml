@@ -620,5 +620,30 @@
   
   
   
+  <entry>
+    <title>修改网站鼠标样式，滚动条</title>
+    <link href="/5750.html/"/>
+    <url>/5750.html/</url>
+    
+    <content type="html"><![CDATA[<p><code>演示为wordpress</code></p><p>样式参数看这里<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/cursor">https://developer.mozilla.org/zh-CN/docs/Web/CSS/cursor</a></p><p>参数都添加到css中</p><p>外观-自定义<br><img src="/img/2021/12/1.png" alt="1.png"></p><p>额外css<br><img src="/img/2021/12/2.png" alt="2.png"></p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/** 鼠标样式 开始**/</span><br><span class="hljs-comment">/** 普通指针样式**/</span><br><span class="hljs-selector-tag">body</span> &#123;<br><span class="hljs-attribute">cursor</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">//www.ucu520.top/shubiao/Office_Flat/Arrow.png</span>), default;<br>&#125;<br><span class="hljs-comment">/** 链接指针样式**/</span><br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>&#123;<span class="hljs-attribute">cursor</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">//www.ucu520.top/shubiao/Office_Flat/Hand.png</span>), pointer;&#125;<br><span class="hljs-comment">/** 指示文字可被选中指针样式**/</span><br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>&#123;<span class="hljs-attribute">cursor</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">//www.ucu520.top/shubiao/Office_Flat/IBeam.png</span>), text;&#125;<br><span class="hljs-comment">/** 可抓取指针样式**/</span><br><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>&#123;<span class="hljs-attribute">cursor</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">//www.ucu520.top/shubiao/grab1.png</span>), grab;&#125;<br><span class="hljs-comment">/* * 放大指针样式*</span><br><span class="hljs-comment">a:hover&#123;cursor:url(//www.ucu520.top/shubiao/zoom-in1.png), zoom-in;&#125; */</span><br><span class="hljs-comment">/* * 缩小指针样式*</span><br><span class="hljs-comment">a:hover&#123;cursor:url(//www.ucu520.top/shubiao/zoom-out1.png), zoom-out;&#125; */</span><br><span class="hljs-comment">/* * 元素可任意方向滚动 （平移）.指针样式*</span><br><span class="hljs-comment">a:hover&#123;cursor:url(//www.ucu520.top/shubiao/all-scroll1.png), all-scroll;&#125; */</span><br><span class="hljs-comment">/** 鼠标样式 结束**/</span><br> <br><span class="hljs-comment">/**自定义侧边滚动条**/</span><br>::-webkit-scrollbar &#123;<br>    -webkit-appearance: none;<br>&#125;<br>::-webkit-scrollbar &#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;<br>&#125;<br><span class="hljs-comment">/**背景色**/</span><br>::-webkit-scrollbar-track &#123;<br>    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>( <span class="hljs-number">135deg</span>, <span class="hljs-number">#3C8CE7</span> <span class="hljs-number">10%</span>, <span class="hljs-number">#00EAFF</span> <span class="hljs-number">100%</span>);<br><span class="hljs-attribute">border</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;<br>&#125;<br><span class="hljs-comment">/** 初始色**/</span><br>::-webkit-scrollbar-thumb &#123;<br><span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">316deg</span>, <span class="hljs-number">#e200f5</span>, <span class="hljs-number">#f56ec4</span>, <span class="hljs-number">#fca590</span>, <span class="hljs-number">#fad64e</span>);<br><span class="hljs-attribute">border</span>:<span class="hljs-number">1px</span> solid <span class="hljs-number">#eee</span>;<br><span class="hljs-attribute">height</span>:<span class="hljs-number">100px</span>;<br><span class="hljs-attribute">border-radius</span>:<span class="hljs-number">5px</span>;<br>&#125;<br><span class="hljs-comment">/** 选中后**/</span><br>::-webkit-scrollbar-thumb:hover &#123;<br>  <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">linear-gradient</span>( <span class="hljs-number">135deg</span>, <span class="hljs-number">#3C8CE7</span> <span class="hljs-number">10%</span>, <span class="hljs-number">#00EAFF</span> <span class="hljs-number">100%</span>);<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术/软件</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网站</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>

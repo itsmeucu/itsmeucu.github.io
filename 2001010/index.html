@@ -24,7 +24,7 @@
 <meta property="og:description" content="一些安全厂商的授权信息测试记录，仅供学习使用">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-06-02T08:03:20.000Z">
-<meta property="article:modified_time" content="2025-06-08T04:17:46.521Z">
+<meta property="article:modified_time" content="2025-06-08T04:29:38.682Z">
 <meta property="article:author" content="陈小可">
 <meta property="article:tag" content="记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -352,7 +352,11 @@
 <p>其中，java中调用了so文件来解密授权文件，逆向so文件（C#）按照这个逻辑，弄到授权的加密逻辑，可根据逻辑编写加密及解密的方法实现自己开授权</p>
 <p>经测试xx后正常，且xx等都能实现。</p>
 <h1 id="安恒信息"><a href="#安恒信息" class="headerlink" title="安恒信息"></a>安恒信息</h1><h2 id="漏洞扫描"><a href="#漏洞扫描" class="headerlink" title="漏洞扫描"></a>漏洞扫描</h2><h3 id="快照"><a href="#快照" class="headerlink" title="快照"></a>快照</h3><h3 id="改Vmware模拟cpuid等"><a href="#改Vmware模拟cpuid等" class="headerlink" title="改Vmware模拟cpuid等"></a>改Vmware模拟cpuid等</h3><p>和网御星云的楼扫一样，实际上嘛，用不用这个方法无所谓，多的不好描述</p>
-<h1 id="深信服"><a href="#深信服" class="headerlink" title="深信服"></a>深信服</h1><h2 id="AF"><a href="#AF" class="headerlink" title="AF"></a>AF</h2><p>和上面的方法接近，我用PVE，使用备份形式能够实现多设备同网关，然后再申请一个测试授权。</p>
+<h1 id="深信服"><a href="#深信服" class="headerlink" title="深信服"></a>深信服</h1><h2 id="AF（下一代防火墙）"><a href="#AF（下一代防火墙）" class="headerlink" title="AF（下一代防火墙）"></a>AF（下一代防火墙）</h2><p>和上面的方法接近，我用PVE，使用备份形式能够实现多设备同网关，然后再申请一个测试授权。</p>
+<p>经测试，同一镜像文件下8095、8075，如果管理网口(第一个网口)的MAC地址一样，则网关ID一样。</p>
+<p>授权相关验证程序拿到，但没时间做逆向分析，且存在大量的so库调用。</p>
+<p>具体过程不便透露</p>
+<h2 id="AC（上网-全网-行为管理系统）"><a href="#AC（上网-全网-行为管理系统）" class="headerlink" title="AC（上网&#x2F;全网 行为管理系统）"></a>AC（上网&#x2F;全网 行为管理系统）</h2><p>同AF</p>
 <hr>
 <p>未完待续</p>
 

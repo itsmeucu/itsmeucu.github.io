@@ -30,8 +30,9 @@
 <meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-5.png">
 <meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-6.png">
 <meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-7.png">
+<meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-8.png">
 <meta property="article:published_time" content="2025-08-24T05:54:40.000Z">
-<meta property="article:modified_time" content="2025-08-24T08:30:59.485Z">
+<meta property="article:modified_time" content="2025-08-24T08:44:07.750Z">
 <meta property="article:author" content="陈小可">
 <meta property="article:tag" content="OpenWrt">
 <meta name="twitter:card" content="summary_large_image">
@@ -361,10 +362,11 @@
 <p>修改连接的网卡配置（不要照抄），数据来源自上面的抓包数据</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">                                       <br>config interface &#x27;eth2_svmbr2&#x27;          <br>        option proto &#x27;dhcp&#x27;   <br>        option device &#x27;eth2&#x27;         <br>        option hostname &#x27;android-xxxxxxxxxxx&#x27;<br>        option clientid &#x27;00:00:00:00:00:00&#x27;       <br>        option vendorid &#x27;182chars    00:00:00&#x27;<br>    <br></code></pre></td></tr></table></figure>
 <p><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-3.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-3.png"></p>
-<h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>1、看IPTV<br>2、传数据（把两个改为同网段能互通，不同网段不行）19位的地址（我的物理网卡1GB）<br><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-4.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-4.png"></p>
+<h1 id="用途-玩法"><a href="#用途-玩法" class="headerlink" title="用途&#x2F;玩法"></a>用途&#x2F;玩法</h1><h2 id="看IPTV"><a href="#看IPTV" class="headerlink" title="看IPTV"></a>看IPTV</h2><h2 id="传数据（把两个改为同网段能互通，不同网段不行）19位的地址（我的物理网卡1GB）"><a href="#传数据（把两个改为同网段能互通，不同网段不行）19位的地址（我的物理网卡1GB）" class="headerlink" title="传数据（把两个改为同网段能互通，不同网段不行）19位的地址（我的物理网卡1GB）"></a>传数据（把两个改为同网段能互通，不同网段不行）19位的地址（我的物理网卡1GB）</h2><p><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-4.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-4.png"></p>
 <p>同样的Option信息（MAC地址不同）获取到的网段不同，无法通信<br><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-5.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-5.png"></p>
 <p>手动配IP测试<br><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-6.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-6.png"></p>
 <p>有概率会遇到分配的IP为一个段的<br><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-7.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-7.png"></p>
+<h2 id="代理上网"><a href="#代理上网" class="headerlink" title="代理上网"></a>代理上网</h2><p>比如，A地方网速1000Mbps，B地方只有50Mbps但如果走机顶盒专线，在A地方接入一个机顶盒的网，B设置为同段，不知道能不能实现B地方用A地方上网<br>往大了说，B地方不需要交网费，因为走的是机顶盒的vlan43而不是上网的vlan41<br><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-8.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv-8.png"></p>
 
                 
               </div>

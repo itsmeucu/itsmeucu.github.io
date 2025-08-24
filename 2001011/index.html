@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-6.png">
 <meta property="og:image" content="http://example.com/img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv-7.png">
 <meta property="article:published_time" content="2025-08-24T05:54:40.000Z">
-<meta property="article:modified_time" content="2025-08-24T08:23:16.302Z">
+<meta property="article:modified_time" content="2025-08-24T08:30:59.485Z">
 <meta property="article:author" content="陈小可">
 <meta property="article:tag" content="OpenWrt">
 <meta name="twitter:card" content="summary_large_image">
@@ -331,7 +331,7 @@
 </blockquote>
 <h1 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h1><p>参考自 </p>
 <blockquote>
-<p>(<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-7722652-1-1.html)[https://www.right.com.cn/forum/thread-7722652-1-1.html]">https://www.right.com.cn/forum/thread-7722652-1-1.html)[https://www.right.com.cn/forum/thread-7722652-1-1.html]</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-7722652-1-1.html">https://www.right.com.cn/forum/thread-7722652-1-1.html</a></p>
 <blockquote>
 <p>电脑打开Wireshark软件，选择以太网进行抓包，打开电信盒子，开始抓包，等盒子进入到主界面后停止抓包即可<br>在搜索框输入dhcp进行筛选，选择DHCP Request进行下一步分析</p>
 </blockquote>
@@ -350,7 +350,7 @@
 <blockquote>
 <p><img src="/../../img/2024/08/24/2001011-ikuai-dhcp-get_ip__iptv.png" srcset="/img/loading.gif" lazyload alt="2001011-ikuai-dhcp-get_ip__iptv.png.jpg"></p>
 </blockquote>
-<h1 id="使用OpenWrt"><a href="#使用OpenWrt" class="headerlink" title="使用OpenWrt"></a>使用OpenWrt</h1><h2 id="修改OpenWrt的dhcp配置文件"><a href="#修改OpenWrt的dhcp配置文件" class="headerlink" title="修改OpenWrt的dhcp配置文件"></a>修改OpenWrt的dhcp配置文件</h2><p>参考自 (<a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-522652-1-1.html)[https://www.right.com.cn/forum/thread-522652-1-1.html]">https://www.right.com.cn/forum/thread-522652-1-1.html)[https://www.right.com.cn/forum/thread-522652-1-1.html]</a></p>
+<h1 id="使用OpenWrt"><a href="#使用OpenWrt" class="headerlink" title="使用OpenWrt"></a>使用OpenWrt</h1><h2 id="修改OpenWrt的dhcp配置文件"><a href="#修改OpenWrt的dhcp配置文件" class="headerlink" title="修改OpenWrt的dhcp配置文件"></a>修改OpenWrt的dhcp配置文件</h2><p>参考自 <a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-522652-1-1.html">https://www.right.com.cn/forum/thread-522652-1-1.html</a></p>
 <p>修改 &#x2F;lib&#x2F;netifd&#x2F;proto&#x2F;dhcp.sh 脚本</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-variable">$&#123;vendorid:+-V &quot;$vendorid&quot;&#125;</span> \<br></code></pre></td></tr></table></figure>
 <p>修改为</p>

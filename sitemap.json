@@ -94,6 +94,11 @@
         "pageName": "授权测试记录-虚拟机",
         "url": "/2001010",
         "priority": "0.4"
+      },
+      {
+        "pageName": "OpenWrt使用dhcp option12、60、61",
+        "url": "/2001011",
+        "priority": "0.4"
       }
     ]
 

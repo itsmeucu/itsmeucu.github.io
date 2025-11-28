@@ -96,11 +96,6 @@
         "priority": "0.4"
       },
       {
-        "pageName": "OpenWrt使用dhcp option12、60、61",
-        "url": "/2001011",
-        "priority": "0.4"
-      },
-      {
         "pageName": "TrueNAS-25.04.2.1允许密码登录ssh",
         "url": "/2001012",
         "priority": "0.4"

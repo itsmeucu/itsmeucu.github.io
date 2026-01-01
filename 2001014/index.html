@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/logo-108-108.png">
+  <link rel="icon" href="/logo-108-108.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="陈小可">
+  <meta name="keywords" content="开心ucu 技术 学习 笔记">
+  
+    <meta name="description" content="Immich升级后发现无法启动，修改数据库解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Immich升级手记2.0.1到2.4.1">
+<meta property="og:url" content="http://example.com/2001014/index.html">
+<meta property="og:site_name" content="开心ucu">
+<meta property="og:description" content="Immich升级后发现无法启动，修改数据库解决">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-12-31T15:43:40.000Z">
+<meta property="article:modified_time" content="2026-01-01T08:06:56.395Z">
+<meta property="article:author" content="陈小可">
+<meta property="article:tag" content="Immich">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Immich升级手记2.0.1到2.4.1 - 开心ucu</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":10,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":"25220272a7aa42f5af9faccb45701520","google":{"measurement_id":"G-3YNNRZ9CBE"},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?25220272a7aa42f5af9faccb45701520";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-3YNNRZ9CBE", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-3YNNRZ9CBE');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 30vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>开心ucu</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/ANIME-PICTURES.NET_-_817802-1920x1080-elden+ring-gransax-leyndell+soldiers-zeyuz-highres-wide+image-tuya.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Immich升级手记2.0.1到2.4.1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-12-31 23:43" pubdate>
+          2025年12月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Immich升级手记2.0.1到2.4.1</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="利用数据库文件恢复"><a href="#利用数据库文件恢复" class="headerlink" title="利用数据库文件恢复"></a>利用数据库文件恢复</h3><p>前言<br>使用rsync同步数据后，一言不合就在目录下面执行了命令进行升级</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker compose pull &amp;&amp; docker compose up -d<br></code></pre></td></tr></table></figure>
+<p>来自<a target="_blank" rel="noopener" href="https://docs.immich.app/install/upgrading/">https://docs.immich.app/install/upgrading/</a><br>运行后发现项目无法启动</p>
+<p>跟着“智谱清言”操作了如下方法后<br>查看报错日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@immich:/mnt/all/picture/immich<span class="hljs-comment"># docker logs immich_postgres --tail 100</span><br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br><span class="hljs-built_in">chown</span>: changing ownership of <span class="hljs-string">&#x27;/var/lib/postgresql/data&#x27;</span>: Operation not permitted<br></code></pre></td></tr></table></figure>
+<p>查看目录的格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@immich:/mnt/all/picture/immich<span class="hljs-comment"># df -T /mnt/all/picture/immich</span><br>Filesystem     Type    1K-blocks      Used   Available Use% Mounted on<br>/dev/sdf3      exfat 11230944256 486737664 10744206592   5% /mnt/all<br></code></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">找到问题了！你的数据目录挂载在 exFAT 文件系统上（/dev/sdf3 类型是 exfat），这是问题所在。<br><br>问题根源：<br>exFAT 文件系统不支持 Unix 文件权限（所有者/组/权限位），所以 PostgreSQL 容器无法执行 chown 操作来改变数据目录的所有权。<br></code></pre></td></tr></table></figure>
+<p>在docker的yaml目录下停止容器<code>docker compose down</code></p>
+<p>将现有数据库数据移动到系统盘或其他 ext4&#x2F;xfs 分区</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs text"># 创建新的数据库目录（在系统盘上）<br>sudo mkdir -p /var/lib/immich/postgres<br><br># 复制现有数据<br>sudo cp -r /mnt/all/picture/immich/postgres/* /var/lib/immich/postgres/<br><br># 设置正确的权限<br>sudo chown -R 999:999 /var/lib/immich/postgres<br># 或者<br>sudo chown -R 70:70 /var/lib/immich/postgres<br><br>#修改 .env 文件<br>nano .env<br>DB_DATA_LOCATION=/var/lib/immich/postgres<br><br>重新启动服务<br>docker compose up -d<br><br></code></pre></td></tr></table></figure>
+<p>修改过<code>docker-compose.yml</code>中的以root运行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">database:<br>  container_name: immich_postgres<br>  image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0<br>  user: root  # 添加这一行<br></code></pre></td></tr></table></figure>
+<p>修改.env</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">DB_DATA_LOCATION=/var/lib/immich/postgres<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@immich:/mnt/all/picture/immich# ls -lha /var/lib/immich/postgres<br>total 12K<br>drwx------ 3  999 root 4.0K Dec 31 02:51 .<br>drwxr-xr-x 3 root root 4.0K Dec 31 02:49 ..<br>drwxr-xr-x 2  999 root 4.0K Dec 31 02:51 postgres<br>root@immich:/mnt/all/picture/immich# docker logs immich_postgres --tail 20<br><br>Data page checksums are enabled.<br><br>initdb: error: directory &quot;/var/lib/postgresql/data&quot; exists but is not empty<br>If you want to create a new database system, either remove or empty<br>the directory &quot;/var/lib/postgresql/data&quot; or run initdb<br>with an argument other than &quot;/var/lib/postgresql/data&quot;.<br>The files belonging to this database system will be owned by user &quot;postgres&quot;.<br>This user must also own the server process.<br><br>The database cluster will be initialized with locale &quot;en_US.utf8&quot;.<br>The default database encoding has accordingly been set to &quot;UTF8&quot;.<br>The default text search configuration will be set to &quot;english&quot;.<br><br>Data page checksums are enabled.<br><br>initdb: error: directory &quot;/var/lib/postgresql/data&quot; exists but is not empty<br>If you want to create a new database system, either remove or empty<br>the directory &quot;/var/lib/postgresql/data&quot; or run initdb<br>with an argument other than &quot;/var/lib/postgresql/data&quot;.<br>root@immich:/mnt/all/picture/immich# <br></code></pre></td></tr></table></figure>
+<p>根据“AI”的操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除之前不完整的数据</span><br>sudo <span class="hljs-built_in">rm</span> -rf /var/lib/immich/postgres/*<br>docker compose up -d<br></code></pre></td></tr></table></figure>
+<p>是启动了，但数据也都没了</p>
+<hr>
+<p>请教Gemini<br>大概流程<br>将原本的数据库文件拷贝一份到&#x2F;opt里面，创建对应版本的数据库并运行<br>使用原本的版本运行，创建文件docker-compose-recovery.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@immich:/opt<span class="hljs-comment"># cat docker-compose-recovery.yml </span><br>name: immich-restore<br><br>services:<br>  database:<br>    container_name: immich_db_restore<br>    image: tensorchord/pgvecto-rs:pg14-v0.2.0<br>    environment:<br>      POSTGRES_PASSWORD: <span class="hljs-comment">#&#123;这里是之前.env里面的，数据库信息&#125;</span><br>      POSTGRES_USER: postgres<br>      POSTGRES_DB: immich<br>    volumes:<br>      - ./data:/var/lib/postgresql/data<br>    restart: always<br>root@immich:/opt<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+<p>创建后，可以运行，使用命令导出数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -t immich_db_restore pg_dumpall -c -U postgres &gt; full_dump.sql<br></code></pre></td></tr></table></figure>
+<p>把刚刚的数据库down了，<br>复制原本的docker信息，在新的目录里面运行，包括挂载点也用之前的。运行后导入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -i immich_postgres psql -U postgres -d postgres &lt; full_dump.sql<br></code></pre></td></tr></table></figure>
+<p>导入后发现数据大相径庭。使用如下命令将旧的数据强行融到新的里面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@immich:/opt/immich-recovery<span class="hljs-comment"># docker exec -it immich_postgres psql -U postgres -d immich</span><br>immich=<span class="hljs-comment"># </span><br>immich=<span class="hljs-comment"># INSERT INTO &quot;asset&quot; (</span><br>    <span class="hljs-built_in">id</span>, <span class="hljs-string">&quot;deviceAssetId&quot;</span>, <span class="hljs-string">&quot;deviceId&quot;</span>, <span class="hljs-string">&quot;ownerId&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;originalPath&quot;</span>, <br>    <span class="hljs-string">&quot;createdAt&quot;</span>, <span class="hljs-string">&quot;updatedAt&quot;</span>, <span class="hljs-string">&quot;fileCreatedAt&quot;</span>, <span class="hljs-string">&quot;fileModifiedAt&quot;</span>, <br>    <span class="hljs-string">&quot;localDateTime&quot;</span>, <span class="hljs-string">&quot;isFavorite&quot;</span>, <span class="hljs-string">&quot;duration&quot;</span>, <span class="hljs-string">&quot;checksum&quot;</span>, <span class="hljs-string">&quot;originalFileName&quot;</span><br>)<br>SELECT <br>    <span class="hljs-built_in">id</span>, <span class="hljs-string">&quot;deviceAssetId&quot;</span>, <span class="hljs-string">&quot;deviceId&quot;</span>, <span class="hljs-string">&quot;ownerId&quot;</span>, <span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;originalPath&quot;</span>, <br>    <span class="hljs-string">&quot;createdAt&quot;</span>, <span class="hljs-string">&quot;updatedAt&quot;</span>, <span class="hljs-string">&quot;createdAt&quot;</span>, <span class="hljs-string">&quot;updatedAt&quot;</span>, <br>    <span class="hljs-string">&quot;createdAt&quot;</span>, <span class="hljs-string">&quot;isFavorite&quot;</span>, <span class="hljs-string">&quot;duration&quot;</span>, <span class="hljs-string">&quot;checksum&quot;</span>,<br>    reverse(split_part(reverse(<span class="hljs-string">&quot;originalPath&quot;</span>), <span class="hljs-string">&#x27;/&#x27;</span>, 1))<br>FROM assets;<br>INSERT 0 5204<br>immich=<span class="hljs-comment"># </span><br>immich=<span class="hljs-comment"># </span><br>immich=<span class="hljs-comment"># INSERT INTO asset_exif (</span><br>    <span class="hljs-string">&quot;assetId&quot;</span>, <span class="hljs-string">&quot;make&quot;</span>, <span class="hljs-string">&quot;model&quot;</span>, <span class="hljs-string">&quot;exifImageWidth&quot;</span>, <span class="hljs-string">&quot;exifImageHeight&quot;</span>, <br>    <span class="hljs-string">&quot;exposureTime&quot;</span>, <span class="hljs-string">&quot;dateTimeOriginal&quot;</span><br>)<br>SELECT <br>    <span class="hljs-string">&quot;assetId&quot;</span>, <span class="hljs-string">&quot;make&quot;</span>, <span class="hljs-string">&quot;model&quot;</span>, <span class="hljs-string">&quot;exifImageWidth&quot;</span>, <span class="hljs-string">&quot;exifImageHeight&quot;</span>, <br>    <span class="hljs-string">&quot;exposureTime&quot;</span>, <span class="hljs-string">&quot;dateTimeOriginal&quot;</span> <br>FROM exif;<br>INSERT 0 5204<br>immich=<span class="hljs-comment"># </span><br>immich=<span class="hljs-comment"># UPDATE &quot;asset&quot; SET &quot;originalPath&quot; = regexp_replace(&quot;originalPath&quot;, &#x27;library/[^/]+/&#x27;, &#x27;library/admin/&#x27;);</span><br>UPDATE 5204<br>immich=<span class="hljs-comment"># </span><br>immich=<span class="hljs-comment"># \q</span><br>root@immich:/opt/immich-recovery<span class="hljs-comment"># </span><br><span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+<p>中途有个插曲，每次登录都会过一遍引导，但引导页无法继续，如果直接刷新浏览器就能直接进去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs log">root@immich:/opt/immich-recovery# docker exec -it immich_postgres psql -U postgres -d immich<br>immich=# <br><br>immich=# INSERT INTO &quot;asset&quot; (<br><br>    id, &quot;deviceAssetId&quot;, &quot;deviceId&quot;, &quot;ownerId&quot;, &quot;type&quot;, &quot;originalPath&quot;, <br><br>    &quot;createdAt&quot;, &quot;updatedAt&quot;, &quot;fileCreatedAt&quot;, &quot;fileModifiedAt&quot;, <br><br>    &quot;isFavorite&quot;, &quot;duration&quot;, &quot;checksum&quot;<br><br>)<br><br>SELECT <br><br>    id, &quot;deviceAssetId&quot;, &quot;deviceId&quot;, &quot;ownerId&quot;, &quot;type&quot;, &quot;originalPath&quot;, <br><br>    &quot;createdAt&quot;, &quot;updatedAt&quot;, &quot;createdAt&quot;, &quot;updatedAt&quot;, <br><br>    &quot;isFavorite&quot;, &quot;duration&quot;, &quot;checksum&quot; <br><br>FROM assets;<br><br>ERROR:  null value in column &quot;originalFileName&quot; of relation &quot;asset&quot; violates not-null constraint<br><br>DETAIL:  Failing row contains (0eafb85e-cec3-4d3b-8f2d-fbbd358b911c, 1000134192, 5fd448a9-458d-4c78-93c9-9ff9d0466628, bd5ab73a8e6ca31ef461fbd4c524f4145f4531b5cede307122d8dbe249631a1b, IMAGE, upload/library/admin/2020/01/18/38.gif, 2025-02-26 04:13:31.791762+00, 2025-02-26 04:13:32.255595+00, f, null, , \x336cb3cbe0fd6cac96cd7cd5ca847c6a01f95b50, null, 2025-02-26 04:13:32.255595+00, 2025-02-26 04:13:31.791762+00, null, null, f, null, f, null, null, null, null, active, 019b7504-be88-7c0c-8cdc-93445ee028dd, timeline).<br><br>immich=# <br><br>immich=# INSERT INTO asset_exif (<br><br>    &quot;assetId&quot;, &quot;make&quot;, &quot;model&quot;, &quot;exifImageWidth&quot;, &quot;exifImageHeight&quot;, <br><br>    &quot;exposureTime&quot;, &quot;dateTimeOriginal&quot;<br><br>)<br><br>SELECT <br><br>    &quot;assetId&quot;, &quot;make&quot;, &quot;model&quot;, &quot;exifImageWidth&quot;, &quot;exifImageHeight&quot;, <br><br>    &quot;exposureTime&quot;, &quot;dateTimeOriginal&quot; <br><br>FROM exif;<br><br>ERROR:  insert or update on table &quot;asset_exif&quot; violates foreign key constraint &quot;asset_exif_assetId_fkey&quot;<br><br>DETAIL:  Key (assetId)=(b3de2ff3-0cb2-47e0-8552-9d74e7901581) is not present in table &quot;asset&quot;.<br><br>immich=# <br><br>immich=# UPDATE &quot;asset&quot; SET &quot;originalPath&quot; = regexp_replace(&quot;originalPath&quot;, &#x27;library/[^/]+/&#x27;, &#x27;library/admin/&#x27;);<br><br>UPDATE 0<br><br>immich=# <br><br>root@immich:/opt/immich-recovery# docker compose restart<br><br>[+] Restarting 4/4<br><br> ✔ Container immich_postgres          Started                                                    16.4s <br><br> ✔ Container immich_server            Started                                                     8.1s <br><br> ✔ Container immich_machine_learning  Started                                                     9.4s <br><br> ✔ Container immich_redis             Started                                                    10.4s <br><br>root@immich:/opt/immich-recovery# <br><br>root@immich:/opt/immich-recovery# docker ps<br><br>CONTAINER ID   IMAGE                                                            COMMAND                  CREATED          STATUS                             PORTS                                         NAMES<br><br>fa31f5c7e1b3   ghcr.io/immich-app/immich-server:release                         &quot;tini -- /bin/bash -…&quot;   41 minutes ago   Up 34 seconds (health: starting)   0.0.0.0:2283-&gt;2283/tcp, [::]:2283-&gt;2283/tcp   immich_server<br><br>0e632e7716e4   ghcr.io/immich-app/immich-machine-learning:release               &quot;tini -- python -m i…&quot;   41 minutes ago   Up 33 seconds (health: starting)                                                 immich_machine_learning<br><br>54110efd5159   valkey/valkey:8-bookworm                                         &quot;docker-entrypoint.s…&quot;   2 hours ago      Up 32 seconds (health: starting)   6379/tcp                                      immich_redis<br><br>bf6a38ff065b   ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0   &quot;/usr/local/bin/immi…&quot;   2 hours ago      Up 25 seconds (health: starting)   5432/tcp                                      immich_postgres<br><br>root@immich:/opt/immich-recovery# <br><br>root@immich:/opt/immich-recovery# docker logs --tail 20 immich_server<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] ClsCommonModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] KyselyModule$1 dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] OpenTelemetryModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] KyselyCoreModule$1 dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] DiscoveryModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] OpenTelemetryCoreModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] ClsRootModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] BullModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] BullModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:InstanceLoader] MicroservicesModule dependencies initialized<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:NestApplication] Nest application successfully started<br><br>[Nest] 7  - 12/31/2025, 3:28:29 PM     LOG [Microservices:Bootstrap] Immich Microservices is running [v2.4.1] [production] <br><br>[Nest] 43  - 12/31/2025, 3:28:31 PM     LOG [Api:WebsocketRepository] Websocket Connect:    e5zgCBw0k40EZiY-AAAB<br><br>[Nest] 43  - 12/31/2025, 3:28:31 PM   ERROR [Api:WebsocketRepository] Websocket connection error: UnauthorizedException: Invalid user token<br><br>UnauthorizedException: Invalid user token<br><br>    at AuthService.validateSession (/usr/src/app/server/dist/services/auth.service.js:381:15)<br><br>    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)<br><br>    at async AuthService.authenticate (/usr/src/app/server/dist/services/auth.service.js:126:25)<br><br>    at async WebsocketRepository.handleConnection (/usr/src/app/server/dist/repositories/websocket.repository.js:43:26)<br><br>[Nest] 43  - 12/31/2025, 3:28:31 PM     LOG [Api:WebsocketRepository] Websocket Disconnect: e5zgCBw0k40EZiY-AAAB<br><br>root@immich:/opt/immich-recovery# <br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>结束后登录web，发现所有图片都是“加载失败”<br>头像-&gt; 系统管理-&gt; 服务器状态能看到图片数量不是0<br>头像-&gt; 系统管理-&gt; 任务队列 【提取元数据】点击<code>全部</code>结束后点击【生成缩略图】的<code>全部</code></p>
+<p>等扫完后，再次回到”首页“（点logo），就会发现图片出现了</p>
+<hr>
+<h2 id="利用备份的数据库文件"><a href="#利用备份的数据库文件" class="headerlink" title="利用备份的数据库文件"></a>利用备份的数据库文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br><span class="line">782</span><br><span class="line">783</span><br><span class="line">784</span><br><span class="line">785</span><br><span class="line">786</span><br><span class="line">787</span><br><span class="line">788</span><br><span class="line">789</span><br><span class="line">790</span><br><span class="line">791</span><br><span class="line">792</span><br><span class="line">793</span><br><span class="line">794</span><br><span class="line">795</span><br><span class="line">796</span><br><span class="line">797</span><br><span class="line">798</span><br><span class="line">799</span><br><span class="line">800</span><br><span class="line">801</span><br><span class="line">802</span><br><span class="line">803</span><br><span class="line">804</span><br><span class="line">805</span><br><span class="line">806</span><br><span class="line">807</span><br><span class="line">808</span><br><span class="line">809</span><br><span class="line">810</span><br><span class="line">811</span><br><span class="line">812</span><br><span class="line">813</span><br><span class="line">814</span><br><span class="line">815</span><br><span class="line">816</span><br><span class="line">817</span><br><span class="line">818</span><br><span class="line">819</span><br><span class="line">820</span><br><span class="line">821</span><br><span class="line">822</span><br><span class="line">823</span><br><span class="line">824</span><br><span class="line">825</span><br><span class="line">826</span><br><span class="line">827</span><br><span class="line">828</span><br><span class="line">829</span><br><span class="line">830</span><br><span class="line">831</span><br><span class="line">832</span><br><span class="line">833</span><br><span class="line">834</span><br><span class="line">835</span><br><span class="line">836</span><br><span class="line">837</span><br><span class="line">838</span><br><span class="line">839</span><br><span class="line">840</span><br><span class="line">841</span><br><span class="line">842</span><br><span class="line">843</span><br><span class="line">844</span><br><span class="line">845</span><br><span class="line">846</span><br><span class="line">847</span><br><span class="line">848</span><br><span class="line">849</span><br><span class="line">850</span><br><span class="line">851</span><br><span class="line">852</span><br><span class="line">853</span><br><span class="line">854</span><br><span class="line">855</span><br><span class="line">856</span><br><span class="line">857</span><br><span class="line">858</span><br><span class="line">859</span><br><span class="line">860</span><br><span class="line">861</span><br><span class="line">862</span><br><span class="line">863</span><br><span class="line">864</span><br><span class="line">865</span><br><span class="line">866</span><br><span class="line">867</span><br><span class="line">868</span><br><span class="line">869</span><br><span class="line">870</span><br><span class="line">871</span><br><span class="line">872</span><br><span class="line">873</span><br><span class="line">874</span><br><span class="line">875</span><br><span class="line">876</span><br><span class="line">877</span><br><span class="line">878</span><br><span class="line">879</span><br><span class="line">880</span><br><span class="line">881</span><br><span class="line">882</span><br><span class="line">883</span><br><span class="line">884</span><br><span class="line">885</span><br><span class="line">886</span><br><span class="line">887</span><br><span class="line">888</span><br><span class="line">889</span><br><span class="line">890</span><br><span class="line">891</span><br><span class="line">892</span><br><span class="line">893</span><br><span class="line">894</span><br><span class="line">895</span><br><span class="line">896</span><br><span class="line">897</span><br><span class="line">898</span><br><span class="line">899</span><br><span class="line">900</span><br><span class="line">901</span><br><span class="line">902</span><br><span class="line">903</span><br><span class="line">904</span><br><span class="line">905</span><br><span class="line">906</span><br><span class="line">907</span><br><span class="line">908</span><br><span class="line">909</span><br><span class="line">910</span><br><span class="line">911</span><br><span class="line">912</span><br><span class="line">913</span><br><span class="line">914</span><br><span class="line">915</span><br><span class="line">916</span><br><span class="line">917</span><br><span class="line">918</span><br><span class="line">919</span><br><span class="line">920</span><br><span class="line">921</span><br><span class="line">922</span><br><span class="line">923</span><br><span class="line">924</span><br><span class="line">925</span><br><span class="line">926</span><br><span class="line">927</span><br><span class="line">928</span><br><span class="line">929</span><br><span class="line">930</span><br><span class="line">931</span><br><span class="line">932</span><br><span class="line">933</span><br><span class="line">934</span><br><span class="line">935</span><br><span class="line">936</span><br><span class="line">937</span><br><span class="line">938</span><br><span class="line">939</span><br><span class="line">940</span><br><span class="line">941</span><br><span class="line">942</span><br><span class="line">943</span><br><span class="line">944</span><br><span class="line">945</span><br><span class="line">946</span><br><span class="line">947</span><br><span class="line">948</span><br><span class="line">949</span><br><span class="line">950</span><br><span class="line">951</span><br><span class="line">952</span><br><span class="line">953</span><br><span class="line">954</span><br><span class="line">955</span><br><span class="line">956</span><br><span class="line">957</span><br><span class="line">958</span><br><span class="line">959</span><br><span class="line">960</span><br><span class="line">961</span><br><span class="line">962</span><br><span class="line">963</span><br><span class="line">964</span><br><span class="line">965</span><br><span class="line">966</span><br><span class="line">967</span><br><span class="line">968</span><br><span class="line">969</span><br><span class="line">970</span><br><span class="line">971</span><br><span class="line">972</span><br><span class="line">973</span><br><span class="line">974</span><br><span class="line">975</span><br><span class="line">976</span><br><span class="line">977</span><br><span class="line">978</span><br><span class="line">979</span><br><span class="line">980</span><br><span class="line">981</span><br><span class="line">982</span><br><span class="line">983</span><br><span class="line">984</span><br><span class="line">985</span><br><span class="line">986</span><br><span class="line">987</span><br><span class="line">988</span><br><span class="line">989</span><br><span class="line">990</span><br><span class="line">991</span><br><span class="line">992</span><br><span class="line">993</span><br><span class="line">994</span><br><span class="line">995</span><br><span class="line">996</span><br><span class="line">997</span><br><span class="line">998</span><br><span class="line">999</span><br><span class="line">1000</span><br><span class="line">1001</span><br><span class="line">1002</span><br><span class="line">1003</span><br><span class="line">1004</span><br><span class="line">1005</span><br><span class="line">1006</span><br><span class="line">1007</span><br><span class="line">1008</span><br><span class="line">1009</span><br><span class="line">1010</span><br><span class="line">1011</span><br><span class="line">1012</span><br><span class="line">1013</span><br><span class="line">1014</span><br><span class="line">1015</span><br><span class="line">1016</span><br><span class="line">1017</span><br><span class="line">1018</span><br><span class="line">1019</span><br><span class="line">1020</span><br><span class="line">1021</span><br><span class="line">1022</span><br><span class="line">1023</span><br><span class="line">1024</span><br><span class="line">1025</span><br><span class="line">1026</span><br><span class="line">1027</span><br><span class="line">1028</span><br><span class="line">1029</span><br><span class="line">1030</span><br><span class="line">1031</span><br><span class="line">1032</span><br><span class="line">1033</span><br><span class="line">1034</span><br><span class="line">1035</span><br><span class="line">1036</span><br><span class="line">1037</span><br><span class="line">1038</span><br><span class="line">1039</span><br><span class="line">1040</span><br><span class="line">1041</span><br><span class="line">1042</span><br><span class="line">1043</span><br><span class="line">1044</span><br><span class="line">1045</span><br><span class="line">1046</span><br><span class="line">1047</span><br><span class="line">1048</span><br><span class="line">1049</span><br><span class="line">1050</span><br><span class="line">1051</span><br><span class="line">1052</span><br><span class="line">1053</span><br><span class="line">1054</span><br><span class="line">1055</span><br><span class="line">1056</span><br><span class="line">1057</span><br><span class="line">1058</span><br><span class="line">1059</span><br><span class="line">1060</span><br><span class="line">1061</span><br><span class="line">1062</span><br><span class="line">1063</span><br><span class="line">1064</span><br><span class="line">1065</span><br><span class="line">1066</span><br><span class="line">1067</span><br><span class="line">1068</span><br><span class="line">1069</span><br><span class="line">1070</span><br><span class="line">1071</span><br><span class="line">1072</span><br><span class="line">1073</span><br><span class="line">1074</span><br><span class="line">1075</span><br><span class="line">1076</span><br><span class="line">1077</span><br><span class="line">1078</span><br><span class="line">1079</span><br><span class="line">1080</span><br><span class="line">1081</span><br><span class="line">1082</span><br><span class="line">1083</span><br><span class="line">1084</span><br><span class="line">1085</span><br><span class="line">1086</span><br><span class="line">1087</span><br><span class="line">1088</span><br><span class="line">1089</span><br><span class="line">1090</span><br><span class="line">1091</span><br><span class="line">1092</span><br><span class="line">1093</span><br><span class="line">1094</span><br><span class="line">1095</span><br><span class="line">1096</span><br></pre></td><td class="code"><pre><code class="hljs log">root@immich:/mnt/all/picture/immich/immich-app# nano .env <br>root@immich:/mnt/all/picture/immich/immich-app# ls<br>docker-compose.yml  library  postgres  postgres1<br>root@immich:/mnt/all/picture/immich/immich-app# cd library/<br>root@immich:/mnt/all/picture/immich/immich-app/library# ls<br>backups  encoded-video  library  profile  thumbs  upload<br>root@immich:/mnt/all/picture/immich/immich-app/library# cd ..<br>root@immich:/mnt/all/picture/immich/immich-app# ls<br>docker-compose.yml  library  postgres  postgres1<br>root@immich:/mnt/all/picture/immich/immich-app# docker compose up -d <br>[+] Running 5/5<br> ✔ Network immich_default             Created                                                     0.3s <br> ✔ Container immich_redis             Started                                                     9.5s <br> ✔ Container immich_postgres          Started                                                     9.9s <br> ✔ Container immich_machine_learning  Started                                                     8.4s <br> ✔ Container immich_server            Started                                                    10.3s <br>root@immich:/mnt/all/picture/immich/immich-app# cat .env <br># You can find documentation for all the supported env variables at https://immich.app/docs/install/environment-variables<br><br># The location where your uploaded files are stored<br>UPLOAD_LOCATION=./library<br># The location where your database files are stored<br>#DB_DATA_LOCATION=./postgres<br>DB_DATA_LOCATION=/opt/immich_data<br><br># To set a timezone, uncomment the next line and change Etc/UTC to a TZ identifier from this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List<br># TZ=Etc/UTC<br><br># The Immich version to use. You can pin this to a specific version like &quot;v1.71.0&quot;<br>IMMICH_VERSION=release<br><br># Connection secret for postgres. You should change it to a random password<br># Please use only the characters `A-Za-z0-9`, without special characters or spaces<br>DB_PASSWORD=xxxx<br><br># The values below this line do not need to be changed<br>###################################################################################<br>DB_USERNAME=postgres<br>DB_DATABASE_NAME=immich<br>root@immich:/mnt/all/picture/immich/immich-app# du -sh /opt/immich_data<br>217M	/opt/immich_data<br>root@immich:/mnt/all/picture/immich/immich-app# docker ps<br>CONTAINER ID   IMAGE                                                            COMMAND                  CREATED         STATUS                        PORTS                                         NAMES<br>c23ae1c73f92   ghcr.io/immich-app/immich-server:release                         &quot;tini -- /bin/bash -…&quot;   2 minutes ago   Up About a minute (healthy)   0.0.0.0:2283-&gt;2283/tcp, [::]:2283-&gt;2283/tcp   immich_server<br>74924070d6ab   ghcr.io/immich-app/immich-machine-learning:release               &quot;tini -- python -m i…&quot;   2 minutes ago   Up 2 minutes (healthy)                                                      immich_machine_learning<br>ce92db21ca2e   ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0   &quot;/usr/local/bin/immi…&quot;   2 minutes ago   Up 2 minutes (healthy)        5432/tcp                                      immich_postgres<br>f0d59f4a67da   valkey/valkey:8-bookworm                                         &quot;docker-entrypoint.s…&quot;   2 minutes ago   Up 2 minutes (healthy)        6379/tcp                                      immich_redis<br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# <br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT id, email, name FROM \&quot;user\&quot;;&quot;<br> id | email | name <br>----+-------+------<br>(0 rows)<br><br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT count(*) FROM asset;&quot;<br> count <br>-------<br>     0<br>(1 row)<br><br>root@immich:/mnt/all/picture/immich/immich-app# cat /opt/immich-recovery/dec_backup.sql | docker exec -i immich_postgres psql -U postgres -d immich<br>invalid command \restrict<br>SET<br>SET<br>SET<br>ERROR:  cannot drop the currently open database<br>ERROR:  current user cannot be dropped<br>ERROR:  role &quot;postgres&quot; already exists<br>ALTER ROLE<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>UPDATE 1<br>DROP DATABASE<br>CREATE DATABASE<br>invalid command \unrestrict<br>ALTER DATABASE<br>You are now connected to database &quot;template1&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>COMMENT<br>ALTER DATABASE<br>invalid command \unrestrict<br>You are now connected to database &quot;template1&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>REVOKE<br>GRANT<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>ERROR:  database &quot;immich&quot; already exists<br>ALTER DATABASE<br>invalid command \unrestrict<br>You are now connected to database &quot;immich&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>ALTER DATABASE<br>ALTER DATABASE<br>invalid command \unrestrict<br>You are now connected to database &quot;immich&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>CREATE EXTENSION<br>COMMENT<br>ERROR:  type &quot;asset_visibility_enum&quot; already exists<br>ALTER TYPE<br>ERROR:  type &quot;assets_status_enum&quot; already exists<br>ALTER TYPE<br>ERROR:  type &quot;sourcetype&quot; already exists<br>ALTER TYPE<br>ERROR:  function &quot;album_asset_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;album_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;album_user_after_insert&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;album_user_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;asset_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;asset_face_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;asset_metadata_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;f_concat_ws&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;f_unaccent&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;immich_uuid_v7&quot; already exists with same argument types<br>ALTER FUNCTION<br>ALTER FUNCTION<br>ERROR:  function &quot;ll_to_earth_public&quot; already exists with same argument types<br>ERROR:  function &quot;memory_asset_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;memory_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;partner_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ALTER FUNCTION<br>ERROR:  function &quot;person_delete_audit&quot; already exists with same argument types<br>ERROR:  function &quot;stack_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;updated_at&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;user_delete_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>ERROR:  function &quot;user_metadata_audit&quot; already exists with same argument types<br>ALTER FUNCTION<br>SET<br>SET<br>ERROR:  relation &quot;activity&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;album&quot; already exists<br>ALTER TABLE<br>COMMENT<br>ERROR:  relation &quot;album_asset&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;album_asset_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;album_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;album_user&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;album_user_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;api_key&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_exif&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_face&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_face_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_file&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_job_status&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_metadata&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;asset_metadata_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;audit_id_seq&quot; already exists<br>ALTER TABLE<br>ALTER SEQUENCE<br>ERROR:  relation &quot;face_search&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;geodata_places&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;kysely_migrations&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;kysely_migrations_lock&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;library&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;memory&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;memory_asset&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;memory_asset_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;memory_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;migration_overrides&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;move_history&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;naturalearth_countries&quot; already exists<br>ALTER TABLE<br>ERROR:  column &quot;id&quot; of relation &quot;naturalearth_countries&quot; is already an identity column<br>ERROR:  relation &quot;notification&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;partner&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;partner_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;person&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;person_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;session&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;session_sync_checkpoint&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;shared_link&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;shared_link_asset&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;smart_search&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;stack&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;stack_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;system_metadata&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;tag&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;tag_asset&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;tag_closure&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;user&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;user_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;user_metadata&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;user_metadata_audit&quot; already exists<br>ALTER TABLE<br>ERROR:  relation &quot;version_history&quot; already exists<br>ALTER TABLE<br>ALTER TABLE<br>COPY 0<br>ERROR:  insert or update on table &quot;album&quot; violates foreign key constraint &quot;album_ownerId_fkey&quot;<br>DETAIL:  Key (ownerId)=(991284a3-2abc-4a84-9dca-dfc49552d1ca) is not present in table &quot;user&quot;.<br>ERROR:  column &quot;albumsId&quot; of relation &quot;album_asset&quot; does not exist<br>invalid command \.<br>ERROR:  syntax error at or near &quot;90&quot;<br>LINE 1: 90bd5db7-b76e-48b1-b8b5-535e220e405e c7133e11-e968-43ee-ab3f...<br>        ^<br>invalid command \.<br>COPY 0<br>ERROR:  column &quot;albumsId&quot; of relation &quot;album_user&quot; does not exist<br>invalid command \.<br>COPY 0<br>COPY 0<br>ERROR:  column &quot;sidecarPath&quot; of relation &quot;asset&quot; does not exist<br>invalid command \N<br>invalid command \<br>invalid command \N<br>invalid command \N<br>invalid command \N<br>ERROR:  syntax error at or near &quot;c86c5c40&quot;<br>LINE 1: c86c5c40-3eb2-4972-ac08-151a2d44a7bc CCC8E63F-0B6A-4B9A-952C...<br>        ^<br>invalid command \<br>invalid command \N<br>invalid command \N<br>invalid command \N<br>invalid command \N<br>ERROR:  syntax error at or near &quot;9e4&quot;<br>LINE 1: 9e4edf+1.mp4 2024-02-06 17:15:06+00 2024-02-06 17:15:06+00 f...<br>        ^<br>invalid command \<br>invalid command \<br>invalid command \N<br>ERROR:  syntax error at or near &quot;f07ed9&quot;<br>LINE 1: f07ed9+1.mp4 2024-04-10 04:23:04+00 2024-04-10 04:23:04+00 f...<br>        ^<br>invalid command \<br>invalid command \N<br>ERROR:  syntax error at or near &quot;55327&quot;<br>LINE 1: 55327d+1.mp4 2024-04-09 16:39:38+00 2024-04-09 16:39:38+00 f...<br>        ^<br>invalid command \<br>ERROR:  syntax error at or near &quot;20&quot;<br>LINE 1: 20d425+1.mp4 2024-05-27 16:42:33+00 2024-05-27 16:42:33+00 f...<br>        ^<br>invalid command \<br>ERROR:  syntax error at or near &quot;330&quot;<br>LINE 1: 330d44+1.mp4 2024-03-28 09:49:59+00 2024-03-28 09:49:59+00 f...<br>        ^<br>invalid command \<br>ERROR:  syntax error at or near &quot;c9a91a&quot;<br>LINE 1: c9a91a+1.mp4 2024-03-28 09:40:21+00 2024-03-28 09:40:21+00 f...<br>        ^<br>invalid command \<br>invalid command \.<br>ERROR:  syntax error at or near &quot;f3ef5f&quot;<br>LINE 1: f3ef5f+1.mp4 2023-11-27 13:06:02+00 2023-11-27 13:06:02+00 f...<br>        ^<br>invalid command \.<br>ERROR:  insert or update on table &quot;asset_exif&quot; violates foreign key constraint &quot;asset_exif_assetId_fkey&quot;<br>DETAIL:  Key (assetId)=(d9717bdc-1b4f-4c9c-851a-3be9342bb3c8) is not present in table &quot;asset&quot;.<br>ERROR:  insert or update on table &quot;asset_face&quot; violates foreign key constraint &quot;asset_face_assetId_fkey&quot;<br>DETAIL:  Key (assetId)=(4cb328b6-31f3-4cfd-ba8e-b2975fc40302) is not present in table &quot;asset&quot;.<br>COPY 0<br>ERROR:  insert or update on table &quot;asset_file&quot; violates foreign key constraint &quot;asset_file_assetId_fkey&quot;<br>DETAIL:  Key (assetId)=(c7133e11-e968-43ee-ab3f-703842d30c7b) is not present in table &quot;asset&quot;.<br>ERROR:  insert or update on table &quot;asset_job_status&quot; violates foreign key constraint &quot;asset_job_status_assetId_fkey&quot;<br>DETAIL:  Key (assetId)=(d9717bdc-1b4f-4c9c-851a-3be9342bb3c8) is not present in table &quot;asset&quot;.<br>COPY 0<br>COPY 0<br>COPY 0<br>ERROR:  insert or update on table &quot;face_search&quot; violates foreign key constraint &quot;face_search_faceId_fkey&quot;<br>DETAIL:  Key (faceId)=(2a10a76a-b887-4c1d-a76f-31ad75cff80c) is not present in table &quot;asset_face&quot;.<br>ERROR:  duplicate key value violates unique constraint &quot;geodata_places_pkey&quot;<br>DETAIL:  Key (id)=(2781727) already exists.<br>CONTEXT:  COPY geodata_places, line 1<br>ERROR:  duplicate key value violates unique constraint &quot;kysely_migrations_pkey&quot;<br>DETAIL:  Key (name)=(1744910873969-InitialMigration) already exists.<br>CONTEXT:  COPY kysely_migrations, line 1<br>ERROR:  duplicate key value violates unique constraint &quot;kysely_migrations_lock_pkey&quot;<br>DETAIL:  Key (id)=(migration_lock) already exists.<br>CONTEXT:  COPY kysely_migrations_lock, line 1<br>ERROR:  insert or update on table &quot;library&quot; violates foreign key constraint &quot;library_ownerId_fkey&quot;<br>DETAIL:  Key (ownerId)=(991284a3-2abc-4a84-9dca-dfc49552d1ca) is not present in table &quot;user&quot;.<br>ERROR:  insert or update on table &quot;memory&quot; violates foreign key constraint &quot;memory_ownerId_fkey&quot;<br>DETAIL:  Key (ownerId)=(991284a3-2abc-4a84-9dca-dfc49552d1ca) is not present in table &quot;user&quot;.<br>ERROR:  column &quot;assetsId&quot; of relation &quot;memory_asset&quot; does not exist<br>invalid command \.<br>ERROR:  syntax error at or near &quot;cbb590ed&quot;<br>LINE 1: cbb590ed-d241-4b3b-aa42-07dd551dbbcc 43f57ff0-50be-44d4-8020...<br>        ^<br>invalid command \.<br>COPY 7<br>ERROR:  duplicate key value violates unique constraint &quot;migration_overrides_pkey&quot;<br>DETAIL:  Key (name)=(function_immich_uuid_v7) already exists.<br>CONTEXT:  COPY migration_overrides, line 1<br>COPY 1<br>ERROR:  duplicate key value violates unique constraint &quot;naturalearth_countries_pkey&quot;<br>DETAIL:  Key (id)=(1) already exists.<br>CONTEXT:  COPY naturalearth_countries, line 1<br>COPY 0<br>COPY 0<br>COPY 0<br>ERROR:  insert or update on table &quot;person&quot; violates foreign key constraint &quot;person_ownerId_fkey&quot;<br>DETAIL:  Key (ownerId)=(991284a3-2abc-4a84-9dca-dfc49552d1ca) is not present in table &quot;user&quot;.<br>COPY 0<br>ERROR:  insert or update on table &quot;session&quot; violates foreign key constraint &quot;session_userId_fkey&quot;<br>DETAIL:  Key (userId)=(991284a3-2abc-4a84-9dca-dfc49552d1ca) is not present in table &quot;user&quot;.<br>ERROR:  insert or update on table &quot;session_sync_checkpoint&quot; violates foreign key constraint &quot;session_sync_checkpoint_sessionId_fkey&quot;<br>DETAIL:  Key (sessionId)=(12adf9f6-d7b0-4f9c-bd18-59d1b10b9484) is not present in table &quot;session&quot;.<br>COPY 0<br>ERROR:  column &quot;assetsId&quot; of relation &quot;shared_link_asset&quot; does not exist<br>invalid command \.<br>ERROR:  insert or update on table &quot;smart_search&quot; violates foreign key constraint &quot;smart_search_assetId_fkey&quot;<br>DETAIL:  Key (assetId)=(354598f8-f288-450f-8a2a-46c9a0f6e677) is not present in table &quot;asset&quot;.<br>COPY 0<br>COPY 0<br>ERROR:  duplicate key value violates unique constraint &quot;system_metadata_pkey&quot;<br>DETAIL:  Key (key)=(system-flags) already exists.<br>CONTEXT:  COPY system_metadata, line 1<br>COPY 0<br>ERROR:  column &quot;assetsId&quot; of relation &quot;tag_asset&quot; does not exist<br>invalid command \.<br>COPY 0<br>COPY 1<br>COPY 0<br>COPY 2<br>COPY 0<br>COPY 2<br> setval <br>--------<br>      1<br>(1 row)<br><br>ERROR:  relation &quot;public.naturalearth_countries_tmp_id_seq1&quot; does not exist<br>LINE 1: SELECT pg_catalog.setval(&#x27;public.naturalearth_countries_tmp_...<br>                                 ^<br>ERROR:  relation &quot;UQ_entityId_pathType&quot; already exists<br>ERROR:  relation &quot;UQ_newPath&quot; already exists<br>ERROR:  multiple primary keys for table &quot;activity&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;album_asset_audit&quot; are not allowed<br>ERROR:  column &quot;albumsId&quot; of relation &quot;album_asset&quot; does not exist<br>ERROR:  multiple primary keys for table &quot;album_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;album&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;album_user_audit&quot; are not allowed<br>ERROR:  column &quot;albumsId&quot; of relation &quot;album_user&quot; does not exist<br>ERROR:  multiple primary keys for table &quot;api_key&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_exif&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_face_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_face&quot; are not allowed<br>ERROR:  relation &quot;asset_file_assetId_type_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;asset_file&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_job_status&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_metadata_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset_metadata&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;asset&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;face_search&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;geodata_places&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;kysely_migrations_lock&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;kysely_migrations&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;library&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;memory_asset_audit&quot; are not allowed<br>ERROR:  column &quot;assetsId&quot; of relation &quot;memory_asset&quot; does not exist<br>ERROR:  multiple primary keys for table &quot;memory_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;memory&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;migration_overrides&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;move_history&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;naturalearth_countries&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;notification&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;partner_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;partner&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;person_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;person&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;session&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;session_sync_checkpoint&quot; are not allowed<br>ERROR:  column &quot;assetsId&quot; of relation &quot;shared_link_asset&quot; does not exist<br>ERROR:  relation &quot;shared_link_key_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;shared_link&quot; are not allowed<br>ERROR:  relation &quot;shared_link_slug_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;smart_search&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;stack_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;stack&quot; are not allowed<br>ERROR:  relation &quot;stack_primaryAssetId_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;system_metadata&quot; are not allowed<br>ERROR:  column &quot;assetsId&quot; of relation &quot;tag_asset&quot; does not exist<br>ERROR:  multiple primary keys for table &quot;tag_closure&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;tag&quot; are not allowed<br>ERROR:  relation &quot;tag_userId_value_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;user_audit&quot; are not allowed<br>ERROR:  relation &quot;user_email_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;user_metadata_audit&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;user_metadata&quot; are not allowed<br>ERROR:  multiple primary keys for table &quot;user&quot; are not allowed<br>ERROR:  relation &quot;user_storageLabel_uq&quot; already exists<br>ERROR:  multiple primary keys for table &quot;version_history&quot; are not allowed<br>ERROR:  relation &quot;IDX_geodata_gist_earthcoord&quot; already exists<br>ERROR:  relation &quot;IDX_user_metadata_audit_deleted_at&quot; already exists<br>ERROR:  relation &quot;IDX_user_metadata_audit_key&quot; already exists<br>ERROR:  relation &quot;IDX_user_metadata_audit_user_id&quot; already exists<br>ERROR:  relation &quot;IDX_user_metadata_update_id&quot; already exists<br>ERROR:  relation &quot;IDX_user_metadata_updated_at&quot; already exists<br>ERROR:  relation &quot;UQ_assets_owner_checksum&quot; already exists<br>ERROR:  relation &quot;activity_albumId_assetId_idx&quot; already exists<br>ERROR:  relation &quot;activity_albumId_idx&quot; already exists<br>ERROR:  relation &quot;activity_assetId_idx&quot; already exists<br>ERROR:  relation &quot;activity_like_idx&quot; already exists<br>ERROR:  relation &quot;activity_updateId_idx&quot; already exists<br>ERROR:  relation &quot;activity_userId_idx&quot; already exists<br>ERROR:  relation &quot;album_albumThumbnailAssetId_idx&quot; already exists<br>ERROR:  column &quot;albumsId&quot; does not exist<br>ERROR:  column &quot;assetsId&quot; does not exist<br>ERROR:  relation &quot;album_asset_audit_albumId_idx&quot; already exists<br>ERROR:  relation &quot;album_asset_audit_assetId_idx&quot; already exists<br>ERROR:  relation &quot;album_asset_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;album_asset_updateId_idx&quot; already exists<br>ERROR:  relation &quot;album_audit_albumId_idx&quot; already exists<br>ERROR:  relation &quot;album_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;album_audit_userId_idx&quot; already exists<br>ERROR:  relation &quot;album_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;album_updateId_idx&quot; already exists<br>ERROR:  column &quot;albumsId&quot; does not exist<br>ERROR:  relation &quot;album_user_audit_albumId_idx&quot; already exists<br>ERROR:  relation &quot;album_user_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;album_user_audit_userId_idx&quot; already exists<br>ERROR:  relation &quot;album_user_createId_idx&quot; already exists<br>ERROR:  relation &quot;album_user_updateId_idx&quot; already exists<br>ERROR:  column &quot;usersId&quot; does not exist<br>ERROR:  relation &quot;api_key_updateId_idx&quot; already exists<br>ERROR:  relation &quot;api_key_userId_idx&quot; already exists<br>ERROR:  relation &quot;asset_audit_assetId_idx&quot; already exists<br>ERROR:  relation &quot;asset_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;asset_audit_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;asset_checksum_idx&quot; already exists<br>ERROR:  relation &quot;asset_duplicateId_idx&quot; already exists<br>ERROR:  relation &quot;asset_exif_autoStackId_idx&quot; already exists<br>ERROR:  relation &quot;asset_exif_city_idx&quot; already exists<br>ERROR:  relation &quot;asset_exif_livePhotoCID_idx&quot; already exists<br>ERROR:  relation &quot;asset_exif_updateId_idx&quot; already exists<br>ERROR:  relation &quot;asset_face_assetId_personId_idx&quot; already exists<br>ERROR:  relation &quot;asset_face_audit_assetFaceId_idx&quot; already exists<br>ERROR:  relation &quot;asset_face_audit_assetId_idx&quot; already exists<br>ERROR:  relation &quot;asset_face_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;asset_face_personId_assetId_idx&quot; already exists<br>ERROR:  relation &quot;asset_fileCreatedAt_idx&quot; already exists<br>ERROR:  relation &quot;asset_file_assetId_idx&quot; already exists<br>ERROR:  relation &quot;asset_file_updateId_idx&quot; already exists<br>ERROR:  relation &quot;asset_id_stackId_idx&quot; already exists<br>ERROR:  relation &quot;asset_libraryId_idx&quot; already exists<br>ERROR:  relation &quot;asset_livePhotoVideoId_idx&quot; already exists<br>ERROR:  relation &quot;asset_localDateTime_idx&quot; already exists<br>ERROR:  relation &quot;asset_localDateTime_month_idx&quot; already exists<br>ERROR:  relation &quot;asset_metadata_audit_assetId_idx&quot; already exists<br>ERROR:  relation &quot;asset_metadata_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;asset_metadata_audit_key_idx&quot; already exists<br>ERROR:  relation &quot;asset_metadata_updateId_idx&quot; already exists<br>ERROR:  relation &quot;asset_metadata_updatedAt_idx&quot; already exists<br>ERROR:  relation &quot;asset_originalFileName_idx&quot; already exists<br>ERROR:  relation &quot;asset_originalFilename_trigram_idx&quot; already exists<br>ERROR:  relation &quot;asset_originalPath_libraryId_idx&quot; already exists<br>ERROR:  relation &quot;asset_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;asset_ownerId_libraryId_checksum_idx&quot; already exists<br>ERROR:  relation &quot;asset_stackId_idx&quot; already exists<br>ERROR:  relation &quot;asset_updateId_idx&quot; already exists<br>ERROR:  relation &quot;audit_ownerId_createdAt_idx&quot; already exists<br>ERROR:  relation &quot;clip_index&quot; already exists<br>ERROR:  relation &quot;face_index&quot; already exists<br>ERROR:  relation &quot;idx_geodata_places_admin1_name&quot; already exists<br>ERROR:  relation &quot;idx_geodata_places_admin2_name&quot; already exists<br>ERROR:  relation &quot;idx_geodata_places_alternate_names&quot; already exists<br>ERROR:  relation &quot;idx_geodata_places_name&quot; already exists<br>ERROR:  relation &quot;library_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;library_updateId_idx&quot; already exists<br>ERROR:  column &quot;assetsId&quot; does not exist<br>ERROR:  relation &quot;memory_asset_audit_assetId_idx&quot; already exists<br>ERROR:  relation &quot;memory_asset_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;memory_asset_audit_memoryId_idx&quot; already exists<br>ERROR:  relation &quot;memory_asset_memoriesId_idx&quot; already exists<br>ERROR:  relation &quot;memory_asset_updateId_idx&quot; already exists<br>ERROR:  relation &quot;memory_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;memory_audit_memoryId_idx&quot; already exists<br>ERROR:  relation &quot;memory_audit_userId_idx&quot; already exists<br>ERROR:  relation &quot;memory_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;memory_updateId_idx&quot; already exists<br>ERROR:  relation &quot;notification_updateId_idx&quot; already exists<br>ERROR:  relation &quot;notification_userId_idx&quot; already exists<br>ERROR:  relation &quot;partner_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;partner_audit_sharedById_idx&quot; already exists<br>ERROR:  relation &quot;partner_audit_sharedWithId_idx&quot; already exists<br>ERROR:  relation &quot;partner_createId_idx&quot; already exists<br>ERROR:  relation &quot;partner_sharedWithId_idx&quot; already exists<br>ERROR:  relation &quot;partner_updateId_idx&quot; already exists<br>ERROR:  relation &quot;person_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;person_audit_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;person_audit_personId_idx&quot; already exists<br>ERROR:  relation &quot;person_faceAssetId_idx&quot; already exists<br>ERROR:  relation &quot;person_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;person_updateId_idx&quot; already exists<br>ERROR:  relation &quot;session_parentId_idx&quot; already exists<br>ERROR:  relation &quot;session_sync_checkpoint_sessionId_idx&quot; already exists<br>ERROR:  relation &quot;session_sync_checkpoint_updateId_idx&quot; already exists<br>ERROR:  relation &quot;session_updateId_idx&quot; already exists<br>ERROR:  relation &quot;session_userId_idx&quot; already exists<br>ERROR:  relation &quot;shared_link_albumId_idx&quot; already exists<br>ERROR:  column &quot;assetsId&quot; does not exist<br>ERROR:  column &quot;sharedLinksId&quot; does not exist<br>ERROR:  relation &quot;shared_link_key_idx&quot; already exists<br>ERROR:  relation &quot;shared_link_userId_idx&quot; already exists<br>ERROR:  relation &quot;stack_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;stack_ownerId_idx&quot; already exists<br>ERROR:  relation &quot;stack_primaryAssetId_idx&quot; already exists<br>ERROR:  column &quot;assetsId&quot; does not exist<br>ERROR:  column &quot;assetsId&quot; does not exist<br>ERROR:  column &quot;tagsId&quot; does not exist<br>ERROR:  relation &quot;tag_closure_id_ancestor_idx&quot; already exists<br>ERROR:  relation &quot;tag_closure_id_descendant_idx&quot; already exists<br>ERROR:  relation &quot;tag_parentId_idx&quot; already exists<br>ERROR:  relation &quot;tag_updateId_idx&quot; already exists<br>ERROR:  relation &quot;user_audit_deletedAt_idx&quot; already exists<br>ERROR:  relation &quot;user_updateId_idx&quot; already exists<br>ERROR:  relation &quot;user_updatedAt_id_idx&quot; already exists<br>ERROR:  trigger &quot;activity_updatedAt&quot; for relation &quot;activity&quot; already exists<br>ERROR:  trigger &quot;album_asset_delete_audit&quot; for relation &quot;album_asset&quot; already exists<br>ERROR:  trigger &quot;album_asset_updatedAt&quot; for relation &quot;album_asset&quot; already exists<br>ERROR:  trigger &quot;album_delete_audit&quot; for relation &quot;album&quot; already exists<br>ERROR:  trigger &quot;album_updatedAt&quot; for relation &quot;album&quot; already exists<br>ERROR:  trigger &quot;album_user_after_insert&quot; for relation &quot;album_user&quot; already exists<br>ERROR:  trigger &quot;album_user_delete_audit&quot; for relation &quot;album_user&quot; already exists<br>ERROR:  trigger &quot;album_user_updatedAt&quot; for relation &quot;album_user&quot; already exists<br>ERROR:  trigger &quot;api_key_updatedAt&quot; for relation &quot;api_key&quot; already exists<br>ERROR:  trigger &quot;asset_delete_audit&quot; for relation &quot;asset&quot; already exists<br>ERROR:  trigger &quot;asset_exif_updatedAt&quot; for relation &quot;asset_exif&quot; already exists<br>ERROR:  trigger &quot;asset_face_audit&quot; for relation &quot;asset_face&quot; already exists<br>ERROR:  trigger &quot;asset_face_updatedAt&quot; for relation &quot;asset_face&quot; already exists<br>ERROR:  trigger &quot;asset_file_updatedAt&quot; for relation &quot;asset_file&quot; already exists<br>ERROR:  trigger &quot;asset_metadata_audit&quot; for relation &quot;asset_metadata&quot; already exists<br>ERROR:  trigger &quot;asset_metadata_updated_at&quot; for relation &quot;asset_metadata&quot; already exists<br>ERROR:  trigger &quot;asset_updatedAt&quot; for relation &quot;asset&quot; already exists<br>ERROR:  trigger &quot;library_updatedAt&quot; for relation &quot;library&quot; already exists<br>ERROR:  trigger &quot;memory_asset_delete_audit&quot; for relation &quot;memory_asset&quot; already exists<br>ERROR:  trigger &quot;memory_asset_updatedAt&quot; for relation &quot;memory_asset&quot; already exists<br>ERROR:  trigger &quot;memory_delete_audit&quot; for relation &quot;memory&quot; already exists<br>ERROR:  trigger &quot;memory_updatedAt&quot; for relation &quot;memory&quot; already exists<br>ERROR:  trigger &quot;notification_updatedAt&quot; for relation &quot;notification&quot; already exists<br>ERROR:  trigger &quot;partner_delete_audit&quot; for relation &quot;partner&quot; already exists<br>ERROR:  trigger &quot;partner_updatedAt&quot; for relation &quot;partner&quot; already exists<br>ERROR:  trigger &quot;person_delete_audit&quot; for relation &quot;person&quot; already exists<br>ERROR:  trigger &quot;person_updatedAt&quot; for relation &quot;person&quot; already exists<br>ERROR:  trigger &quot;session_sync_checkpoint_updatedAt&quot; for relation &quot;session_sync_checkpoint&quot; already exists<br>ERROR:  trigger &quot;session_updatedAt&quot; for relation &quot;session&quot; already exists<br>ERROR:  trigger &quot;stack_delete_audit&quot; for relation &quot;stack&quot; already exists<br>ERROR:  trigger &quot;stack_updatedAt&quot; for relation &quot;stack&quot; already exists<br>ERROR:  trigger &quot;tag_updatedAt&quot; for relation &quot;tag&quot; already exists<br>ERROR:  trigger &quot;user_delete_audit&quot; for relation &quot;user&quot; already exists<br>ERROR:  trigger &quot;user_metadata_audit&quot; for relation &quot;user_metadata&quot; already exists<br>ERROR:  trigger &quot;user_metadata_updated_at&quot; for relation &quot;user_metadata&quot; already exists<br>ERROR:  trigger &quot;user_updatedAt&quot; for relation &quot;user&quot; already exists<br>ERROR:  constraint &quot;activity_albumId_assetId_fkey&quot; for relation &quot;activity&quot; already exists<br>ERROR:  constraint &quot;activity_albumId_fkey&quot; for relation &quot;activity&quot; already exists<br>ERROR:  constraint &quot;activity_assetId_fkey&quot; for relation &quot;activity&quot; already exists<br>ERROR:  constraint &quot;activity_userId_fkey&quot; for relation &quot;activity&quot; already exists<br>ERROR:  constraint &quot;album_albumThumbnailAssetId_fkey&quot; for relation &quot;album&quot; already exists<br>ERROR:  column &quot;albumsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  column &quot;assetsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  constraint &quot;album_asset_audit_albumId_fkey&quot; for relation &quot;album_asset_audit&quot; already exists<br>ERROR:  constraint &quot;album_ownerId_fkey&quot; for relation &quot;album&quot; already exists<br>ERROR:  column &quot;albumsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  column &quot;usersId&quot; referenced in foreign key constraint does not exist<br>ERROR:  constraint &quot;api_key_userId_fkey&quot; for relation &quot;api_key&quot; already exists<br>ERROR:  constraint &quot;asset_exif_assetId_fkey&quot; for relation &quot;asset_exif&quot; already exists<br>ERROR:  constraint &quot;asset_face_assetId_fkey&quot; for relation &quot;asset_face&quot; already exists<br>ERROR:  constraint &quot;asset_face_personId_fkey&quot; for relation &quot;asset_face&quot; already exists<br>ERROR:  constraint &quot;asset_file_assetId_fkey&quot; for relation &quot;asset_file&quot; already exists<br>ERROR:  constraint &quot;asset_job_status_assetId_fkey&quot; for relation &quot;asset_job_status&quot; already exists<br>ERROR:  constraint &quot;asset_libraryId_fkey&quot; for relation &quot;asset&quot; already exists<br>ERROR:  constraint &quot;asset_livePhotoVideoId_fkey&quot; for relation &quot;asset&quot; already exists<br>ERROR:  constraint &quot;asset_metadata_assetId_fkey&quot; for relation &quot;asset_metadata&quot; already exists<br>ERROR:  constraint &quot;asset_ownerId_fkey&quot; for relation &quot;asset&quot; already exists<br>ERROR:  constraint &quot;asset_stackId_fkey&quot; for relation &quot;asset&quot; already exists<br>ERROR:  constraint &quot;face_search_faceId_fkey&quot; for relation &quot;face_search&quot; already exists<br>ERROR:  constraint &quot;library_ownerId_fkey&quot; for relation &quot;library&quot; already exists<br>ERROR:  column &quot;assetsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  constraint &quot;memory_asset_audit_memoryId_fkey&quot; for relation &quot;memory_asset_audit&quot; already exists<br>ERROR:  constraint &quot;memory_asset_memoriesId_fkey&quot; for relation &quot;memory_asset&quot; already exists<br>ERROR:  constraint &quot;memory_ownerId_fkey&quot; for relation &quot;memory&quot; already exists<br>ERROR:  constraint &quot;notification_userId_fkey&quot; for relation &quot;notification&quot; already exists<br>ERROR:  constraint &quot;partner_sharedById_fkey&quot; for relation &quot;partner&quot; already exists<br>ERROR:  constraint &quot;partner_sharedWithId_fkey&quot; for relation &quot;partner&quot; already exists<br>ERROR:  constraint &quot;person_faceAssetId_fkey&quot; for relation &quot;person&quot; already exists<br>ERROR:  constraint &quot;person_ownerId_fkey&quot; for relation &quot;person&quot; already exists<br>ERROR:  constraint &quot;session_parentId_fkey&quot; for relation &quot;session&quot; already exists<br>ERROR:  constraint &quot;session_sync_checkpoint_sessionId_fkey&quot; for relation &quot;session_sync_checkpoint&quot; already exists<br>ERROR:  constraint &quot;session_userId_fkey&quot; for relation &quot;session&quot; already exists<br>ERROR:  constraint &quot;shared_link_albumId_fkey&quot; for relation &quot;shared_link&quot; already exists<br>ERROR:  column &quot;assetsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  column &quot;sharedLinksId&quot; referenced in foreign key constraint does not exist<br>ERROR:  constraint &quot;shared_link_userId_fkey&quot; for relation &quot;shared_link&quot; already exists<br>ERROR:  constraint &quot;smart_search_assetId_fkey&quot; for relation &quot;smart_search&quot; already exists<br>ERROR:  constraint &quot;stack_ownerId_fkey&quot; for relation &quot;stack&quot; already exists<br>ERROR:  constraint &quot;stack_primaryAssetId_fkey&quot; for relation &quot;stack&quot; already exists<br>ERROR:  column &quot;assetsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  column &quot;tagsId&quot; referenced in foreign key constraint does not exist<br>ERROR:  constraint &quot;tag_closure_id_ancestor_fkey&quot; for relation &quot;tag_closure&quot; already exists<br>ERROR:  constraint &quot;tag_closure_id_descendant_fkey&quot; for relation &quot;tag_closure&quot; already exists<br>ERROR:  constraint &quot;tag_parentId_fkey&quot; for relation &quot;tag&quot; already exists<br>ERROR:  constraint &quot;tag_userId_fkey&quot; for relation &quot;tag&quot; already exists<br>ERROR:  constraint &quot;user_metadata_userId_fkey&quot; for relation &quot;user_metadata&quot; already exists<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>DROP DATABASE<br>CREATE DATABASE<br>ALTER DATABASE<br>invalid command \unrestrict<br>invalid command \restrict<br>You are now connected to database &quot;postgres&quot; as user &quot;postgres&quot;.<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>invalid command \unrestrict<br>COMMENT<br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;UPDATE asset SET \&quot;originalPath\&quot; = regexp_replace(\&quot;originalPath\&quot;, &#x27;library/[^/]+/&#x27;, &#x27;library/admin/&#x27;);&quot;<br>UPDATE 0<br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT id, email, name FROM \&quot;user\&quot;;&quot;<br>                  id                  |     email     | name <br>--------------------------------------+---------------+------<br> 991284a3-2abc-4a84-9dca-dfc49552d1ca | ucu520@qq.com | ucu<br>(1 row)<br><br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT count(*) FROM asset;&quot;<br> count <br>-------<br>     0<br>(1 row)<br><br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT \&quot;originalPath\&quot; FROM asset LIMIT 5;&quot;<br> originalPath <br>--------------<br>(0 rows)<br><br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT count(*) FROM asset;&quot;<br> count <br>-------<br>     0<br>(1 row)<br><br>root@immich:/mnt/all/picture/immich/immich-app# docker compose stop immich-server immich-machine-learning<br>[+] Stopping 2/2<br> ✔ Container immich_machine_learning  Stopped                                                     2.2s <br> ✔ Container immich_server            Stopped                                                     2.2s <br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -c &quot;DROP DATABASE IF EXISTS immich;&quot;<br>DROP DATABASE<br>root@immich:/mnt/all/picture/immich/immich-app# du -sh /opt/immich_data <br>217M	/opt/immich_data<br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -c &quot;CREATE DATABASE immich;&quot;<br>CREATE DATABASE<br>root@immich:/mnt/all/picture/immich/immich-app# cat /opt/immich-recovery/dec_backup.sql | docker exec -i immich_postgres psql -U postgres -d immich<br>invalid command \restrict<br>SET<br>SET<br>SET<br>ERROR:  cannot drop the currently open database<br>ERROR:  current user cannot be dropped<br>ERROR:  role &quot;postgres&quot; already exists<br>ALTER ROLE<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>UPDATE 1<br>DROP DATABASE<br>CREATE DATABASE<br>ALTER DATABASE<br>invalid command \unrestrict<br>invalid command \restrict<br>You are now connected to database &quot;template1&quot; as user &quot;postgres&quot;.<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>COMMENT<br>ALTER DATABASE<br>invalid command \unrestrict<br>invalid command \restrict<br>You are now connected to database &quot;template1&quot; as user &quot;postgres&quot;.<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>REVOKE<br>GRANT<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>ERROR:  database &quot;immich&quot; already exists<br>invalid command \unrestrict<br>ALTER DATABASE<br>invalid command \restrict<br>You are now connected to database &quot;immich&quot; as user &quot;postgres&quot;.<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>ALTER DATABASE<br>ALTER DATABASE<br>invalid command \unrestrict<br>You are now connected to database &quot;immich&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>CREATE TYPE<br>ALTER TYPE<br>CREATE TYPE<br>ALTER TYPE<br>CREATE TYPE<br>ALTER TYPE<br>CREATE FUNCTION<br>ALTER FUNCTION<br>SET<br>SET<br>CREATE TABLE<br>ALTER TABLE<br>CREATE TABLE<br>ALTER TABLE<br>COMMENT<br>ALTER TABLE<br>CREATE TABLE<br>ALTER TABLE<br>ALTER TABLE<br>COPY 0<br>COPY 289<br>COPY 4447<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 14970<br>COPY 0<br>COPY 14970<br>COPY 2090<br>COPY 0<br>COPY 26236<br>COPY 14969<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 2090<br>COPY 218655<br>COPY 35<br>COPY 1<br>COPY 1<br>COPY 7<br>COPY 43<br>COPY 0<br>COPY 7<br>COPY 67<br>COPY 1<br>COPY 4274<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 124<br>COPY 0<br>COPY 7<br>COPY 59<br>COPY 0<br>COPY 0<br>COPY 11368<br>COPY 0<br>COPY 0<br>COPY 8<br>COPY 0<br>COPY 0<br>COPY 0<br>COPY 1<br>COPY 0<br>COPY 2<br>COPY 0<br>COPY 2<br> setval <br>--------<br>      1<br>(1 row)<br><br> setval <br>--------<br>   4274<br>(1 row)<br><br>ALTER TABLE<br>ALTER TABLE<br>CREATE INDEX<br>CREATE INDEX<br>CREATE TRIGGER<br>CREATE TRIGGER<br>ALTER TABLE<br>ALTER TABLE<br>invalid command \unrestrict<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>DROP DATABASE<br>CREATE DATABASE<br>ALTER DATABASE<br>invalid command \unrestrict<br>You are now connected to database &quot;postgres&quot; as user &quot;postgres&quot;.<br>invalid command \restrict<br>SET<br>SET<br>SET<br>SET<br>SET<br> set_config <br>------------<br> <br>(1 row)<br><br>SET<br>SET<br>SET<br>SET<br>COMMENT<br>invalid command \unrestrict<br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;UPDATE asset SET \&quot;originalPath\&quot; = regexp_replace(\&quot;originalPath\&quot;, &#x27;library/[^/]+/&#x27;, &#x27;library/admin/&#x27;);&quot;<br>UPDATE 14970<br>root@immich:/mnt/all/picture/immich/immich-app# docker exec -it immich_postgres psql -U postgres -d immich -c &quot;SELECT count(*) FROM asset;&quot;<br> count <br>-------<br> 14970<br>(1 row)<br><br>root@immich:/mnt/all/picture/immich/immich-app# du -sh /opt/immich_data <br>217M	/opt/immich_data<br>root@immich:/mnt/all/picture/immich/immich-app# docker compose up -d<br>[+] Running 4/4<br> ✔ Container immich_postgres          Running                                                     0.0s <br> ✔ Container immich_redis             Running                                                     0.0s <br> ✔ Container immich_machine_learning  Started                                                     3.1s <br> ✔ Container immich_server            Started                                                     3.7s <br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF-%E8%BD%AF%E4%BB%B6/" class="category-chain-item">技术/软件</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Immich/" class="print-no-link">#Immich</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2001013/" title="深信服产品的研究">
+                        <span class="hidden-mobile">深信服产品的研究</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <!--<i class="iconfont icon-love"></i>--> | <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> || <a href="//www.ucu520.top" target="_blank" rel="nofollow noopener"><span>开心ucu</span></a> | <script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "ujnrg7u2sj"); </script> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

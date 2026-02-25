@@ -23,8 +23,8 @@
 <meta property="og:site_name" content="开心ucu">
 <meta property="og:description" content="油猴脚本 - ucu520              * {             margin: 0;             padding: 0;             box-sizing: border-box;         }          body {             font-family: -apple-system, Bli">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-02-25T09:01:26.398Z">
-<meta property="article:modified_time" content="2026-02-25T09:01:26.398Z">
+<meta property="article:published_time" content="2026-02-25T09:12:20.696Z">
+<meta property="article:modified_time" content="2026-02-25T09:12:20.696Z">
 <meta property="article:author" content="陈小可">
 <meta property="article:tag" content="开心ucu 技术 学习 笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,6 +286,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -298,18 +299,17 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            color: white;
+            color: #333;
         }
 
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: #666;
         }
 
         .scripts-list {
@@ -321,13 +321,13 @@
             background: white;
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            transition: box-shadow 0.3s ease;
         }
 
         .script-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
         }
 
         .script-header {
@@ -346,7 +346,7 @@
         }
 
         .script-version {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #667eea;
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
@@ -413,13 +413,12 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #667eea;
             color: white;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
+            background: #5a6fd6;
         }
 
         .btn-secondary {
@@ -434,7 +433,7 @@
         .loading {
             text-align: center;
             padding: 60px;
-            color: white;
+            color: #888;
             font-size: 1.2rem;
         }
 
@@ -449,19 +448,16 @@
         footer {
             text-align: center;
             margin-top: 40px;
-            color: white;
-            opacity: 0.8;
+            color: #888;
         }
 
         footer a {
-            color: white;
+            color: #667eea;
             text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            transition: border-color 0.3s;
         }
 
         footer a:hover {
-            border-color: white;
+            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
@@ -496,7 +492,7 @@
     </div>
 
     <footer>
-        <p>📦 脚本仓库：<a href="https://blog.ucu520.top/tampermonkey" target="_blank">Gitee</a> |
+        <p>📦 脚本仓库：<a href="https://gitee.com/ucu520/itsmeucu.github.io/tree/main/tampermonkey" target="_blank">Gitee</a> |
             <a href="https://blog.ucu520.top" target="_blank">返回博客</a></p>
     </footer>
 </div>
@@ -511,7 +507,7 @@
         .then(data => {
             const container = document.getElementById('scripts-container');
 
-            // 将对象格式转换为数组
+            // 将对象格式转换为数组，key即为js文件名
             const scripts = Object.entries(data).map(([fileName, info]) => ({
                 fileName,
                 ...info
@@ -540,7 +536,6 @@
                         </div>
                         <div class="script-actions">
                             <a href="./${escapeHtml(script.fileName)}" class="btn btn-primary">📥 点击安装</a>
-                            <a href="https://gitee.com/ucu520/itsmeucu.github.io/blob/main/tampermonkey/${escapeHtml(script.fileName)}" class="btn btn-secondary" target="_blank">📋 查看源码</a>
                         </div>
                     </div>
                 `).join('');

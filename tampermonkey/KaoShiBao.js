@@ -1,13 +1,17 @@
 // ==UserScript==
 // @name         考试宝答案解析自动展开
 // @namespace    http://tampermonkey.net/
-// @version      2.2
+// @version      2.3
 // @description  自动显示考试宝练习模式的完整答案解析，去除所有干扰元素，阻止数据上报
 // @author       陈小可
 // @match        https://www.zaixiankaoshi.com/online/*
 // @grant        unsafeWindow
 // @run-at       document-start
 // @icon         https://resource-cdn.kaoshibao.com/pc/favicon.ico?1
+// @updateURL    https://blog.ucu520.top/tampermonkey/KaoShiBao.js
+// @downloadURL  https://blog.ucu520.top/tampermonkey/KaoShiBao.js
+// @supportURL   https://blog.ucu520.top/
+// @homepageURL  https://blog.ucu520.top/
 // ==/UserScript==
 
 (function() {

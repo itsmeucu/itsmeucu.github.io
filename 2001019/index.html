@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/logo-108-108.png">
+  <link rel="icon" href="/logo-108-108.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="陈小可">
+  <meta name="keywords" content="开心ucu 技术 学习 笔记">
+  
+    <meta name="description" content="在pve下使用CT安装企业版雷池(软件版)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pve的lxc安装企业版雷池(软件版)">
+<meta property="og:url" content="http://example.com/2001019/index.html">
+<meta property="og:site_name" content="开心ucu">
+<meta property="og:description" content="在pve下使用CT安装企业版雷池(软件版)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-0.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-1.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-2.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-3.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-4.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-5.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-6.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-7.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-8.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-9.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-10.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-11.png">
+<meta property="og:image" content="http://example.com/img/2026/07/12/2001019-12.png">
+<meta property="article:published_time" content="2026-07-15T10:03:00.000Z">
+<meta property="article:modified_time" content="2026-07-17T06:29:07.230Z">
+<meta property="article:author" content="陈小可">
+<meta property="article:tag" content="长亭科技">
+<meta property="article:tag" content="雷池">
+<meta property="article:tag" content="pve">
+<meta property="article:tag" content="lxc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/2026/07/12/2001019-0.png">
+  
+  
+  
+  <title>pve的lxc安装企业版雷池(软件版) - 开心ucu</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":10,"cursorChar":"","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":"25220272a7aa42f5af9faccb45701520","google":{"measurement_id":"G-3YNNRZ9CBE"},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?25220272a7aa42f5af9faccb45701520";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-3YNNRZ9CBE", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-3YNNRZ9CBE');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 30vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>开心ucu</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/ANIME-PICTURES.NET_-_817802-1920x1080-elden+ring-gransax-leyndell+soldiers-zeyuz-highres-wide+image-tuya.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="pve的lxc安装企业版雷池(软件版)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-15 10:03" pubdate>
+          2026年7月15日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">pve的lxc安装企业版雷池(软件版)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>本软件仅供学习研究使用，该软件的最终解释权归作者所有</p>
+</blockquote>
+<hr>
+<h2><span id="前置条件">前置条件</span></h2><p>CT需要联网，如果不联网，可以使用离线的方法安装如下组件<br><code>tcpdump</code> <code>curl</code> <code>vim</code> <code>strace</code> <code>net-tools</code> <code>sysstat</code></p>
+<h3><span id="下载ct模板">下载CT模板</span></h3><blockquote>
+<p><img src="/../../img/2026/07/12/2001019-0.png" srcset="/img/loading.gif" lazyload alt="2001019-0.png"></p>
+</blockquote>
+<h3><span id="创建ct">创建CT</span></h3><blockquote>
+<p><img src="/../../img/2026/07/12/2001019-1.png" srcset="/img/loading.gif" lazyload alt="2001019-1.png"><br><img src="/../../img/2026/07/12/2001019-2.png" srcset="/img/loading.gif" lazyload alt="2001019-2.png"><br><img src="/../../img/2026/07/12/2001019-3.png" srcset="/img/loading.gif" lazyload alt="2001019-3.png"><br><img src="/../../img/2026/07/12/2001019-4.png" srcset="/img/loading.gif" lazyload alt="2001019-4.png"><br><img src="/../../img/2026/07/12/2001019-5.png" srcset="/img/loading.gif" lazyload alt="2001019-5.png"><br><img src="/../../img/2026/07/12/2001019-6.png" srcset="/img/loading.gif" lazyload alt="2001019-6.png"><br><img src="/../../img/2026/07/12/2001019-7.png" srcset="/img/loading.gif" lazyload alt="2001019-7.png"><br><img src="/../../img/2026/07/12/2001019-8.png" srcset="/img/loading.gif" lazyload alt="2001019-8.png"><br><img src="/../../img/2026/07/12/2001019-9.png" srcset="/img/loading.gif" lazyload alt="2001019-9.png"></p>
+</blockquote>
+<h3><span id="配置ct">配置CT</span></h3><blockquote>
+<p><img src="/../../img/2026/07/12/2001019-10.png" srcset="/img/loading.gif" lazyload alt="2001019-10.png"><br><img src="/../../img/2026/07/12/2001019-11.png" srcset="/img/loading.gif" lazyload alt="2001019-11.png"></p>
+</blockquote>
+<p>物理机修改ct的配置,<code>112</code>为创建CT的id号。</p>
+<p><code>/etc/pve/lxc/112.conf示例</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">arch</span>: amd64<br>cores: 4<br>features: fuse=1,mount=nfs;cifs,nesting=1<br>hostname: CT112<br>memory: 8192<br>mp0: /,mp=/mnt/root<br>net0: name=eth0,bridge=vmbr0,gw=xxxx,hwaddr=xxxxxx,ip=xxxx/xx,<span class="hljs-built_in">type</span>=veth<br>ostype: ubuntu<br>rootfs: <span class="hljs-built_in">local</span>:xxx/vm-xxx-disk-0.raw,size=100G<br>swap: 1024<br>lxc.cgroup.devices.allow: a<br>lxc.cap.drop: <br>lxc.cgroup2.devices.allow: c 10:200 rwm<br></code></pre></td></tr></table></figure>
+<p>需要添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">lxc.cgroup.devices.allow: a<br>lxc.cap.drop: <br>lxc.cgroup2.devices.allow: c 10:200 rwm<br></code></pre></td></tr></table></figure>
+<p>其中<code>mp0: /,mp=/mnt/root</code>这句的意思是挂载宿主机<code>/root</code>目录到CT的<code>/mnt/root</code>目录，安装文件我丢宿主机上</p>
+<h3><span id="ct运行开始安装">CT运行，开始安装</span></h3><p>安装组件，如果不能在线，可以使用离线方式安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install -y tcpdump curl vim strace net-tools sysstat<br></code></pre></td></tr></table></figure>
+<p>安装雷池<br>使用chmod +x给执行权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x safeline-3-software-installer-xxxx.bin<br></code></pre></td></tr></table></figure>
+
+<p>可以直接安装，我这里用nohup</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">nohup</span> ./safeline-3-software-installer-xxxx.bin -v -p &#123;密码&#125; &gt; logs2.log 2&gt;&amp;1 &amp;<br></code></pre></td></tr></table></figure>
+<p>如果直接按照，运行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./safeline-3-software-installer-xxxx.bin -v -p &#123;密码&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">./safeline-3-software-installer-xxx.bin -h<br>Usage:<br>  SAFELINE Installer safeline-3-software-installer [flags]<br><br>Flags:<br>  -e, --<span class="hljs-built_in">env</span> stringArray   <span class="hljs-built_in">set</span> environment variable (key=value)<br>  -h, --<span class="hljs-built_in">help</span>              <span class="hljs-built_in">help</span> <span class="hljs-keyword">for</span> SAFELINE<br>  -p, --password string   install password<br>  -v, --verbose           verbose logging<br>  -C, --work-dir string   working directory<br></code></pre></td></tr></table></figure>
+
+<h3><span id="安装后看docker信息">安装后看docker信息</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">root<span class="hljs-comment"># docker ps -a</span><br>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES<br>root<span class="hljs-comment"># docker images</span><br>REPOSITORY                                                         TAG                IMAGE ID       CREATED       SIZE<br>portus.in.chaitin.net/safeline-2/mgt-api                           xxxx6       xxxx   2 weeks ago   2.64GB<br>portus.in.chaitin.net/safeline-2/mgt-api                           latest             xxxx   2 weeks ago   2.64GB<br>portus.in.chaitin.net/safeline-2/postgres-standby                 xxxx      xxxx   2 weeks ago   652MB<br>portus.in.chaitin.net/safeline-2/postgres-standby                  latest             xxxx   2 weeks ago   652MB<br>portus.in.chaitin.net/safeline-2/waap                              xxxx       xxxx   2 weeks ago   274MB<br>portus.in.chaitin.net/safeline-2/waap                              latest            xxxx   2 weeks ago   274MB<br>portus.in.chaitin.net/safeline-2/mario                            xxxx       xxxx   2 weeks ago   220MB<br>portus.in.chaitin.net/safeline-2/mario                             latest             xxxx   2 weeks ago   220MB<br>portus.in.chaitin.net/safeline-2/mgt-keepalived                    xxxx       dxxxx   2 weeks ago   87.3MB<br>portus.in.chaitin.net/safeline-2/mgt-keepalived                    latest             xxxx   2 weeks ago   87.3MB<br>portus.in.chaitin.net/safeline-2/keepalived                        xxxx       xxxx   2 weeks ago   88.2MB<br>portus.in.chaitin.net/safeline-2/keepalived                        latest             xxxx   2 weeks ago   88.2MB<br>portus.in.chaitin.net/safeline-2/postgres-primary                  xxxx       xxxx   2 weeks ago   586MB<br>portus.in.chaitin.net/safeline-2/postgres-primary                  latest             xxxx   2 weeks ago   586MB<br>portus.in.chaitin.net/safeline-2/tengine                          xxxx      xxxx   2 weeks ago   204MB<br>portus.in.chaitin.net/safeline-2/tengine                           latest             xxxx   2 weeks ago   204MB<br>portus.in.chaitin.net/safeline-2/tengine-guomi                     xxxx       fxxxx   2 weeks ago   193MB<br>portus.in.chaitin.net/safeline-2/tengine-guomi                     latest            xxxx   2 weeks ago   193MB<br>portus.in.chaitin.net/safeline-2/detector-srv                      xxxx       xxxx   2 weeks ago   589MB<br>portus.in.chaitin.net/safeline-2/detector-srv                      latest            xxxx   2 weeks ago   589MB<br>portus.in.chaitin.net/safeline-2/ripley                            xxxx      xxxx   2 weeks ago   333MB<br>portus.in.chaitin.net/safeline-2/ripley                            latest             xxxx   2 weeks ago   333MB<br>portus.in.chaitin.net/safeline-2/portrait                          xxxx       xxxx   2 weeks ago   106MB<br>portus.in.chaitin.net/safeline-2/portrait                          latest             xxxx   2 weeks ago   106MB<br>portus.in.chaitin.net/safeline-2/fvm-compiler                     xxxx       xxxx   2 weeks ago   441MB<br>portus.in.chaitin.net/safeline-2/fvm-compiler                      latest             xxxx   2 weeks ago   441MB<br>portus.in.chaitin.net/safeline-public/cadvisor                     xxxx-selfbuild   xxxx   2 years ago   87MB<br>portus.in.chaitin.net/safeline-public/highgo-db                   xxxx             xxxx   2 years ago   1.64GB<br>registry-mirrors.dev.in.chaitin.net/library/redis                  xxxx              xxxx   3 years ago   117MB<br>portus.in.chaitin.net/safeline-public/clickhouse-server            xxxx       xxxx   3 years ago   890MB<br>docker-elastic-co.dev.in.chaitin.net/elasticsearch/elasticsearch   xxxx             xxxx   3 years ago   619MB<br>registry-mirrors.dev.in.chaitin.net/library/postgres               xxxx              xxxx5   4 years ago   284MB<br>portus.in.chaitin.net/safeline-2/umbrella-agent                    xxxx              xxxx   5 years ago   121MB<br>portus.in.chaitin.net/library/etcd                                 xxxx                xxxx   7 years ago   36MB<br></code></pre></td></tr></table></figure>
+
+<h3><span id="初始化">初始化</span></h3><p><code>systemctl stop minion</code></p>
+<h4><span id="软件反代单机">软件反代单机</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">minion setup -p /data/safeline -t Software<br>systemctl restart minion<br><br></code></pre></td></tr></table></figure>
+
+<h4><span id="软件反代集群">软件反代集群</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">minion setup -p /data/safeline -t S20Management<br>systemctl restart minion<br></code></pre></td></tr></table></figure>
+<h4><span id="查看状态">查看状态</span></h4><p>大概间隔1分钟左右<br>docker ps -a</p>
+<h4><span id="管理ip">管理IP</span></h4><p>浏览器打开 https:&#x2F;&#x2F;当前机器 IP :9443 访问管理界面<br>导入证书后登录管理界面进行使用</p>
+<blockquote>
+<p><img src="/../../img/2026/07/12/2001019-12.png" srcset="/img/loading.gif" lazyload alt="2001019-12.png"></p>
+</blockquote>
+<h4><span id="docker信息">docker信息</span></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs log">root@root# docker ps -a<br>CONTAINER ID   IMAGE                                                                  COMMAND                  CREATED        STATUS                  PORTS                          NAMES<br>xxxxx   portus.in.chaitin.net/safeline-2/waap:latest                           &quot;/waap/entrypoint.sh&quot;    19 hours ago   Up 19 hours (healthy)                                  waap<br>xxxxx   portus.in.chaitin.net/safeline-2/fvm-compiler:latest                   &quot;/fvm-compiler/entry…&quot;   19 hours ago   Up 19 hours (healthy)                                  fvm-compiler<br>xxxxx   portus.in.chaitin.net/safeline-public/cadvisor:xxxx-selfbuild        &quot;/usr/bin/cadvisor -…&quot;   19 hours ago   Up 19 hours (healthy)                                  cadvisor<br>xxxxx   portus.in.chaitin.net/safeline-2/tengine:latest                        &quot;docker-entrypoint.s…&quot;   19 hours ago   Up 19 hours (healthy)                                  tengine<br>xxxxx   portus.in.chaitin.net/safeline-2/detector-srv:latest                   &quot;/detector/entrypoin…&quot;   19 hours ago   Up 19 hours (healthy)   8000-8001/tcp                  detector-srv<br>xxxxx   portus.in.chaitin.net/safeline-2/mario:latest                          &quot;/mario/entrypoint.sh&quot;   19 hours ago   Up 19 hours (healthy)                                  mario<br>xxxxx   portus.in.chaitin.net/safeline-2/mgt-api:latest                        &quot;/app/deploy/entrypo…&quot;   19 hours ago   Up 19 hours (healthy)   0.0.0.0:9443-&gt;1443/tcp         mgt-api<br>xxxxx   portus.in.chaitin.net/safeline-public/clickhouse-server:xxxxx   &quot;/entrypoint.sh&quot;         19 hours ago   Up 19 hours             8123/tcp, 9000/tcp, 9009/tcp   mgt-clickhouse<br>xxxxx   registry-mirrors.dev.in.chaitin.net/library/redis:xxx                &quot;docker-entrypoint.s…&quot;   19 hours ago   Up 19 hours             6379/tcp                       mgt-redis<br>xxxxx   registry-mirrors.dev.in.chaitin.net/library/postgres:xxxx             &quot;docker-entrypoint.s…&quot;   19 hours ago   Up 19 hours             5432/tcp                       mgt-postgres<br></code></pre></td></tr></table></figure>
+
+<h3><span id="安装备注">安装备注</span></h3><p>显示信息，且输出到日志文件logs.log</p>
+<p>这里加了个值<br><code>-e HARDWARE_MODE=1</code><br>目的是忽略检测ssse3 and avx2，我猜测的，这个值不是手册的，而是我自己靠AI测试出来的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs log">The CPU does not support the instruction ssse3 and avx2!<br></code></pre></td></tr></table></figure>
+
+<p>运行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">./safeline-3-software-installer-xxxx.bin -p &#123;密码&#125; -v -e HARDWARE_MODE=1 2&gt;&amp;1 | <span class="hljs-built_in">tee</span> logs.log<br></code></pre></td></tr></table></figure>
+
+
+<h3><span id="日志">日志</span></h3><h4><span id="不带-e参数">不带-e参数</span></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs log">time=&quot;2026-07-10T23:01:35Z&quot; level=info msg=&quot;SAFELINE Installer safeline-3-software-installer&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;Archive offset: 10489856&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/docker.tgz\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x0, ModifiedDate:0x0, CRC32:0x8b871c6a, CompressedSize:0x3e93198, UncompressedSize:0x3ec4e87, CompressedSize64:0x3e93198, UncompressedSize64:0x3ec4e87, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:0&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65614317&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/docker/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65614416&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/docker/daemon.json\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0xabc0dc58, CompressedSize:0x67, UncompressedSize:0x64, CompressedSize64:0x67, UncompressedSize64:0x64, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65614522&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65614725&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/containerd.service\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0x5e787aa4, CompressedSize:0x177, UncompressedSize:0x230, CompressedSize64:0x177, UncompressedSize64:0x230, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65614832&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/docker.service\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0xe69458fa, CompressedSize:0x326, UncompressedSize:0x670, CompressedSize64:0x326, UncompressedSize64:0x670, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65615315&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/docker.socket\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0x1d64ac26, CompressedSize:0xa3, UncompressedSize:0xc5, CompressedSize64:0xa3, UncompressedSize64:0xc5, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65616225&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/image.tar\&quot;, CreatorVersion:0x314, ReaderVersion:0x2d, Flags:0x9, Method:0x8, ModifiedTime:0x0, ModifiedDate:0x0, CRC32:0xafe248eb, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xff0c1adb, UncompressedSize64:0x229ceb800, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0xb8, 0xce, 0x29, 0x2, 0x0, 0x0, 0x0, 0xdb, 0x1a, 0xc, 0xff, 0x0, 0x0, 0x0, 0x0, 0x6b, 0x3a, 0xe9, 0x3, 0x0, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:65616491&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;minion.install\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x579eb872, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x14c9de0, UncompressedSize64:0x14e3004, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4, 0x30, 0x4e, 0x1, 0x0, 0x0, 0x0, 0x0, 0xe0, 0x9d, 0x4c, 0x1, 0x0, 0x0, 0x0, 0x0, 0x91, 0x55, 0xf5, 0x2, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4344599953&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;setup.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4588, ModifiedDate:0x5cde, CRC32:0x3a7452cb, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x55c, UncompressedSize64:0xbca, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xca, 0xb, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5c, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xad, 0xf3, 0x41, 0x4, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ff0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4366398381&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;detector-x86_64-6.1.14-1f8dcde6.upd\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x898117f8, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2586bdd, UncompressedSize64:0x2583ce7, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xe7, 0x3c, 0x58, 0x2, 0x0, 0x0, 0x0, 0x0, 0xdd, 0x6b, 0x58, 0x2, 0x0, 0x0, 0x0, 0x0, 0x3f, 0xf9, 0x41, 0x4, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4366399807&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;DETECTOR_VERSION.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x937dae16, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x22, UncompressedSize64:0x10, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x10, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x22, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x6d, 0x65, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405749101&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;VERSION.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x3018abf, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x1f, UncompressedSize64:0xd, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1f, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xd1, 0x65, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405749201&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;HASH.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xba605379, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x3a, UncompressedSize64:0x29, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x29, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3a, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x29, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405749289&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x99, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405749401&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xb52a9c8e, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x300, UncompressedSize64:0x4ef, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xef, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xe2, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405749474&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/centos-autoset.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x824285ef, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x447, UncompressedSize64:0xb33, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x33, 0xb, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x47, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x23, 0x6a, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405750307&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/mgt_api_memory_collector.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x2231bb01, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xe29, UncompressedSize64:0x333a, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x3a, 0x33, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x29, 0xe, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb3, 0x6e, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405751475&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/scandisk.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xd8ea6015, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2ab, UncompressedSize64:0x5bd, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xbd, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xab, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f, 0x7d, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405755183&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1d, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405755933&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x72, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405756018&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xd398000d, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x42d, UncompressedSize64:0x149b, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x9b, 0x14, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2d, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xd6, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405756118&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/analyse_ripley.py\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x4087186c, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x9f1, UncompressedSize64:0x1e4d, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4d, 0x1e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf1, 0x9, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5f, 0x85, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405757279&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb4, 0x8f, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405759924&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xa4efe1a5, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x234, UncompressedSize64:0x2d2, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xd2, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x34, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x14, 0x90, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405760020&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/rpl-tcpdump\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x95f10b59, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2ca, UncompressedSize64:0x5c0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xc0, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xca, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xa0, 0x92, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405760672&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc4, 0x95, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405761476&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/LICENSE\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x85ee1060, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2c7, UncompressedSize64:0x4bb, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xbb, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc7, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x22, 0x96, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405761570&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x806463d5, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x39c, UncompressedSize64:0x96c, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x6c, 0x9, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9c, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3d, 0x99, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405762365&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/sockdump.py\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xc739e737, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xd05, UncompressedSize64:0x2704, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4, 0x27, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f, 0x9d, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405763375&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x8c, 0xaa, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405766796&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/dummy.lua\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x5c35b443, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x160, UncompressedSize64:0x316, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x16, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x60, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf4, 0xaa, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405766900&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/wireshark.jpg\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xb5b1c826, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x1d491, UncompressedSize64:0x24cf7, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xf7, 0x4c, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x91, 0xd4, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb4, 0xac, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405767348&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/tpnet/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xa9, 0x81, 0x9c, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405887401&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/tpnet/tpnet\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x29eee14f, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x568e2a, UncompressedSize64:0xa841c0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xc0, 0x41, 0xa8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2a, 0x8e, 0x56, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x82, 0x9c, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4405887492&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;re-tag.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4588, ModifiedDate:0x5cde, CRC32:0x9e6e813f, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x10c, UncompressedSize64:0x156, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x56, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7d, 0x10, 0xf3, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ff0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4411560061&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/config.yml\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x46b7, ModifiedDate:0x5cde, CRC32:0xdf687e88, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x23b, UncompressedSize64:0xd65, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x65, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3b, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc0, 0x11, 0xf3, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81800000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002e4720), zipsize:4411564999, headerOffset:4411560384&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=debug msg=&quot;config: installer.InstallConfig&#123;Install:[]installer.ScriptConfig&#123;installer.ScriptConfig&#123;Type:\&quot;file\&quot;, Value:map[string]interface &#123;&#125;(nil)&#125;, installer.ScriptConfig&#123;Type:\&quot;docker_installer\&quot;, Value:map[string]interface &#123;&#125;(nil)&#125;, installer.ScriptConfig&#123;Type:\&quot;docker_image\&quot;, Value:map[string]interface &#123;&#125;&#123;\&quot;tags\&quot;:[]interface &#123;&#125;&#123;map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine-guomi:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine-guomi:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-api:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-api:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/detector-srv:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/detector-srv:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mario:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mario:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/ripley:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/ripley:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/keepalived:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/keepalived:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/portrait:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/portrait:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-primary:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-primary:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-standby:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-standby:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-keepalived:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-keepalived:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/fvm-compiler:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/fvm-compiler:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/waap:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/waap:latest\&quot;&#125;&#125;&#125;&#125;, installer.ScriptConfig&#123;Type:\&quot;shell\&quot;, Value:map[string]interface &#123;&#125;&#123;\&quot;run\&quot;:\&quot;./setup.sh --upd detector-x86_64-6.1.14-1f8dcde6.upd\&quot;&#125;&#125;&#125;, Data:map[string][]uint8&#123;\&quot;docker_image\&quot;:[]uint8&#123;0x70, 0x75, 0x6c, 0x6c, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x3a, 0x20, 0x5b, 0x5d, 0xa&#125;, \&quot;docker_installer\&quot;:[]uint8&#123;0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x65, 0x3a, 0x20, 0x66, 0x61, 0x6c, 0x73, 0x65, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x61, 0x72, 0x63, 0x68, 0x3a, 0x20, 0x22, 0x22, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x72, 0x2d, 0x75, 0x72, 0x6c, 0x3a, 0x20, 0x68, 0x74, 0x74, 0x70, 0x73, 0x3a, 0x2f, 0x2f, 0x6d, 0x69, 0x72, 0x72, 0x6f, 0x72, 0x2e, 0x64, 0x65, 0x76, 0x2e, 0x69, 0x6e, 0x2e, 0x63, 0x68, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x2e, 0x6e, 0x65, 0x74, 0x2f, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x65, 0x2f, 0x6c, 0x69, 0x6e, 0x75, 0x78, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x69, 0x63, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x2f, 0x78, 0x38, 0x36, 0x5f, 0x36, 0x34, 0x2f, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x32, 0x30, 0x2e, 0x31, 0x30, 0x2e, 0x32, 0x30, 0x2e, 0x74, 0x67, 0x7a, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x65, 0x2d, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x72, 0x2d, 0x75, 0x72, 0x6c, 0x3a, 0x20, 0x22, 0x22, 0xa&#125;&#125;&#125;&quot; logger=installer.main<br>time=&quot;2026-07-10T23:01:35Z&quot; level=info msg=&quot;[file] Extracting minion.install...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:36Z&quot; level=info msg=&quot;[file] Extracting setup.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:36Z&quot; level=info msg=&quot;[file] Extracting detector-x86_64-6.1.14-1f8dcde6.upd...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting DETECTOR_VERSION.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting VERSION.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting HASH.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting waf-tools...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting waf-tools/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting waf-tools/centos-autoset.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting waf-tools/mgt_api_memory_collector.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting waf-tools/scandisk.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley/analyse_ripley.py...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump/rpl-tcpdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/LICENSE...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/sockdump.py...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark/dummy.lua...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark/wireshark.jpg...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/tpnet...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/tpnet/tpnet...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[file] Extracting re-tag.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-10T23:01:37Z&quot; level=info msg=&quot;[docker_installer] Extracting docker binaries...&quot; logger=installer.scripts.docker_installer<br>time=&quot;2026-07-10T23:01:49Z&quot; level=info msg=&quot;[docker_installer] Waiting for docker to start...&quot; logger=installer.scripts.docker_installer<br>time=&quot;2026-07-10T23:01:49Z&quot; level=info msg=&quot;[docker_installer] Docker 20.10.20 installed.&quot; logger=installer.scripts.docker_installer<br>time=&quot;2026-07-10T23:09:07Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/tengine:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:18:15Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mgt-api:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:18:54Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mario:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:21:56Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/clickhouse-server:22.11.1.1360&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:22:26Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/umbrella-agent:0.0.3&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:29:22Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/postgres-primary:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:38:51Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/highgo-db:1.0.0&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:40:43Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/tengine-guomi:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:41:03Z&quot; level=info msg=&quot;[docker_image] Loaded image: registry-mirrors.dev.in.chaitin.net/library/redis:7.0.7&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:41:13Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/library/etcd:3.3&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:45:29Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/postgres-standby:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:45:34Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/cadvisor:0.47.2-selfbuild&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:46:33Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/fvm-compiler:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:47:20Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/detector-srv:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:48:17Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/ripley:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:48:24Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/keepalived:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:50:30Z&quot; level=info msg=&quot;[docker_image] Loaded image: docker-elastic-co.dev.in.chaitin.net/elasticsearch/elasticsearch:7.17.7&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:50:35Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mgt-keepalived:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:51:27Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/waap:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:51:47Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/portrait:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:53:27Z&quot; level=info msg=&quot;[docker_image] Loaded image: registry-mirrors.dev.in.chaitin.net/library/postgres:11.16&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-10T23:53:27Z&quot; level=info msg=&quot;[shell] Running command: ./setup.sh --upd detector-x86_64-6.1.14-1f8dcde6.upd&quot; logger=installer.scripts.shell<br>The CPU does not support the instruction ssse3 and avx2!<br>time=&quot;2026-07-10T23:53:27Z&quot; level=error msg=&quot;failed to run script shell: failed to run ./setup.sh --upd detector-x86_64-6.1.14-1f8dcde6.upd: exit status 1&quot; logger=installer.main<br></code></pre></td></tr></table></figure>
+
+<h4><span id="带-e参数">带-e参数</span></h4><p>-e HARDWARE_MODE&#x3D;1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><code class="hljs log">time=&quot;2026-07-11T01:59:27Z&quot; level=info msg=&quot;SAFELINE Installer safeline-3-software-installer&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;Archive offset: 10489856&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/docker.tgz\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x0, ModifiedDate:0x0, CRC32:0x8b871c6a, CompressedSize:0x3e93198, UncompressedSize:0x3ec4e87, CompressedSize64:0x3e93198, UncompressedSize64:0x3ec4e87, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:0&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65614317&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/docker/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65614416&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/docker/daemon.json\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0xabc0dc58, CompressedSize:0x67, UncompressedSize:0x64, CompressedSize64:0x67, UncompressedSize64:0x64, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65614522&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c6, ModifiedDate:0x5467, CRC32:0x0, CompressedSize:0x11, UncompressedSize:0x0, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x41ff0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65614725&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/containerd.service\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0x5e787aa4, CompressedSize:0x177, UncompressedSize:0x230, CompressedSize64:0x177, UncompressedSize64:0x230, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65614832&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/docker.service\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0xe69458fa, CompressedSize:0x326, UncompressedSize:0x670, CompressedSize64:0x326, UncompressedSize64:0x670, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65615315&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/docker_installer/assets/systemd/docker.socket\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x38c4, ModifiedDate:0x5467, CRC32:0x1d64ac26, CompressedSize:0xa3, UncompressedSize:0xc5, CompressedSize64:0xa3, UncompressedSize64:0xc5, Extra:[]uint8&#123;&#125;, ExternalAttrs:0x81b60000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65616225&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/image.tar\&quot;, CreatorVersion:0x314, ReaderVersion:0x2d, Flags:0x9, Method:0x8, ModifiedTime:0x0, ModifiedDate:0x0, CRC32:0xafe248eb, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xff0c1adb, UncompressedSize64:0x229ceb800, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0xb8, 0xce, 0x29, 0x2, 0x0, 0x0, 0x0, 0xdb, 0x1a, 0xc, 0xff, 0x0, 0x0, 0x0, 0x0, 0x6b, 0x3a, 0xe9, 0x3, 0x0, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:65616491&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;minion.install\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x579eb872, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x14c9de0, UncompressedSize64:0x14e3004, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4, 0x30, 0x4e, 0x1, 0x0, 0x0, 0x0, 0x0, 0xe0, 0x9d, 0x4c, 0x1, 0x0, 0x0, 0x0, 0x0, 0x91, 0x55, 0xf5, 0x2, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4344599953&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;setup.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4588, ModifiedDate:0x5cde, CRC32:0x3a7452cb, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x55c, UncompressedSize64:0xbca, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xca, 0xb, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5c, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xad, 0xf3, 0x41, 0x4, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ff0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4366398381&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;detector-x86_64-6.1.14-1f8dcde6.upd\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x898117f8, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2586bdd, UncompressedSize64:0x2583ce7, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xe7, 0x3c, 0x58, 0x2, 0x0, 0x0, 0x0, 0x0, 0xdd, 0x6b, 0x58, 0x2, 0x0, 0x0, 0x0, 0x0, 0x3f, 0xf9, 0x41, 0x4, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4366399807&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;DETECTOR_VERSION.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x937dae16, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x22, UncompressedSize64:0x10, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x10, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x22, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x6d, 0x65, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405749101&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;VERSION.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x3018abf, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x1f, UncompressedSize64:0xd, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1f, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xd1, 0x65, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405749201&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;HASH.TXT\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xba605379, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x3a, UncompressedSize64:0x29, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x29, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3a, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x29, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405749289&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x99, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405749401&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xb52a9c8e, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x300, UncompressedSize64:0x4ef, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xef, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xe2, 0x66, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405749474&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/centos-autoset.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x824285ef, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x447, UncompressedSize64:0xb33, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x33, 0xb, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x47, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x23, 0x6a, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405750307&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/mgt_api_memory_collector.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x2231bb01, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xe29, UncompressedSize64:0x333a, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x3a, 0x33, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x29, 0xe, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb3, 0x6e, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405751475&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;waf-tools/scandisk.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xd8ea6015, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2ab, UncompressedSize64:0x5bd, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xbd, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xab, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f, 0x7d, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405755183&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1d, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405755933&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x72, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405756018&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xd398000d, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x42d, UncompressedSize64:0x149b, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x9b, 0x14, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2d, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xd6, 0x80, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405756118&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/analyse-ripley/analyse_ripley.py\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x4087186c, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x9f1, UncompressedSize64:0x1e4d, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4d, 0x1e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf1, 0x9, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5f, 0x85, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405757279&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb4, 0x8f, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405759924&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xa4efe1a5, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x234, UncompressedSize64:0x2d2, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xd2, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x34, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x14, 0x90, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405760020&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/rpltcpdump/rpl-tcpdump\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x95f10b59, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2ca, UncompressedSize64:0x5c0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xc0, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xca, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xa0, 0x92, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405760672&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc4, 0x95, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405761476&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/LICENSE\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x85ee1060, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x2c7, UncompressedSize64:0x4bb, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xbb, 0x4, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc7, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x22, 0x96, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405761570&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/README.md\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x806463d5, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x39c, UncompressedSize64:0x96c, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x6c, 0x9, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9c, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3d, 0x99, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405762365&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/sockdump.py\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xc739e737, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0xd05, UncompressedSize64:0x2704, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x4, 0x27, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x5, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2f, 0x9d, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405763375&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x8c, 0xaa, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405766796&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/dummy.lua\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x5c35b443, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x160, UncompressedSize64:0x316, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x16, 0x3, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x60, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf4, 0xaa, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405766900&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/sockdump/wireshark/wireshark.jpg\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0xb5b1c826, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x1d491, UncompressedSize64:0x24cf7, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xf7, 0x4c, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x91, 0xd4, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0xb4, 0xac, 0x9a, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81a40000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405767348&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/tpnet/\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x0, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x11, UncompressedSize64:0x0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x11, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xa9, 0x81, 0x9c, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x41ed0010, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405887401&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;troubleshooting-tools/tpnet/tpnet\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4590, ModifiedDate:0x5cde, CRC32:0x29eee14f, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x568e2a, UncompressedSize64:0xa841c0, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0xc0, 0x41, 0xa8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2a, 0x8e, 0x56, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x82, 0x9c, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ed0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4405887492&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;re-tag.sh\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x4588, ModifiedDate:0x5cde, CRC32:0x9e6e813f, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x10c, UncompressedSize64:0x156, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x56, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7d, 0x10, 0xf3, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81ff0000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4411560061&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;file: &amp;zip.File&#123;FileHeader:zip.FileHeader&#123;Name:\&quot;__installer/config.yml\&quot;, CreatorVersion:0x314, ReaderVersion:0x14, Flags:0x9, Method:0x8, ModifiedTime:0x46b7, ModifiedDate:0x5cde, CRC32:0xdf687e88, CompressedSize:0xffffffff, UncompressedSize:0xffffffff, CompressedSize64:0x23b, UncompressedSize64:0xd65, Extra:[]uint8&#123;0x1, 0x0, 0x18, 0x0, 0x65, 0xd, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3b, 0x2, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc0, 0x11, 0xf3, 0x6, 0x1, 0x0, 0x0, 0x0&#125;, ExternalAttrs:0x81800000, Comment:\&quot;\&quot;, DeferAuth:false, encryption:0, password:(zip.passwordFn)(0x6925e0), ae:0x0, aesStrength:0x0&#125;, zipr:(*io.SectionReader)(0xc0002a6750), zipsize:4411564999, headerOffset:4411560384&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=debug msg=&quot;config: installer.InstallConfig&#123;Install:[]installer.ScriptConfig&#123;installer.ScriptConfig&#123;Type:\&quot;file\&quot;, Value:map[string]interface &#123;&#125;(nil)&#125;, installer.ScriptConfig&#123;Type:\&quot;docker_installer\&quot;, Value:map[string]interface &#123;&#125;(nil)&#125;, installer.ScriptConfig&#123;Type:\&quot;docker_image\&quot;, Value:map[string]interface &#123;&#125;&#123;\&quot;tags\&quot;:[]interface &#123;&#125;&#123;map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine-guomi:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/tengine-guomi:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-api:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-api:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/detector-srv:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/detector-srv:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mario:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mario:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/ripley:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/ripley:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/keepalived:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/keepalived:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/portrait:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/portrait:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-primary:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-primary:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-standby:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/postgres-standby:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-keepalived:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/mgt-keepalived:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/fvm-compiler:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/fvm-compiler:latest\&quot;&#125;, map[interface &#123;&#125;]interface &#123;&#125;&#123;\&quot;source\&quot;:\&quot;portus.in.chaitin.net/safeline-2/waap:26.06.001_r6\&quot;, \&quot;target\&quot;:\&quot;portus.in.chaitin.net/safeline-2/waap:latest\&quot;&#125;&#125;&#125;&#125;, installer.ScriptConfig&#123;Type:\&quot;shell\&quot;, Value:map[string]interface &#123;&#125;&#123;\&quot;run\&quot;:\&quot;./setup.sh --upd detector-x86_64-6.1.14-1f8dcde6.upd\&quot;&#125;&#125;&#125;, Data:map[string][]uint8&#123;\&quot;docker_image\&quot;:[]uint8&#123;0x70, 0x75, 0x6c, 0x6c, 0x5f, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x3a, 0x20, 0x5b, 0x5d, 0xa&#125;, \&quot;docker_installer\&quot;:[]uint8&#123;0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x65, 0x3a, 0x20, 0x66, 0x61, 0x6c, 0x73, 0x65, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x61, 0x72, 0x63, 0x68, 0x3a, 0x20, 0x22, 0x22, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x72, 0x2d, 0x75, 0x72, 0x6c, 0x3a, 0x20, 0x68, 0x74, 0x74, 0x70, 0x73, 0x3a, 0x2f, 0x2f, 0x6d, 0x69, 0x72, 0x72, 0x6f, 0x72, 0x2e, 0x64, 0x65, 0x76, 0x2e, 0x69, 0x6e, 0x2e, 0x63, 0x68, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x2e, 0x6e, 0x65, 0x74, 0x2f, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x65, 0x2f, 0x6c, 0x69, 0x6e, 0x75, 0x78, 0x2f, 0x73, 0x74, 0x61, 0x74, 0x69, 0x63, 0x2f, 0x73, 0x74, 0x61, 0x62, 0x6c, 0x65, 0x2f, 0x78, 0x38, 0x36, 0x5f, 0x36, 0x34, 0x2f, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x32, 0x30, 0x2e, 0x31, 0x30, 0x2e, 0x32, 0x30, 0x2e, 0x74, 0x67, 0x7a, 0xa, 0x64, 0x6f, 0x63, 0x6b, 0x65, 0x72, 0x2d, 0x63, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x65, 0x2d, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x72, 0x2d, 0x75, 0x72, 0x6c, 0x3a, 0x20, 0x22, 0x22, 0xa&#125;&#125;&#125;&quot; logger=installer.main<br>time=&quot;2026-07-11T01:59:27Z&quot; level=info msg=&quot;[file] Extracting minion.install...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:28Z&quot; level=info msg=&quot;[file] Extracting setup.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:28Z&quot; level=info msg=&quot;[file] Extracting detector-x86_64-6.1.14-1f8dcde6.upd...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting DETECTOR_VERSION.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting VERSION.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting HASH.TXT...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting waf-tools...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting waf-tools/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting waf-tools/centos-autoset.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting waf-tools/mgt_api_memory_collector.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting waf-tools/scandisk.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/analyse-ripley/analyse_ripley.py...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/rpltcpdump/rpl-tcpdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/LICENSE...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/README.md...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/sockdump.py...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark/dummy.lua...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/sockdump/wireshark/wireshark.jpg...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/tpnet...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting troubleshooting-tools/tpnet/tpnet...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[file] Extracting re-tag.sh...&quot; logger=installer.scripts.file<br>time=&quot;2026-07-11T01:59:29Z&quot; level=info msg=&quot;[docker_installer] Docker 20.10.20 found, no need to install.&quot; logger=installer.scripts.docker_installer<br>time=&quot;2026-07-11T02:04:44Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/tengine:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:07:09Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mgt-api:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:07:14Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mario:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:08:07Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/clickhouse-server:22.11.1.1360&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:08:12Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/umbrella-agent:0.0.3&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:08:51Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/postgres-primary:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:13Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/highgo-db:1.0.0&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:20Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/tengine-guomi:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:26Z&quot; level=info msg=&quot;[docker_image] Loaded image: registry-mirrors.dev.in.chaitin.net/library/redis:7.0.7&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:27Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/library/etcd:3.3&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:35Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/postgres-standby:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:10:37Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-public/cadvisor:0.47.2-selfbuild&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:11:04Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/fvm-compiler:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:11:33Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/detector-srv:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:11:41Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/ripley:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:11:48Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/keepalived:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:12:24Z&quot; level=info msg=&quot;[docker_image] Loaded image: docker-elastic-co.dev.in.chaitin.net/elasticsearch/elasticsearch:7.17.7&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:12:27Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/mgt-keepalived:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:12:34Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/waap:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:12:36Z&quot; level=info msg=&quot;[docker_image] Loaded image: portus.in.chaitin.net/safeline-2/portrait:26.06.001_r6&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:12:48Z&quot; level=info msg=&quot;[docker_image] Loaded image: registry-mirrors.dev.in.chaitin.net/library/postgres:11.16&quot; logger=installer.scripts.docker_image<br>time=&quot;2026-07-11T02:13:00Z&quot; level=info msg=&quot;[shell] Running command: ./setup.sh --upd detector-x86_64-6.1.14-1f8dcde6.upd&quot; logger=installer.scripts.shell<br>The CPU instruction avx2 is recommended!<br>Verifying archive integrity... All good.<br>Uncompressing minion  100%  <br>+ mkdir -p /etc/minion<br>+ chmod 755 /etc/minion<br>+ mkdir -p /var/lib/minion<br>+ chmod 755 /var/lib/minion<br>+ install -m 755 -b minion /usr/sbin/minion<br>+ &#x27;[&#x27; &#x27;!&#x27; -f /etc/minion/config.yml &#x27;]&#x27;<br>+ cp config.yml /etc/minion/config.yml.new<br>+ chmod 644 /etc/minion/config.yml.new<br>+ &#x27;[&#x27; &#x27;!&#x27; -f /etc/minion/minion.env &#x27;]&#x27;<br>+ &#x27;[&#x27; &#x27;!&#x27; -f /etc/systemd/system/minion.service &#x27;]&#x27;<br>+ cp /etc/systemd/system/minion.service /etc/systemd/system/minion.service.old<br>+ chmod 644 /etc/systemd/system/minion.service.old<br>+ cp minion.service /etc/systemd/system/minion.service<br>+ chmod 644 /etc/systemd/system/minion.service<br>+ &#x27;[&#x27; -z &#x27;&#x27; &#x27;]&#x27;<br>+ systemctl enable minion<br>+ &#x27;[&#x27; -z &#x27;&#x27; &#x27;]&#x27;<br>+ systemctl daemon-reload<br>&#x27;DETECTOR_VERSION.TXT&#x27; -&gt; &#x27;/etc/minion/versions/DETECTOR_VERSION.TXT&#x27;<br>&#x27;VERSION.TXT&#x27; -&gt; &#x27;/etc/minion/versions/VERSION.TXT&#x27;<br>&#x27;HASH.TXT&#x27; -&gt; &#x27;/etc/minion/versions/HASH.TXT&#x27;<br>time=&quot;2026-07-11T02:13:02Z&quot; level=info msg=&quot;registering handler detector&quot; logger=upgrade.upgrader<br>time=&quot;2026-07-11T02:13:02Z&quot; level=info msg=&quot;waf version raw: 26.06.001_r6; waf version: 26.06.001&quot; logger=upgrade.handlers.patch<br>time=&quot;2026-07-11T02:13:02Z&quot; level=info msg=&quot;registering handler patch&quot; logger=upgrade.upgrader<br>Check done. Initial version 6.1.14-1f8dcde6; latest version 6.1.14-1f8dcde6<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF-%E8%BD%AF%E4%BB%B6/" class="category-chain-item">技术/软件</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%95%BF%E4%BA%AD%E7%A7%91%E6%8A%80/" class="print-no-link">#长亭科技</a>
+      
+        <a href="/tags/%E9%9B%B7%E6%B1%A0/" class="print-no-link">#雷池</a>
+      
+        <a href="/tags/pve/" class="print-no-link">#pve</a>
+      
+        <a href="/tags/lxc/" class="print-no-link">#lxc</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2001015/" title="itsOndemand版本记录 v2.7">
+                        <span class="hidden-mobile">itsOndemand版本记录 v2.7</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> | <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <a href="//www.ucu520.top" target="_blank" rel="nofollow noopener"><span>开心ucu</span></a> <script type="text/javascript"> (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "ujnrg7u2sj"); </script> <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "4ffe7e0a39a844f4b6436e02b9bec661"}'></script> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
